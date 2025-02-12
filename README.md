@@ -49,7 +49,7 @@ Coupon Website is a Laravel-based platform that provides users with access to th
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/couponwebsite.git
+git clone https://github.com/hasnain2001/couponwebsite.git
 cd couponwebsite
 
 # Install dependencies
