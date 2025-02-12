@@ -1,0 +1,250 @@
+
+.main{
+    animation: fadeIn 0.8s ease;
+}
+.authentication {
+background-color:transparent; /* Softer red for a modern look */
+color: #000000; /* Bold red for text */
+padding: 0.5em 1em; /* Increased padding for better spacing */
+border-radius: 0.5em; /* Larger border radius for smoother edges */
+text-align: center; /* Center the text */
+font-weight: bold; /* Make the text stand out */
+font-size: 1.1rem; /* Slightly larger text size for emphasis */
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for a lifted effect */
+border: 3px solid purple; /* Add a border matching the text color */
+transition: transform 0.2s, box-shadow 0.2s; /* Add hover animation */
+}
+
+.authentication:hover {
+/* transform: scale(1.05); Slight zoom on hover */
+box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+/* cursor: pointer; Pointer cursor to indicate interactivity */
+}
+.store-name{
+font-size: 1rem;
+font-weight: bold;
+}
+.filter-h{
+font-size: 1rem;
+font-weight: bold;
+}
+.coupon-image {
+width: 100%;
+height: 150px;
+object-fit: contain;
+border-radius: 0.15em;
+transition: transform 0.2s, box-shadow 0.2s;
+}
+.coupon-image:hover {
+transform: scale(1.05);
+box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+
+}
+
+
+.coupon-name {
+    font-size: 1.2rem;
+    color: rgb(0, 0, 0);
+}
+
+.ending-date {
+    font-size: 0.875rem;
+    color: #212121;
+}
+/* Responsive styles */
+@media (max-width: 768px) {
+
+    .coupon-name {
+        font-size: 1rem;
+    }
+    .ending-date {
+        font-size: 0.75rem;
+    }
+    .card {
+        flex-direction: column;
+    }
+    .col-md-2 img {
+        width: 80px;
+        height: auto;
+    }
+    .col-md-3 {
+        text-align: center;
+        margin-top: 10px;
+    }
+    .code, .deal {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+.bg-purple {
+    background-color: #6f42c1;
+}
+
+.text-purple {
+    color: #6f42c1;
+}
+
+.alert-purple {
+    background-color: #f3e6ff;
+    border-color: #d6b3ff;
+    border-radius: 10px;
+}
+
+.bt-purple {
+    background-color: #6f42c1;
+    border: none;
+    color: #fff;
+    border-radius: 25px;
+    transition: all 0.3s ease-in-out;
+}
+
+.bt-purple:hover {
+    background-color: #563d7c;
+    transform: scale(1.05);
+}
+
+.modal-content {
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.modal-header {
+    border-top: none;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.modal-footer {
+    border-top: none;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.shadow-sm {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.rounded-circle {
+    border: 2px solid #f3e6ff;
+}
+@keyframes fadeIn {
+from {
+    opacity: 0;
+    transform: scale(0.9);
+}
+to {
+    opacity: 1;
+    transform: scale(1);
+}
+}
+
+@keyframes slideInCorner {
+from {
+    transform: translate(50%, -50%) rotate(45deg);
+    opacity: 0;
+}
+to {
+    transform: translate(0, 0) rotate(45deg);
+    opacity: 1;
+}
+}
+
+@keyframes bounce {
+0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+}
+40% {
+    transform: translateY(-8px);
+}
+60% {
+    transform: translateY(-4px);
+}
+}
+
+.reveal-code {
+position: relative;
+display: inline-block;
+padding: 12px 24px;
+font-size: 16px;
+color: white;
+background: linear-gradient(135deg, #6a1b9a, #9c27b0); /* Gradient purple */
+text-decoration: none;
+border-radius: 8px; /* Rounded corners */
+overflow: hidden;
+border: 1px solid #6a1b9a;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+animation: fadeIn 0.8s ease; /* Button fades in on load */
+}
+
+.reveal-code:hover {
+background: #fff; /* White background */
+color: #6a1b9a; /* Purple text */
+transform: scale(1.1); /* Slight zoom effect */
+animation: bounce 0.5s; /* Bounce effect on hover */
+}
+
+.reveal-code::after {
+content: " ";
+position: absolute;
+top: 0;
+right: 0;
+border-style: solid;
+border-width: 0 35px 35px 0;
+border-color: transparent rgba(74, 20, 140, 0.8) transparent transparent; /* Transparent corner */
+transform: rotate(45deg);
+opacity: 0; /* Hidden initially */
+animation: slideInCorner 0.5s ease forwards; /* Corner animation */
+transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.reveal-code:hover::after {
+transform: rotate(0deg);
+opacity: 1; /* Reveal corner */
+border-color: transparent #6a1b9a transparent transparent; /* Highlighted corner */
+}
+
+.coupon-text {
+display: inline-block;
+font-weight: 500; /* Slightly bold */
+letter-spacing: 0.5px; /* Improved spacing */
+animation: fadeIn 0.8s ease; /* Text fades in on load */
+}
+
+.coupon-code {
+display: none;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+font-size: 18px;
+font-weight: bold;
+color: #333; /* Dark gray */
+text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
+}
+
+.get {
+width: 120px;
+background: linear-gradient(to right, #7a1bb4, #ab47bc); /* Enhanced contrast */
+color: #ffffff; /* High contrast for better readability */
+text-align: center;
+padding: 5px 15px;
+border-radius: 25px;
+text-decoration: none;
+box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3), -3px -3px 10px rgba(0, 0, 0, 0.3);
+transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+margin-right: 10px; /* Add margin between buttons */
+display: inline-block;
+font-size: 16px;
+}
+
+.get:hover {
+background: linear-gradient(to right, #8e24aa, #d500f9); /* Brighter hover gradient */
+color: #ffffff; /* Ensure text remains readable */
+transform: scale(1.05);
+box-shadow: 0 0 15px rgba(142, 36, 170, 0.7), 0 0 30px rgba(213, 0, 249, 0.5); /* Purple-themed glow */
+animation: fadein 0.5s; /* Bounce effect on hover */
+}
