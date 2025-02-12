@@ -120,8 +120,8 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 ## Author
 
 **Hasnain Ali Khan**  
-- Email: [hasnainalikhan@example.com](mailto:hasnainalikhan@example.com)  
-- GitHub: [@yourusername](https://github.com/yourusername)
+- Email: [hasnainalikhan2001@gmail.com](mailto:hasnainalikhan@gmail.com)  
+- GitHub: [Hasnain2001](https://github.com/hasnain2001)
 
 ---
 
