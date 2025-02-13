@@ -29,11 +29,11 @@ header("X-Robots-Tag:index, follow");
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
-        
+
     </head>
     <body >
         <x-navbar/>
-  
+
         @yield('main-content')
 
         <x-footer/>
@@ -104,7 +104,7 @@ header("X-Robots-Tag:index, follow");
                   }
               });
           },
-          minLength:1 
+          minLength:1
       });
   });
   </script>

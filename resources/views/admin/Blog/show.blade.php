@@ -32,7 +32,7 @@
     </div>
 @endif
 
-                          
+
                             <section class="content-header">
                                 <div class="">
                                     <div class="row mb-2">
@@ -80,12 +80,9 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('admin.blog.edit', $blog->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                <form action="{{ route('admin.blog.delete', $blog->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this blog entry?')">Delete</button>
-                                </form>
+<a href="{{ route('admin.blog.edit', $blog->id) }}" class="btn btn-sm btn-primary">Edit</a>
+
+<a href="{{ route('admin.blog.delete', $blog->id) }}" onclick="return confirm('Are you sure you want to delete this blog entry?')" class=" btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
                     @endforeach
@@ -118,7 +115,7 @@
             </section>
         </div>
     </div>
-    
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
         const selectAllHeader = document.getElementById('select-all-header');

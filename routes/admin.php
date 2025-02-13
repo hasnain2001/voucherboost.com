@@ -65,7 +65,7 @@ Route::controller(DeleteController::class)->name('admin.')->group(function () {
     Route::post('/blog/store', 'store')->name('admin.blog.store');
     Route::get('/blog/{id}/edit', 'edit')->name('admin.blog.edit');
     Route::post('/admin/Blog/update/{id}', 'update')->name('admin.Blog.update');
-    Route::delete('/admin/Blog/{id}',  'destroy')->name('admin.blog.delete');
+    Route::get('/admin/Blog/{id}',  'destroy')->name('admin.blog.delete');
     Route::post('/blog/deleteSelected',  'deleteSelected')->name('admin.blog.deleteSelected');
     Route::delete('/blog/bulk-delete', 'deleteSelected')->name('admin.blog.bulkDelete');
     });

@@ -114,7 +114,7 @@
         <h2>Coupon Codes</h2>
         <hr>
     </div>
-    
+
     @foreach ($coupons as $coupon)
     @php
     $store = App\Models\Stores::where('slug', $coupon->store)->first();
@@ -128,10 +128,10 @@
                     <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="img-fluid rounded" alt="{{ $store->name }} Logo">
                 </a>
                 @else
-                <span class="text-muted">No Logo</span>
+                <span class="text-muted">{{$coupon->store}} no store found </span>
                 @endif
             </div>
-            
+
             <div class="col-md-7 col-8">
                 <h4 class="coupon-authentication">{{ $coupon->authentication }}</h4>
                 <span class="coupon-name">{{ $coupon->name }}</span>
@@ -140,11 +140,11 @@
                 <p class="ending-date text-muted">Ends: {{ \Carbon\Carbon::parse($coupon->ending_date)->format('d-m-Y') }}</p>
                 <p class="text-success">Used: {{ $coupon->clicks }}</p>
             </div>
-            
+
             <div class="col-md-3 text-center">
                 @if ($coupon->code)
 
-                    <a href="{{ $coupon->destination_url }}" target="_blank" class="btn btn-success w-100" id="getCode{{ $coupon->id }}" 
+                    <a href="{{ $coupon->destination_url }}" target="_blank" class="btn btn-success w-100" id="getCode{{ $coupon->id }}"
                         onclick="handleRevealCode('{{ $coupon->id }}', '{{ $coupon->code }}')">Reveal Code</a>
                 @else
                    <a href="{{ $coupon->destination_url }}" target="_blank" class="btn btn-primary w-100" onclick="updateClickCount('{{ $coupon->id }}')">View Deal</a>
@@ -211,7 +211,7 @@
         </div>
     </div>
     @endforeach
-    
+
     {{ $coupons->links('vendor.pagination.bootstrap-4') }}
 </main>
 

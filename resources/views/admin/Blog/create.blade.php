@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <label for="slug">Slug / URL</label>
 <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug') }}" required />
-                                <small id="slug-message" class="text-muted"></small>
+                                <span id="slug-message" ></span>
                             </div>
                             <div class="form-group">
                                 <label for="blog_image">Blog Image</label>
@@ -58,7 +58,7 @@
                             <div class="form-group">
                                 <label for="meta_title"> Category </label>
                                 <select name="category" id="category" class="form-control" required >
-                                    <option value="">Select Category</option>
+                                    <option value="" disabled>Select Category</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->slug }}" {{ old('category') == $category->slug ? 'selected' : '' }}>{{ $category->title }}</option>
                                     @endforeach

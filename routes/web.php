@@ -43,7 +43,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/{lang}/stores', 'stores')->name('stores');
     Route::get('store/{slug}', function($slug) {return app(HomeController::class)->StoreDetails('en', $slug, request());})->name('store_details');
     Route::get('/{lang}/store/{slug}', [HomeController::class, 'StoreDetails'])->name('store_details.withLang');
-    Route::get('/coupon', [HomeController::class, 'coupons'])->name('coupon');
+    Route::get('/coupon', [HomeController::class, 'coupons'])->name('coupons');
     Route::get('/categories', 'categories')->name('categories');
     Route::get('/category/{slug}', 'viewcategory')->name('related_category');
 

@@ -8,7 +8,7 @@
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dahboard</a></li>
                    <lii class="breadcrumb-item active" aria-current="page">stores</lii>
-          
+
             </ol>
           </nav>
         <section class="content-header">
@@ -80,12 +80,12 @@
             <i class="fas fa-check-circle text-success"></i>
           @endif
                         </td>
-                        
+
                         {{-- <td>{{ $store->language->code ??'No language' }}</td> --}}
 
 
-                              
-                     
+
+
                                          <td>
     <span class="  text-dark" data-bs-toggle="tooltip" title="{{ $store->created_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
         {{ $store->created_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
@@ -97,8 +97,8 @@
     </span>
 </td>
                         <td>
-                            <a href="{{ route('admin.store.edit', $store->id) }}" class="btn btn-info btn-sm">Edit</a>
-                            <a href="{{ route('admin.store.delete', $store->id) }}" onclick="return confirm('Are you sure you want to delete this!')" class="btn btn-danger btn-sm">Delete</a>
+<a href="{{ route('admin.store.edit', $store->id) }}" class="btn btn-info btn-sm">Edit</a>
+<a href="{{ route('admin.store.delete', $store->id) }}" onclick="return confirm('Are you sure you want to delete this!')" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                         <td><a class="btn btn-success text-white btn-sm" href="{{  route('admin.store_details', ['slug' => Str::slug($store->slug)]) }}"  rel="noopener noreferrer">edit coupon</a>
                         </td>

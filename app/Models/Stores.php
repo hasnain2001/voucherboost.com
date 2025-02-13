@@ -21,7 +21,6 @@ class Stores extends Model
         'category',
         'top_store',
         'title',
-        'meta_tag',
         'meta_keyword',
         'meta_description',
         'status',
@@ -37,5 +36,5 @@ public function language()
 {
     return $this->belongsTo(Language::class, 'language_id');
 }
- 
+
 }
