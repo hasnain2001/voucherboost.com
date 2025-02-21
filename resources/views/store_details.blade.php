@@ -5,6 +5,9 @@
     @section('description')
     {{ $store->meta_description }}
     @endsection
+    @section('keywords')
+    {{ $store->meta_keyword }}
+    @endsection
     <style>
     .main{
     animation: fadeIn 0.8s ease;
@@ -297,11 +300,24 @@
     <div class="  py-5">
     <div class="text-center mb-4">
     <h1 class="display-7 fw-bold text-dark">{{ $store->name }} </h1>
+    {{-- <span>{{$store->language->code}}</span> --}}
     <p class="text-muted">Save more with the best deals and discounts!</p>
     </div>
     <div class="row">
     <div class="col-lg-9">
     <div class="row g-4">
+        @if($coupons->isEmpty())
+        <div class="col-12 text-center mt-5">
+            <div class="alert alert-warning shadow-lg p-4 rounded-lg">
+                <h4 class="fw-bold text-dark mb-3">Oops! No Coupons Available</h4>
+                <p class="text-muted">Don't worry, you can still explore amazing deals from our partnered brands.</p>
+                <a href="{{ route('stores', ['lang' => app()->getLocale()]) }}" class="btn btn-primary mt-3 px-4 py-2 fw-semibold">
+                    Explore Brands <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+
+    @else
     @foreach ($coupons as $coupon)
     <div class="col-md-4">
     <div class="card-coupon h-100 shadow-lg p-4  rounded-lg d-flex flex-column">
@@ -392,6 +408,7 @@
     </div>
     </div>
     @endforeach
+    @endif
     </div>
     </div>
     <div class="col-lg-3">
@@ -416,21 +433,21 @@
     <div class="p-3 border rounded bg-white shadow-sm">
     <h5 class="fw-bold mb-3">Summary</h5>
     <p class="mb-2">
-    <i class="fas fa-tag me-2 text-primary"></i>Total Codes:
-    <span class="badge bg-primary">{{ $codeCount }}</span>
+    <i class="fas fa-tag me-2 text-dark"></i>Total Codes:
+    <span class="badge bg-dark">{{ $codeCount }}</span>
     </p>
     <p class="mb-2">
-    <i class="fas fa-shopping-cart me-2 text-success"></i>Total Deals:
-    <span class="badge bg-success">{{ $dealCount }}</span>
+    <i class="fas fa-shopping-cart me-2 text-dark"></i>Total Deals:
+    <span class="badge bg-dark">{{ $dealCount }}</span>
     </p>
     <p class="mb-0">
-    <i class="fas fa-list me-2 text-info"></i>Total:
-    <span class="badge bg-info">{{ $totalCount }}</span>
+    <i class="fas fa-list me-2 text-dark"></i>Total:
+    <span class="badge bg-dark">{{ $totalCount }}</span>
     </p>
     </div>
     <hr>
 
-    <h6 class="fw-bold mt-3 text-primary">Related Brands</h6>
+    <h6 class="fw-bold mt-3 text-dark">Related Brands</h6>
     <ul class=" d-flex flex-column gap-2">
     @foreach ($relatedStores as $relatedStore)
     <li><a href="{{ route('store_details', ['slug' => Str::slug($relatedStore->slug)]) }}" class="text-decoration-none text-dark fw-bold">{{ $relatedStore->name }}</a></li>

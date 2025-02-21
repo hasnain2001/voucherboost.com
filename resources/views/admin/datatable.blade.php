@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> @yield('datatable-title')</title>
+    <title>@yield('datatable-title') | DataTables</title>
 
    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
 
@@ -14,87 +14,17 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
 
-        <link rel="stylesheet" href="/admin/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/admin/plugins/fontawesome-free/css/all.min.css">
 
-        <link rel="stylesheet" href="/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-        <link rel="stylesheet" href="/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-        <link rel="stylesheet" href="/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
-        <link rel="stylesheet" href="/admin/dist/css/adminlte.min2167.css?v=3.2.0">
-        <script nonce="4723767f-2c94-4dc4-8e8a-7dbfe205eac2">
-            try {
-                (function(w, d) {
-                    ! function(bu, bv, bw, bx) {
-                        bu[bw] = bu[bw] || {};
-                        bu[bw].executed = [];
-                        bu.zaraz = {
-                            deferred: [],
-                            listeners: []
-                        };
-                        bu.zaraz.q = [];
-                        bu.zaraz._f = function(by) {
-                            return async function() {
-                                var bz = Array.prototype.slice.call(arguments);
-                                bu.zaraz.q.push({
-                                    m: by,
-                                    a: bz
-                                })
-                            }
-                        };
-                        for (const bA of ["track", "set", "debug"]) bu.zaraz[bA] = bu.zaraz._f(bA);
-                        bu.zaraz.init = () => {
-                            var bB = bv.getElementsByTagName(bx)[0],
-                                bC = bv.createElement(bx),
-                                bD = bv.getElementsByTagName("title")[0];
-                            bD && (bu[bw].t = bv.getElementsByTagName("title")[0].text);
-                            bu[bw].x = Math.random();
-                            bu[bw].w = bu.screen.width;
-                            bu[bw].h = bu.screen.height;
-                            bu[bw].j = bu.innerHeight;
-                            bu[bw].e = bu.innerWidth;
-                            bu[bw].l = bu.location.href;
-                            bu[bw].r = bv.referrer;
-                            bu[bw].k = bu.screen.colorDepth;
-                            bu[bw].n = bv.characterSet;
-                            bu[bw].o = (new Date).getTimezoneOffset();
-                            if (bu.dataLayer)
-                                for (const bH of Object.entries(Object.entries(dataLayer).reduce(((bI, bJ) => ({
-                                        ...bI[1],
-                                        ...bJ[1]
-                                    })), {}))) zaraz.set(bH[0], bH[1], {
-                                    scope: "page"
-                                });
-                            bu[bw].q = [];
-                            for (; bu.zaraz.q.length;) {
-                                const bK = bu.zaraz.q.shift();
-                                bu[bw].q.push(bK)
-                            }
-                            bC.defer = !0;
-                            for (const bL of [localStorage, sessionStorage]) Object.keys(bL || {}).filter((bN => bN
-                                .startsWith("_zaraz_"))).forEach((bM => {
-                                try {
-                                    bu[bw]["z_" + bM.slice(7)] = JSON.parse(bL.getItem(bM))
-                                } catch {
-                                    bu[bw]["z_" + bM.slice(7)] = bL.getItem(bM)
-                                }
-                            }));
-                            bC.referrerPolicy = "origin";
-                            bC.src = "../../../../cdn-cgi/zaraz/sd0d9.js?z=" + btoa(encodeURIComponent(JSON.stringify(
-                                bu[bw])));
-                            bB.parentNode.insertBefore(bC, bB)
-                        };
-                        ["complete", "interactive"].includes(bv.readyState) ? zaraz.init() : bu.addEventListener(
-                            "DOMContentLoaded", zaraz.init)
-                    }(w, d, "zarazData", "script");
-                })(window, document)
-            } catch (e) {
-                throw fetch("/cdn-cgi/zaraz/t"), e;
-            };
-        </script>
+    <link rel="stylesheet" href="/admin/dist/css/adminlte.min2167.css?v=3.2.0">
 
       <style>
-            .sidebar-dark-dark {
-            background-color: #000000;
+            .sidebar-dark-primary {
+            background-color: #050505;
 
         }
 
@@ -150,225 +80,167 @@
 
 
 
-        <aside class="main-sidebar sidebar-dark-dark elevation-4">
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
-            <a  href="{{ route('admin.dashboard') }}" class="brand-link">
-                <img src="{{ asset('images/logo.png') }}" alt="dashboard"
+            <a  href="{{ route('employee.dashboard') }}" class="brand-link">
+                <img src="{{ asset('images/logo.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">dashboard</span>
+                <span class="brand-text font-weight-light">CouponsArena</span>
             </a>
+
             <div class="sidebar">
-             <nav class="mt-2">
-<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-    <li class="nav-item">
-    <a href="{{ route('admin.dashboard') }}" class="nav-link active">
-    <i class="nav-icon fas fa-th"></i>
-    <p>
-    Dashboard
-    </p>
-    </a>
-    </li>
-    <li class="nav-item">
-    <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-ticket-alt"></i>
-    <p>
-    Coupons
-    <i class="right fas fa-angle-left"></i>
-    </p>
-    </a>
-    <ul class="nav nav-treeview">
+
+              <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
+
+                    <li class="nav-item">
+                        <a href="{{ route('employee.dashboard') }}" class="nav-link active">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Dashboard
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-ticket-alt"></i>
+                            <p>
+                                Coupons
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
 
 
-    <li class="nav-item">
-    <a href="{{ route('admin.coupon') }}" class="nav-link">
-    <i class="far fa-circle nav-icon"></i>
-    <p>Coupons</p>
-    </a>
-    </li>
-    <li class="nav-item">
-    <a href="{{ route('admin.coupon.create') }}" class="nav-link">
-    <i class="far fa-circle nav-icon"></i>
-    <p>Add New Coupons</p>
-    </a>
-    </li>
+                            <li class="nav-item">
+                                <a href="{{ route('employee.coupon') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Coupons</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('employee.coupon.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add New Coupons</p>
+                                </a>
+                            </li>
 
-    </ul>
-    </li>
-    <li class="nav-item">
-    <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-store-alt"></i>
-    <p>
-    Stores
-    <i class="right fas fa-angle-left"></i>
-    </p>
-    </a>
-    <ul class="nav nav-treeview">
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-store-alt"></i>
+                            <p>
+                                Stores
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
 
-    <li class="nav-item">
-    <a href="{{ route('admin.stores') }}" class="nav-link">
-    <i class="far fa-circle nav-icon"></i>
-    <p>Stores</p>
-    </a>
-    </li>
-    <li class="nav-item">
-    <a href="{{ route('admin.store.create') }}" class="nav-link">
-    <i class="far fa-circle nav-icon"></i>
-    <p>Add New Stores</p>
-    </a>
-    </li>
-
-
-    </ul>
-    </li>
-    <li class="nav-item">
-    <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-language"></i>
-    <p>
-    lang
-    <i class="right fas fa-angle-left"></i>
-    </p>
-    </a>
-    <ul class="nav nav-treeview">
-
-    <li class="nav-item">
-    <a href="{{ route('admin.lang') }}" class="nav-link ">
-    <i class="far fa-circle nav-icon"></i>
-    <p class="text-white">lang</p>
-    </a>
-    </li>
-    <li class="nav-item">
-    <a href="{{ route('admin.lang.create') }}" class="nav-link ">
-    <i class="far fa-circle nav-icon"></i>
-    <p class="text-white">Add New lang</p>
-    </a>
-    </li>
-
-    </ul>
-    </li>
-    <li class="nav-item">
-    <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-blog"></i>
-    <p>
-    Blog
-    <i class="right fas fa-angle-left"></i>
-    </p>
-    </a>
-    <ul class="nav nav-treeview">
-    <li class="nav-item">
-    <a href="{{ route('admin.blog.show') }}" class="nav-link">
-    <i class="far fa-circle nav-icon"></i>
-    <p>Blog</p>
-    </a>
-    </li>
-
-    <li class="nav-item">
-    <a href="{{ route('admin.blog.create') }}" class="nav-link">
-    <i class="far fa-circle nav-icon"></i>
-    <p>Add New Blog</p>
-    </a>
-    </li>
-
-    </ul>
-    </li>
-    <li class="nav-item">
-    <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-network-wired"></i>
-    <p>
-    Network
-    <i class="right fas fa-angle-left"></i>
-    </p>
-    </a>
-    <ul class="nav nav-treeview">
-
-    <li class="nav-item">
-    <a href="{{ route('admin.network') }}" class="nav-link">
-    <i class="far fa-circle nav-icon"></i>
-    <p>Network</p>
-    </a>
-    </li>
-    <li class="nav-item">
-    <a href="{{ route('admin.network.create') }}" class="nav-link">
-    <i class="far fa-circle nav-icon"></i>
-    <p>Add New Network</p>
-    </a>
-    </li>
-
-    </ul>
-    </li>
-
-    <li class="nav-item">
-    <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-list"></i>
-    <p>
-    Categories
-    <i class="right fas fa-angle-left"></i>
-    </p>
-    </a>
-    <ul class="nav nav-treeview">
-    <li class="nav-item">
-    <a href="{{ route('admin.category') }}" class="nav-link">
-    <i class="far fa-circle nav-icon"></i>
-    <p>Categories</p>
-    </a>
-    </li>
-    <li class="nav-item">
-    <a href="{{ route('admin.category.create') }}" class="nav-link">
-    <i class="far fa-circle nav-icon"></i>
-    <p>Add New Categories</p>
-    </a>
-    </li>
+                            <li class="nav-item">
+                                <a href="{{ route('employee.stores') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Stores</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('employee.store.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add New Stores</p>
+                                </a>
+                            </li>
 
 
-    </ul>
-    </li>
-    <li class="nav-item">
-    <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-user-alt"></i>
-    <p>
-    User
-    <i class="right fas fa-angle-left"></i>
-    </p>
-    </a>
-    <ul class="nav nav-treeview">
+                        </ul>
+                    </li>
 
 
-    <li class="nav-item">
-    <a href="{{ route('admin.user.index') }}" class="nav-link">
-    <i class="far fa-circle nav-icon"></i>
-    <p>User</p>
-    </a>
-    </li>
 
-    </ul>
-    </li>
-    <li class="nav-item">
-    <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-store-alt"></i>
-    <p>
-    Deleted
-    <i class="right fas fa-angle-left"></i>
-    </p>
-    </a>
-    <ul class="nav nav-treeview">
-    <li class="nav-item">
-    <a href="{{ route('admin.delete_store') }}" class="nav-link">
-    <i class="far fa-circle nav-icon"></i>
-    <p>Delete Store</p>
-    </a>
-    <a href="{{ route('admin.delete_coupon') }}" class="nav-link">
-    <i class="far fa-circle nav-icon"></i>
-    <p>Delete Coupon</p>
-    </a>
-    <a href="{{ route('admin.delete_blog') }}" class="nav-link">
-    <i class="far fa-circle nav-icon"></i>
-    <p>Delete blog</p>
-    </a>
-    </li>
-    </ul>
-    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-blog"></i>
+                            <p>
+                                Blog
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+
+
+                        <li class="nav-item">
+                        <a href="{{ route('employee.blog.index') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Blog</p>
+                        </a>
+                        </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('employee.blog.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add New Blog</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-network-wired"></i>
+                            <p>
+                                Network
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                                <a href="{{ route('employee.network') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Network</p>
+                                </a>
+                                </li>
+                            <li class="nav-item">
+                                <a href="{{ route('employee.network.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add New Network</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-list"></i>
+                            <p>
+                                Categories
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('employee.category') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Categories</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('employee.category.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add New Categories</p>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </li>
+
 
                 </ul>
             </nav>
+
 
             </div>
 
@@ -378,13 +250,13 @@
             @yield('datatable-content')
         {{-- Datatable Main Content Here --}}
 
-        {{-- <footer class="main-footer">
+        <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
                 <b>Version</b> 3.2.0
             </div>
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io/">AdminLTE.io</a>.</strong> All rights
+            <strong>Copyright &copy; 2014-2021 <a href="https://employeelte.io/">employeeLTE.io</a>.</strong> All rights
             reserved.
-        </footer> --}}
+        </footer>
 
         <aside class="control-sidebar control-sidebar-dark">
 
@@ -458,7 +330,7 @@
               $.ajax({
                 type: "POST",
                 dataType: "json",
-                url: "{{ route('admin.custom-sortable') }}",
+                url: "{{ route('employee.custom-sortable') }}",
                     data: {
                   order: order,
                   _token: token
@@ -479,3 +351,4 @@
 <!-- Mirrored from adminlte.io/themes/v3/pages/tables/data.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 01 Feb 2024 08:09:01 GMT -->
 
 </html>
+

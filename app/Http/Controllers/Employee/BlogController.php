@@ -110,7 +110,7 @@ foreach ($images as $img) {
         $blog->content = $dom->saveHTML();
         $blog->save();
 
-        return redirect()->back()->with('success', 'Blog created successfully.');
+        return redirect()->back()->withInput()->with('success', 'Blog created successfully.');
     }
 
 
@@ -197,7 +197,7 @@ foreach ($images as $img) {
         $blog->save();
 
         // Redirect back with a success message
-        return redirect()->route('employee.blog.index')->with('success', 'Blog updated successfully.');
+        return redirect()->route('employee.blog.index')->withInput()->with('success', 'Blog updated successfully.');
     }
 
 

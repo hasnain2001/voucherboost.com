@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('employee.master')
 @section('title')
     Create
 @endsection
@@ -36,134 +36,150 @@
                     </div>
                 @endif
 
-                <form name="CreateStore" id="CreateStore" method="POST" enctype="multipart/form-data"
-                    action="{{ route('admin.store.store') }}">
+<form name="CreateStore" id="CreateStore" method="POST" enctype="multipart/form-data" action="{{ route('employee.store.store') }}">
                     @csrf
                     <div class="row">
-                 
                         <div class="col-6">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="name">Store Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="name" id="name" required>
+                                        <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" required>
+                                        @error('name')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="slug">Url/Slug<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="slug" id="slug" required>
+                                        <label for="slug">Url/Slug <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug') }}" required>
+                                        <span id="slug-message"></span>
+                                        @error('slug')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
-                                        <textarea name="description" id="description" class="form-control" cols="30" rows="3" style="resize: none;"
-                                            required></textarea>
+                                        <textarea name="description" id="description" class="form-control" cols="30" rows="3" style="resize: none;" required>{{ old('description') }}</textarea>
+                                        @error('description')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="destination_url"> URL <span class="text-danger">*</span></label>
+                                        <input type="url" class="form-control" name="url" id="url" value="{{ old('destination_url') }}" required>
+                                        @error('url')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="destination_url">Destination URL\Affiliate Links <span class="text-danger">*</span></label>
+                                        <input type="url" class="form-control" name="destination_url" id="destination_url" value="{{ old('destination_url') }}" required>
+                                        @error('destination_url')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="title">Meta Title <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
+                                        @error('title')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
 
-                                    {{-- <div class="form-group">
-                                    <label for="url">URL <span class="text-danger">*</span></label>
-                                    <input type="url" class="form-control" name="url" id="url" required>
-                                </div> --}}
-                                    <div class="form-group">
-                                        <label for="destination_url">Destination URL <span
-                                                class="text-danger">*</span></label>
-                                        <input type="url" class="form-control" name="destination_url"
-                                            id="destination_url" required>
-                                    </div>
-                                    <div class="form-group">
-
-                                        <div class="form-group">
-                                            <label for="category">Category <span class="text-danger">*</span></label>
-                                            <select name="category" id="category" class="form-control">
-                                                <option value="" disabled selected>--Select Category--</option>
-                                                @foreach ($categories as $category)
-                                                    <option value="{{ $category->slug }}">{{ $category->slug }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                <div class="form-group">
-                                            <label for="lang">Language <span class="text-danger">*</span></label>
-                                            <select name="language_id" id="lang" class="form-control" required>
-                                                <option disabled selected>--Select Langs--</option>
-                                                @foreach ($langs as $lang)
-                                                    <option value="{{ $lang->id }}">{{ $lang->code }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="name">Meta Title<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="title" id="name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="meta_tag">Meta Tag <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="meta_tag" id="meta_tag">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="meta_keyword">Meta Keyword <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="meta_keyword" id="meta_keyword">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="meta_description">Meta Description</label>
-                                        <textarea name="meta_description" id="meta_description" class="form-control" cols="30" rows="5"
-                                            style="resize: none;"></textarea>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="card">
                                 <div class="card-body">
-                                    {{-- <div class="form-group">
-                                    <label for="name">Top Store <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" name="top_store" id="top_store" min="0" value="0">
-
-                                </div> --}}
                                     <div class="form-group">
-                                        <label for="status">Status <span class="text-danger">*</span></label><br>
-                                        <input type="radio" name="status" id="enable" value="enable"
-                                            required>&nbsp;<label for="enable">Enable</label>
-                                        <input type="radio" name="status" id="disable" value="disable">&nbsp;<label
-                                            for="disable">Disable</label>
+                                        <label for="meta_keyword">Meta Keyword <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="meta_keyword" id="meta_keyword" value="{{ old('meta_keyword') }}">
+                                        @error('meta_keyword')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
-
-                                    {{-- <div class="form-group">
-                                    <label for="authentication">Authentication</label><br>
-                                    <input type="checkbox" name="authentication" id="authentication" value="top_stores">&nbsp;<label for="authentication">Top Store</label>
-                                </div> --}}
+                                    <div class="form-group">
+                                        <label for="meta_description">Meta Description</label>
+                                        <textarea name="meta_description" id="meta_description" class="form-control" cols="20" rows="2" style="resize: none;">{{ old('meta_description') }}</textarea>
+                                        @error('meta_description')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status">Status <span class="text-danger">*</span></label>
+                                        <input type="radio" name="status" id="enable" value="enable" {{ old('status') == 'enable' ? 'checked' : '' }} required> Enable
+                                        <input type="radio" name="status" id="disable" value="disable" {{ old('status') == 'disable' ? 'checked' : '' }}> Disable
+                                        @error('status')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
                                     <div class="form-group">
                                         <label for="network">Network <span class="text-danger">*</span></label>
                                         <select name="network" id="network" class="form-control">
-                                            <option value="" disabled selected>--Select Network--</option>
+                                            <option value="" disabled {{ old('network') ? '' : 'selected' }}>--Select Network--</option>
                                             @foreach ($networks as $network)
-                                                <option value="{{ $network->title }}">{{ $network->title }}</option>
+                                            <option value="{{ $network->title }}" {{ old('network') == $network->title ? 'selected' : '' }}>
+                                                {{ $network->title }}
+                                            </option>
                                             @endforeach
                                         </select>
+                                        @error('network')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="store_image">Store Image <span class="text-danger">*</span></label>
-                                        <input type="file" class="form-control" name="store_image" id="store_image"
-                                            required>
+                                        <label for="category">Category <span class="text-danger">*</span></label>
+                                        <select name="category" id="category" class="form-control" required>
+                                            <option value="" disabled {{ old('category') ? '' : 'selected' }}>--Select Category--</option>
+                                            @foreach ($categories as $category)
+                                            <option value="{{ $category->slug }}" {{ old('category') == $category->slug ? 'selected' : '' }}>
+                                                {{ $category->slug }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                        @error('category')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
-                                    <!-- Placeholder for displaying selected image -->
-                                    <div id="imagePreview"></div>
+                                    <div class="form-group">
+                                        <label for="language_id">Language <span class="text-danger">*</span></label>
+                                        <select name="language_id" id="language_id" class="form-control" required>
+                                            <option value="" disabled {{ old('language_id') ? '' : 'selected' }}>--Select Language--</option>
+                                            @foreach ($langs as $lang)
+                                            <option value="{{ $lang->id }}" {{ old('language_id') == $lang->id ? 'selected' : '' }}>
+                                                {{ $lang->code }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                        @error('language_id')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                        <div class="form-group">
+                                        <label for="store_image">Store Image <span class="text-danger">*</span></label>
+                                        <input type="file" class="form-control" name="store_image" id="store_image"  value="{{ old('store_image') }}" required>
+                                        @error('store_image')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                        </div>
+
                                     <div class="col-12">
-
                                         <button type="submit" class="btn btn-primary">Save</button>
-                                        {{-- <a href="{{ route('admin.store') }}" class="btn btn-secondary">Cancel</a> --}}
-                                        <button type="reset" class="btn btn-light"> Reset</button>
-
+                          <a href="{{ route('employee.store.store') }}" class=" btn btn-danger">Cancel</a>
+                          <button type="reset" class="btn btn-light">Reset</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
+</form>
+
             </div>
         </section>
     </div>
 
-    <script>
+<script>
         // JavaScript to preview the selected image
         document.getElementById('store_image').addEventListener('change', function() {
             var file = this.files[0];
@@ -182,6 +198,54 @@
                 document.getElementById('imagePreview').innerHTML = ''; // Clear preview if no file selected
             }
         });
-    </script>
+
+            // Filter non-alphabetic characters in the 'name' input field and auto-fill 'slug'
+            const inputOne = document.getElementById('name');
+            const textOnlyInput = document.getElementById('slug');
+
+            inputOne.addEventListener('input', () => {
+                const value = inputOne.value;
+                // Filter out non-alphabetic characters and update slug automatically
+                const filteredValue = value.replace(/[^A-Za-z\s]/g, '');
+                textOnlyInput.value = filteredValue;
+
+                // Automatically check slug existence after auto-filling
+                checkSlugExistence(filteredValue);
+            });
+
+            $(document).ready(function() {
+                // Check slug existence when the user types manually in the slug field
+                $('#slug').on('keyup', function() {
+                    var slug = $(this).val();
+
+                    // Check if the slug has any value (optional: avoid AJAX if empty)
+                    if (slug) {
+                        checkSlugExistence(slug);
+                    } else {
+                        $('#slug-message').text('Please enter a slug').css('color', 'black');
+                    }
+                });
+            });
+
+            // Function to check if the slug exists
+            function checkSlugExistence(slug) {
+                $.ajax({
+                    url: '{{ route('check.slug') }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        slug: slug
+                    },
+                    success: function(response) {
+                        if (response.exists) {
+                            $('#slug-message').text('Store already exists').css('color', 'red');
+                        } else {
+                            $('#slug-message').text('Store is available').css('color', 'green');
+                        }
+                    }
+                });
+            }
+</script>
+
 
 @endsection

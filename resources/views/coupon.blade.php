@@ -105,16 +105,112 @@
     .rounded-circle {
         border: 2px solid #f3e6ff;
     }
+/* General container styling */
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling the heading */
+.search-container .heading {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Search input field styling */
+.search-input {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    width: 600px;
+    transition: border-color 0.3s ease;
+    border-color: #007bff;
+}
+
+/* Hover effect for the input field */
+.search-input:focus,
+.search-input:hover {
+    border-color: #16181b;
+}
+
+/* Search button styling */
+.search-button {
+    padding: 5px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the button */
+.search-button:hover {
+    background-color: #121213;
+}
+
+/* Autocomplete Dropdown Styling */
+.ui-autocomplete {
+    position: absolute;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: scroll;
+    width: 600px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #b21898;
+    box-shadow: 0 4px 6px rgba(159, 10, 192, 0.1);
+
+}
 
 
+/* Individual suggestion item */
+.ui-autocomplete li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for suggestions */
+.ui-autocomplete li.ui-menu-item:hover {
+    background-color: #9a28c3; /* Highlight on hover */
+    color: white;
+}
+/* Styling for the selected item in the autocomplete dropdown */
+.ui-autocomplete li.ui-menu-item.ui-state-active {
+    background-color: #7b129e; /* Darker blue for selected item */
+    color: white;
+}
 </style>
 
 <main class="container-fluid">
+
     <div class="text-center text-dark bg-primary py-4">
-        <h2>Coupon Codes</h2>
+        <h1>Coupon Codes</h1>
         <hr>
     </div>
 
+    <div class="search-container">
+        <h3 class="heading">FIND YOUR FAVORITE BRANDS</h3>
+        <form id="searchForm" action="{{ route('search') }}" method="GET" class="d-flex" role="search">
+            <div class="input-group">
+                <input type="search" class="search-input" name="query" id="searchInput" placeholder="Search Here" aria-label="Search" value="{{ old('query', request()->input('query')) }}">
+                <button class="btn btn-primary search-button" type="submit"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+    </div>
     @foreach ($coupons as $coupon)
     @php
     $store = App\Models\Stores::where('slug', $coupon->store)->first();

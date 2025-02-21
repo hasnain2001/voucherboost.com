@@ -99,11 +99,11 @@
     <p class="h5 mt-4">Total Stores: <span class="fw-bold">{{ $stores->count() }}</span></p>
 
 <section>
-    
+
     <div class="row card-list g-4 mt-3">
         @forelse ($stores as $store)
             <div class="col-lg-2 col-md-4 col-sm-6 col-6">
-                @php
+                {{-- @php
                     $language = $store->language ? $store->language->code : 'en';
                     $storeSlug = Str::slug($store->slug);
                     $storeurl = $store->slug
@@ -111,11 +111,16 @@
                             ? route('store_details', ['slug' => $storeSlug])
                             : route('store_details.withLang', ['lang' => $language, 'slug' => $storeSlug]))
                         : '#';
+                @endphp --}}
+                @php
+                $storeurl = $store->slug
+                  ? route('store_details', ['slug' => Str::slug($store->slug)])
+                  : '#';
                 @endphp
                 <a href="{{ $storeurl }}" class="text-decoration-none">
                     <div class="card shadow-sm text-center p-2">
-                        <img src="{{ $store->store_image ? asset('uploads/stores/' . $store->store_image) : asset('front/assets/images/no-image-found.jpg') }}" 
-                             loading="lazy" 
+                        <img src="{{ $store->store_image ? asset('uploads/stores/' . $store->store_image) : asset('front/assets/images/no-image-found.jpg') }}"
+                             loading="lazy"
                              alt="{{ $store->name }}">
                         <h5 class="card-title">{{ $store->name ?: "Title not found" }}</h5>
                     </div>
@@ -129,7 +134,7 @@
             </div>
         @endforelse
     </div>
-    {{ $stores->links('vendor.pagination.bootstrap-4') }}
+    {{ $stores->links('vendor.pagination.custom') }}
 </section>
     <section>
         <div class="row card-list g-4 mt-3">
@@ -165,6 +170,6 @@
               </div>
         </div>
     </section>
-    
+
 </div>
 @endsection

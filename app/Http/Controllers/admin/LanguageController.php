@@ -24,24 +24,19 @@ class LanguageController extends Controller
             'name' => 'required|string|max:255',
             'code' => 'required|string|max:10',
         ]);
-    
-        // Check if an image file was uploaded
-        $imagePath = null;
-        if ($request->hasFile('language_image')) {
-        $imagePath = $request->file('language_image')->store('uploads/lang', 'public');
-        }
-    
+
+   
         // Create the language entry in the database
         Language::create([
             'name' => $request->name,
             'code' => $request->code,
-           
+
         ]);
-    
+
         return redirect()->back()->with('success', 'Language created successfully');
     }
-    
-    
+
+
 
 
     public function edit_language($id) {

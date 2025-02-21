@@ -48,10 +48,12 @@ class StoresController extends Controller
     // In your StoreController
     public function store()
     {
-        $stores = Stores::with('language')->select('id', 'name', 'slug', 'status', 'created_at', 'updated_at', 'store_image', 'network', 'category')
+        $stores = Stores::with('store_language')
+        ->select('id', 'name', 'slug', 'status', 'created_at', 'updated_at', 'store_image', 'network', 'category')
         ->orderBy('created_at', 'desc')
         ->get();
-
+// // In the controller
+// dd($stores->toArray());
 
         return view('admin.stores.index', compact('stores',));
     }
@@ -164,27 +166,21 @@ class StoresController extends Controller
 
         // Validate the request data
         $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('stores')->ignore($store->id),
-            ],
-            'language_id' =>'required|integer',
-            'top_store' => 'nullable|integer',
-            'description' => 'nullable|string',
-            'url' => 'nullable|url',
-            'destination_url' => 'nullable|url',
-            'category' => 'nullable|string',
-            'title' => 'nullable|string',
-            'meta_tag' => 'nullable|string',
-            'meta_keyword' => 'nullable|string',
-            'meta_description' => 'nullable|string',
-            'status' => 'nullable|in:enable,disable',
-            'authentication' => 'nullable|string',
-            'network' => 'nullable|string',
-            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Validates image file
+        'name' => 'required|string|max:255',
+        'slug' => ['required','string','max:255',Rule::unique('stores')->ignore($store->id),],
+        'language_id' =>'required|integer',
+        'top_store' => 'nullable|integer',
+        'description' => 'nullable|string',
+        'url' => 'nullable|url',
+        'destination_url' => 'nullable|url',
+        'category' => 'nullable|string',
+        'title' => 'nullable|string',
+        'meta_keyword' => 'nullable|string',
+        'meta_description' => 'nullable|string',
+        'status' => 'nullable|in:enable,disable',
+        'authentication' => 'nullable|string',
+        'network' => 'nullable|string',
+        'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Validates image file
         ]);
 
 
@@ -229,7 +225,6 @@ class StoresController extends Controller
             'destination_url' => $request->input('destination_url'),
             'category' => $request->input('category', $store->category),
             'title' => $request->input('title'),
-            'meta_tag' => $request->input('meta_tag'),
             'meta_keyword' => $request->input('meta_keyword'),
             'meta_description' => $request->input('meta_description'),
             'status' => $request->input('status'),

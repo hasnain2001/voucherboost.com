@@ -19,7 +19,7 @@ class CategoriesController extends Controller
             ->get();
         return view('employee.categories.index', compact('categories'));
     }
-    
+
 
     public function create_category() {
         return view('employee.categories.create');
@@ -80,7 +80,7 @@ class CategoriesController extends Controller
             'category_image' => $CategoryImage ?? 'No Category Image',
         ]);
 
-        return redirect()->back()->with('success', 'Category Created Successfully');
+        return redirect()->back()->withInput()->with('success', 'Category Created Successfully');
     }
 
 

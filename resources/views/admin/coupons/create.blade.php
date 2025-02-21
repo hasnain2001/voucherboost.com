@@ -68,12 +68,14 @@ margin-right: 5px; /* Adjust spacing between the input and label */
 <textarea name="description" id="description" class="form-control" cols="20" rows="3" style="resize: none;">{{ old('description') }}</textarea>
 </div>
 <div class="form-check">
-<input type="checkbox" class="form-check-input" id="toggleCodeCheckbox" onchange="toggleCodeInput(this)">
-<label class="form-check-label" for="toggleCodeCheckbox">Enable Code Input</label>
+    <input type="checkbox" class="form-check-input" id="toggleCodeCheckbox"
+        onchange="toggleCodeInput(this)"
+        {{ old('code') ? 'checked' : '' }}>
+    <label class="form-check-label" for="toggleCodeCheckbox">Enable Code Input</label>
 </div>
 <div class="form-group" id="codeInputGroup" style="display: none;">
-<label for="code">Code</label>
-<input type="text" class="form-control" name="code" id="code" value="{{ old('code') }}">
+    <label for="code">Code</label>
+    <input type="text" class="form-control" name="code" id="code" value="{{ old('code') }}">
 </div>
 
 
@@ -86,7 +88,7 @@ margin-right: 5px; /* Adjust spacing between the input and label */
     <select name="store" id="store" class="form-control" onchange="updateDestinationUrl()" required>
     <option value="" disabled selected>--Select Store--</option>
     @foreach($stores as $store)
-    <option value="{{ $store->slug }}" data-url="{{ $store->destination_url }}" 
+    <option value="{{ $store->slug }}" data-url="{{ $store->destination_url }}"
     {{ old('store') == $store->slug ? 'selected' : '' }}>
     {{ $store->slug }}
     </option>
@@ -118,12 +120,12 @@ margin-right: 5px; /* Adjust spacing between the input and label */
         @enderror
     </div>
 <div class="form-group">
-<label for="top_coupons">Top Coupons Code <span class="text-danger">*</span></label><br>
-@for ($i = 0; $i <= 5; $i++)
+{{-- <label for="top_coupons">Top Coupons Code <span class="text-danger">*</span></label><br>
+@for ($i = 0; $i <= 10; $i++)
 <input type="radio" name="top_coupons" id="top_{{ $i }}" value="{{ $i }}" {{ old('top_coupons') == $i ? 'checked' : '' }}>
 <label for="top_{{ $i }}">{{ $i }}</label>
 @endfor
-</div>
+</div> --}}
 <div class="form-group">
 <label for="status">Status <span class="text-danger">*</span></label><br>
 <div class="radio-container">
@@ -132,17 +134,17 @@ margin-right: 5px; /* Adjust spacing between the input and label */
 <input type="radio" name="status" id="disable" value="disable" {{ old('status') == 'disable' ? 'checked' : '' }} required>
 <label for="disable">Disable</label>
 </div>
-{{-- <label for="authentication">Authentication</label><br>
+<label for="authentication">Authentication</label><br>
 <div class="checkbox-container">
 @foreach (['never expire', 'featured', 'free shipping', 'coupon code', 'top deals', 'valentine'] as $auth)
-<input type="radio" name="authentication" id="{{ $auth }}" value="{{ $auth }}" 
+<input type="radio" name="authentication" id="{{ $auth }}" value="{{ $auth }}"
 {{ old('authentication') === $auth ? 'checked' : '' }}>
 <label for="{{ $auth }}">{{ ucfirst(str_replace('_', ' ', $auth)) }}</label>
 @endforeach
 
 <!-- Other Option -->
 <div class="form-check">
-<input type="radio" class="form-check-input" name="authentication" id="toggleOtherCheckbox" value="other" 
+<input type="radio" class="form-check-input" name="authentication" id="toggleOtherCheckbox" value="other"
 {{ old('authentication') === 'other' ? 'checked' : '' }} onchange="toggleOtherInput(this)">
 <label class="form-check-label" for="toggleOtherCheckbox">Other</label>
 </div>
@@ -150,10 +152,10 @@ margin-right: 5px; /* Adjust spacing between the input and label */
 <!-- Hidden Input for Other -->
 <div class="form-group" id="otherInputGroup" style="display: none;">
 <label for="otherAuthentication">Please specify</label>
-<input type="text" class="form-control" name="authentication" id="otherAuthentication" 
+<input type="text" class="form-control" name="authentication" id="otherAuthentication"
 value="{{ old('other_authentication') }}">
 </div>
-</div> --}}
+</div>
 
 
 
@@ -206,14 +208,32 @@ otherInputGroup.style.display = 'none'; // Hide the input field
 }
 }
 function toggleCodeInput(checkboxElement) {
-const codeInputGroup = document.getElementById('codeInputGroup');
+    const codeInputGroup = document.getElementById('codeInputGroup');
+    const codeInput = document.getElementById('code');
 
-if (checkboxElement.checked) {
-codeInputGroup.style.display = 'block'; // Show the input field
-} else {
-codeInputGroup.style.display = 'none'; // Hide the input field
+    if (checkboxElement.checked) {
+        // Show the input group if the checkbox is checked
+        codeInputGroup.style.display = 'block';
+    } else {
+        // Hide the input group and clear the input value if the checkbox is unchecked
+        codeInputGroup.style.display = 'none';
+        codeInput.value = ''; // Clear the input value
+    }
 }
-}
+
+// Ensure the input is shown if there's an old value
+window.onload = function () {
+    const checkbox = document.getElementById('toggleCodeCheckbox');
+    const codeInputGroup = document.getElementById('codeInputGroup');
+    const codeInput = document.getElementById('code');
+
+    if (checkbox.checked) {
+        codeInputGroup.style.display = 'block';
+    } else {
+        codeInputGroup.style.display = 'none';
+        codeInput.value = ''; // Clear the input value if the checkbox is not checked
+    }
+};
 </script>
 
 

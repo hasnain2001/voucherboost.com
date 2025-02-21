@@ -13,7 +13,7 @@ class SliderController extends Controller
     return view('admin.slider.index', compact('sliders'));
   }
   public function create_slider()
-  {      
+  {
 
       return view('admin.slider.create' );
   }
@@ -24,9 +24,10 @@ class SliderController extends Controller
           'description' => 'nullable',
           'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3048',
           'status' => 'required',
+          'url' => 'nullable|url',
       ]);
 
-      $imageName = time().'.'.$request->image->extension();  
+      $imageName = time().'.'.$request->image->extension();
       $request->image->move(public_path('uploads/slider/'), $imageName);
 
       Slider::create([
@@ -54,7 +55,7 @@ class SliderController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();  
+            $imageName = time().'.'.$request->image->extension();
             $request->image->move(public_path('uploads/slider/'), $imageName);
             $slider->update([
                 'image' => $imageName,

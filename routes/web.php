@@ -34,18 +34,19 @@ Route::get('/dashboard', [EmployeeController::class, 'dashboard'])->name('dashbo
 });
 
 });
-Route::post('/update-clicks', [CouponsController::class, 'updateClicks'])->name('update.clicks');
-Route::get('/clicks/{couponId}', [CouponsController::class, 'openCoupon'])->name('open.coupon');
+
 
 Route::middleware([Localization::class])->group(function () {
+});
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index');
-    Route::get('/{lang}/stores', 'stores')->name('stores');
+    Route::get('/stores', 'stores')->name('stores');
     Route::get('store/{slug}', function($slug) {return app(HomeController::class)->StoreDetails('en', $slug, request());})->name('store_details');
-    Route::get('/{lang}/store/{slug}', [HomeController::class, 'StoreDetails'])->name('store_details.withLang');
-    Route::get('/coupon', [HomeController::class, 'coupons'])->name('coupons');
+    // Route::get('/{lang}/store/{slug}', [HomeController::class, 'StoreDetails'])->name('store_details.withLang');
+    Route::get('/coupon', 'coupons')->name('coupons');
     Route::get('/categories', 'categories')->name('categories');
     Route::get('/category/{slug}', 'viewcategory')->name('related_category');
+    Route::get('/FREE DELIVERY', 'free_delivery')->name('FREE-DELIVERY');
 
 
    // Route for search
@@ -61,7 +62,9 @@ Route::controller(HomeController::class)->group(function () {
 // // Route for coupon click
 
 });
-});
+Route::post('/update-clicks', [CouponsController::class, 'updateClicks'])->name('update.clicks');
+Route::get('/clicks/{couponId}', [CouponsController::class, 'openCoupon'])->name('open.coupon');
+
 // // Route for checking slug
 Route::post('/check-slug',[StoresController::class, 'checkSlug'] )->name('check.slug');
 Route::post('/blog/create', [BlogController::class, 'checkSlug'])->name('blog.check.slug');

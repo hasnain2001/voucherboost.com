@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 class CouponsController extends Controller
 {
-   
+
     public function coupon(Request $request) {
 
 
@@ -88,12 +88,12 @@ public function update(Request $request)
     }
 }
     public function create_coupon() {
-        $stores = Stores::all();
+        $stores = Stores::orderBy('created_at', 'desc')->get();
         $langs = Language::all();
         return view('employee.coupons.create', compact('stores','langs'));
     }
     public function create_coupon_code() {
-        $stores = Stores::all();
+        $stores = Stores::orderBy('created_at', 'desc')->get();
         $langs = Language::all();
         return view('employee.coupons.createcode', compact('stores','langs'));
     }
@@ -106,7 +106,7 @@ public function update(Request $request)
             'code' => 'nullable|string|max:100',
             'destination_url' => 'nullable|url',
             'ending_date' => 'nullable|date|after_or_equal:today',
-            'authentication' => 'nullable|array',
+            'authentication' => 'nullable|string',
             'authentication.*' => 'string',
             'store' => 'nullable|string|max:255',
             'top_coupons' => 'nullable|integer|min:0',
@@ -121,25 +121,25 @@ public function update(Request $request)
             'destination_url' => $request->destination_url,
             'ending_date' => $request->ending_date,
             'status' => $request->status,
-            'authentication' => isset($request->authentication) ? json_encode($request->authentication) : "No Auth",
+            'authentication' => $request->authentication ?? "On Sale",
             'store' => $request->store ,
             'top_coupons' => $request->top_coupons,
         ]);
 
-        return redirect()->back()->with('success', 'Coupon Created Successfully');
+        return redirect()->back()->withInput()->with('success', 'Coupon Created Successfully');
     }
 
 
     public function edit_coupon($id) {
         $coupons = Coupons::find($id);
-        $stores = Stores::all();
+        $stores = Stores::orderBy('created_at', 'desc')->get();
         return view('employee.coupons.edit', compact('coupons', 'stores'));
     }
 
     public function update_coupon(Request $request, $id) {
         // Find the coupon by its ID
         $coupons = Coupons::find($id);
-    
+
         // Define validation rules
         $request->validate([
             'name' => 'required|string|max:255',
@@ -148,12 +148,12 @@ public function update(Request $request)
             'code' => 'nullable|string|max:100',
             'destination_url' => 'nullable',
             'ending_date' => 'nullable|date|after_or_equal:today',
-            'authentication' => 'nullable|array',
+            'authentication' => 'nullable|string',
             'authentication.*' => 'string',
             'store' => 'nullable|string|max:255', // Allow null, so it doesn't throw an error if not provided
             'top_coupons' => 'nullable|integer|min:0',
         ]);
-    
+
         // Update the coupon details, retain old values if not provided
         $coupons->update([
             'name' => $request->name,
@@ -172,11 +172,11 @@ public function update(Request $request)
             $url = route('employee.store_details', ['slug' => Str::slug($store->slug)]);
             return redirect($url)->with('success', 'Coupon Updated Successfully');
         }
-        
+
         return redirect()->back()->with('error', 'Store not found.');
-        
+
     }
-    
+
 
     public function delete_coupon($id) {
         Coupons::find($id)->delete();

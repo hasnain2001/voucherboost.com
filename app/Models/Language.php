@@ -8,15 +8,21 @@ class Language extends Model
 {
     protected $table = 'language';
     protected $fillable =[
-        'language_image',
+
         'name',
         'code',
     ];
 
+    /**
+     * Get all of the coupons for the Language
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function stores():HasMany
     {
         return $this->hasMany(Stores::class, 'language_id', 'id');
     }
+
     /**
      * Get all of the coupons for the Language
      *

@@ -54,17 +54,17 @@ public function checkSlug(Request $request)
         ->orderBy('created_at', 'desc')
         ->get();
 
-      
+
         return view('employee.stores.index', compact('stores',));
     }
-    
+
 
     public function create_store()
     {
         $categories = Categories::all();
         $networks = Networks::all();
         $langs = Language::get();
-        
+
         return view('employee.stores.create', compact('categories', 'networks','langs'));
     }
 
@@ -92,20 +92,20 @@ public function checkSlug(Request $request)
             'network' => 'nullable|string',
             'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Validates image file
         ]);
-    
+
         // Generate a slug from the name if not provided
         $slug = $request->input('slug') ? $request->input('slug') : Str::slug($request->input('name'));
-    
+
         // Handle the file upload if a store image is provided
         $storeImage = null;
         if ($request->hasFile('store_image')) {
             $file = $request->file('store_image');
             $storeImage = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
             $filePath = public_path('uploads/stores/') . $storeImage;
-    
+
             // Save the file to the specified location
             $file->move(public_path('uploads/stores/'), $storeImage);
-    
+
             // Ensure that the file has been saved before trying to read it
             if (file_exists($filePath)) {
                 // Optimize the image
@@ -125,7 +125,7 @@ public function checkSlug(Request $request)
                 return redirect()->back()->with('error', 'Image not found');
             }
         }
-    
+
         // Create a new store record
         Stores::create([
             'name' => $request->input('name'),
@@ -145,11 +145,11 @@ public function checkSlug(Request $request)
             'network' => $request->input('network'),
             'store_image' => $storeImage ?? 'No Store Image',
         ]);
-    
+
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Store Created Successfully');
+        return redirect()->back()->withInput()->with('success', 'Store Created Successfully');
     }
-    
+
 
     public function edit_store($id)
     {
@@ -225,7 +225,7 @@ public function checkSlug(Request $request)
         $store->update([
             'name' => $request->input('name'),
             'slug' => $request->input('slug'),
-            'language_id' => $request->input('language_id'),
+            'language_id' => $request->input('language_id',$store->language_id),
             'top_store' => $request->input('top_store'),
             'description' => $request->input('description'),
             'url' => $request->input('url'),
@@ -244,33 +244,33 @@ public function checkSlug(Request $request)
         // Redirect back with a success message
         return redirect()->route('employee.stores')->with('success', 'Store Updated Successfully');
     }
-  
+
     public function delete_store($id)
     {
         // Find the store by ID
         $store = Stores::find($id);
-    
+
         if ($store) {
             // Log the store deletion attempt in the delete_store table
             DeleteStore::create([
                 'store_id' => $store->id,
                 'store_name' => $store->name,
                 'deleted_by' => Auth::id(),
-                
+
             ]);
-    
+
             // Delete associated coupons with the same store name
             Coupons::where('store', $store->name)->delete();
-    
+
             // Delete the store (soft delete if the SoftDeletes trait is used)
             $store->delete();
-    
+
             return redirect()->back()->with('success', 'Store and associated coupons marked for deletion.');
         }
-    
+
         return redirect()->back()->with('error', 'Store not found.');
     }
-    
+
 
     public function deleteSelected(Request $request)
     {

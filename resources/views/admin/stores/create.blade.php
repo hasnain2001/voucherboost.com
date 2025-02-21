@@ -36,7 +36,7 @@
                     </div>
                 @endif
 
-                <form name="CreateStore" id="CreateStore" method="POST" enctype="multipart/form-data" action="{{ route('admin.store.store') }}">
+<form name="CreateStore" id="CreateStore" method="POST" enctype="multipart/form-data" action="{{ route('admin.store.store') }}">
                     @csrf
                     <div class="row">
                         <div class="col-6">
@@ -52,7 +52,7 @@
                                     <div class="form-group">
                                         <label for="slug">Url/Slug <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug') }}" required>
-                                        <small id="slug-message"></small>
+                                        <span id="slug-message"></span>
                                         @error('slug')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -67,7 +67,7 @@
                                     <div class="form-group">
                                         <label for="destination_url"> URL <span class="text-danger">*</span></label>
                                         <input type="url" class="form-control" name="url" id="url" value="{{ old('destination_url') }}" required>
-                                        @error('destination_url')
+                                        @error('url')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
@@ -85,13 +85,7 @@
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
-                                        <label for="meta_tag">Meta Tag <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="meta_tag" id="meta_tag" value="{{ old('meta_tag') }}">
-                                        @error('meta_tag')
-                                        <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -162,14 +156,14 @@
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
-<div class="form-group">
-<label for="store_image">Store Image <span class="text-danger">*</span></label>
-<input type="file" class="form-control" name="store_image" id="store_image"  value="{{ old('store_image') }}" required>
-@error('store_image')
-<small class="text-danger">{{ $message }}</small>
-@enderror
-</div>
-                
+                                        <div class="form-group">
+                                        <label for="store_image">Store Image <span class="text-danger">*</span></label>
+                                        <input type="file" class="form-control" name="store_image" id="store_image"  value="{{ old('store_image') }}" required>
+                                        @error('store_image')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                        </div>
+
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary">Save</button>
                           <a href="{{ route('admin.store.store') }}" class=" btn btn-danger">Cancel</a>
@@ -179,13 +173,13 @@
                             </div>
                         </div>
                     </div>
-                </form>
-                
+</form>
+
             </div>
         </section>
     </div>
 
-    <script>
+<script>
         // JavaScript to preview the selected image
         document.getElementById('store_image').addEventListener('change', function() {
             var file = this.files[0];
@@ -204,27 +198,26 @@
                 document.getElementById('imagePreview').innerHTML = ''; // Clear preview if no file selected
             }
         });
-    </script>
-         <script>
+
             // Filter non-alphabetic characters in the 'name' input field and auto-fill 'slug'
             const inputOne = document.getElementById('name');
             const textOnlyInput = document.getElementById('slug');
-        
+
             inputOne.addEventListener('input', () => {
                 const value = inputOne.value;
                 // Filter out non-alphabetic characters and update slug automatically
                 const filteredValue = value.replace(/[^A-Za-z\s]/g, '');
                 textOnlyInput.value = filteredValue;
-                
+
                 // Automatically check slug existence after auto-filling
                 checkSlugExistence(filteredValue);
             });
-        
+
             $(document).ready(function() {
                 // Check slug existence when the user types manually in the slug field
                 $('#slug').on('keyup', function() {
                     var slug = $(this).val();
-                    
+
                     // Check if the slug has any value (optional: avoid AJAX if empty)
                     if (slug) {
                         checkSlugExistence(slug);
@@ -233,7 +226,7 @@
                     }
                 });
             });
-        
+
             // Function to check if the slug exists
             function checkSlugExistence(slug) {
                 $.ajax({
@@ -252,7 +245,7 @@
                     }
                 });
             }
-        </script>
-        
+</script>
+
 
 @endsection

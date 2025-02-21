@@ -1,4 +1,4 @@
-@extends('admin.datatable_master')
+@extends('employee.datatable')
 @section('datatable-title')
     Stores
 @endsection
@@ -14,8 +14,8 @@
 
                     <div class="col-sm-6 d-flex justify-content-center">
 
-                        <a href="{{ route('admin.store.create') }}" class="btn btn-dark">Add New Store</a>
-                        <a href="{{ route('admin.coupon.create') }}" class="btn btn-warning">Add New Coupon</a>
+                        <a href="{{ route('employee.store.create') }}" class="btn btn-dark">Add New Store</a>
+                        <a href="{{ route('employee.coupon.create') }}" class="btn btn-warning">Add New Coupon</a>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                         <div class="card">
 
                             <div class="card-body">
-                      <form id="bulk-delete-form" action="{{ route('admin.store.deleteSelected') }}" method="POST">
+                      <form id="bulk-delete-form" action="{{ route('employee.store.deleteSelected') }}" method="POST">
     @csrf
     <div class="table-responsive">
         <table id="SearchTable" class="table table-bordered table-hover">
@@ -74,12 +74,12 @@
             <i class="fas fa-check-circle text-success"></i>
           @endif
                         </td>
-                        
+
                         {{-- <td>{{ $store->language->code ??'No language' }}</td> --}}
 
 
-                              
-                     
+
+
                                          <td>
     <span class="  text-dark" data-bs-toggle="tooltip" title="{{ $store->created_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
         {{ $store->created_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
@@ -91,10 +91,10 @@
     </span>
 </td>
                         <td>
-                            <a href="{{ route('admin.store.edit', $store->id) }}" class="btn btn-info btn-sm">Edit</a>
-                            <a href="{{ route('admin.store.delete', $store->id) }}" onclick="return confirm('Are you sure you want to delete this!')" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="{{ route('employee.store.edit', $store->id) }}" class="btn btn-info btn-sm">Edit</a>
+                            <a href="{{ route('employee.store.delete', $store->id) }}" onclick="return confirm('Are you sure you want to delete this!')" class="btn btn-danger btn-sm">Delete</a>
                         </td>
-                        <td><a class="btn btn-success text-white btn-sm" href="{{  route('admin.store_details', ['slug' => Str::slug($store->slug)]) }}"  rel="noopener noreferrer">edit coupon</a>
+                        <td><a class="btn btn-success text-white btn-sm" href="{{  route('employee.store_details', ['slug' => Str::slug($store->slug)]) }}"  rel="noopener noreferrer">edit coupon</a>
                         </td>
                     </tr>
                 @endforeach

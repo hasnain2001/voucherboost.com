@@ -16,10 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('language_id'); // Foreign key column
                  // Add the foreign key constraint
-            $table->foreign('language_id')
-                ->references('id')
-                ->on('language')
-                ->onDelete('cascade');
+            $table->foreign('language_id')->references('id')->on('language')->onDelete('cascade');
             $table->string('slug')->unique();
             $table->longText('description')->nullable();
             $table->string('top_store')->default(0)->nullable();
@@ -31,7 +28,7 @@ return new class extends Migration
             $table->string('network')->nullable();
             $table->string('store_image')->nullable();
             $table->softDeletes();
-             $table->string('title')->nullable();
+            $table->string('title')->nullable();
             $table->longText('meta_tag')->nullable();
             $table->longText('meta_keyword')->nullable();
             $table->longText('meta_description')->nullable();

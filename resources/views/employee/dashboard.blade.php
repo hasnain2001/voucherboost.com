@@ -1,65 +1,147 @@
-<x-guest-layout>
-    <style>
-        .dropdown-item{
-            margin: 12px;
-        }
-    </style>
-    @section('main-content')
-    <div class="container py-5">
-        <!-- Header Section -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="text-primary fw-bold mb-0">{{ __('Employee Dashboard') }}</h2>
-          
-            <div class="dropdown">
-                <button class="btn btn-outline-primary dropdown-toggle d-flex align-items-center" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{asset('images/profile.png')}}" alt="Profile Picture" class="rounded-circle me-2"  style="width: 40px; height: 40px;">
-                    {{ Auth::user()->name }}
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="profileDropdown">
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="{{ route('profile.edit') }}">
-                             <i class="bi bi-person-circle me-2"></i> 
-                            {{ __('View Profile') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="{{ route('profile.edit') }}">
-                             <i class="bi bi-gear-fill me-2"></i> 
-                            {{ __('Settings') }}
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button class="dropdown-item text-danger d-flex align-items-center" type="submit">
-                                 <i class="bi bi-box-arrow-right me-2"></i> 
-                                {{ __('Logout') }}
-                            </button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-            
-            
-        </div>
-    
+@extends('employee.master')
+
+@section('title')
+   Employee Dashboard
+@endsection
+
+@section('main-content')
+    <div class="content-wrapper">
+
+
         <!-- Main Content -->
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card shadow">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h5 class="mb-0">{{ __('Welcome back!') }}   <span>  {{ Auth::user()->name }}</span></h5>
+        <div class="container-fluid py-4">
+            <!-- Welcome Section -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="alert alert-success shadow-sm">
+                        <h4 class="mb-0">
+                            Welcome back, <strong>{{ Auth::user()->name }}</strong>!
+                        </h4>
                     </div>
-                    <div class="card-body text-center">
-                        <p class="mb-0">{{ __('You\'re logged in!') }}</p>
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-blog text-primary"></i> Blogs
+                            </h5>
+                            <p class="card-text fs-4">{{ $blogs->count() }}</p>
+                            <a href="{{route('employee.blog.index')}}" class="text-primary">View Details <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-list text-info"></i> Categories
+                            </h5>
+                            <p class="card-text fs-4">{{ $categories->count() }}</p>
+                            <a href="{{route('employee.category')}}" class="text-info">View Details <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-network-wired text-danger"></i> Networks
+                            </h5>
+                            <p class="card-text fs-4">{{ $networks->count() }}</p>
+                            <a href="{{route('employee.network')}}" class="text-danger">View Details <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-ticket-alt text-success"></i> Coupons
+                            </h5>
+                            <p class="card-text fs-4">{{ $coupons->count() }}</p>
+                            <a href="{{route('employee.coupon')}}" class="text-success">View Details <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-store text-warning"></i> Stores
+                            </h5>
+                            <p class="card-text fs-4">{{ $stores->count() }}</p>
+                            <a href="{{route('employee.stores')}}" class="text-warning">View Details <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Charts Section -->
+            <div class="row mt-4">
+                <div class="col-lg-6">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">Sales Overview</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="salesChart" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">Traffic Overview</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="trafficChart" height="150"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @endsection
-    </x-guest-layout>
-    
+
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Example Chart.js configuration
+        const salesChart = new Chart(document.getElementById('salesChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May'],
+                datasets: [{
+                    label: 'Sales',
+                    data: [1200, 1900, 3000, 5000, 2500],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+        const trafficChart = new Chart(document.getElementById('trafficChart').getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Direct', 'Referral', 'Social'],
+                datasets: [{
+                    data: [55, 25, 20],
+                    backgroundColor: ['#007bff', '#28a745', '#ffc107'],
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
+@endsection

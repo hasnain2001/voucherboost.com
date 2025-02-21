@@ -26,9 +26,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('*', function ($view) {
-            $view->with('categories', Categories::all());
+            $view->with('categories', Categories::orderBy('created_at','asc')->get());
               $view->with('langs', Language::all());
-            $view->with('currentLang', Session::get('language', 'EN')); 
+            $view->with('currentLang', Session::get('language', 'EN'));
         });
     }
 }

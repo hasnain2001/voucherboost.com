@@ -12,18 +12,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 class HomeController extends Controller
 {
+    public function free_delivery()
+    {
+$coupons = Coupons::where('namer','free deliver')->where('authentication', 'featured')->orderBy('created_at', 'desc')->get();
+        return view('free-delivery', compact('coupons'));
+
+    }
     public function index()
     {
-    $stores = Stores::orderBy('created_at', 'desc')->paginate(5);
-    $blogs = Blog::orderBy('created_at', 'desc')->limit(4)->get();
-    $topblogs = Blog::orderBy('created_at', 'desc')->where('top','top')->limit(4)->get();
-    $latestblogs = Blog::orderBy('created_at','desc')->where('category','Travel')->limit(2)->get();
-    $category = Categories::select('category_image','slug')->where('authentication','top_category')->get();
-    return view('home', compact('stores', 'blogs','category','topblogs','latestblogs'));
+
+    return view('home', compact('sliders', 'stores', 'blogs'));
     }
     public function blog_home(){
  $blogs = Blog::orderBy('created_at', 'desc')->paginate(5);
- $chunks = Stores::paginate(5);
+$chunks = Stores::where('top_store', '>', 0)->where('status', 'enable')->get();
         return view('blog', compact('blogs','chunks'));
     }
 
@@ -54,15 +56,10 @@ class HomeController extends Controller
     }
 
 
-    public function stores(Request $request, $lang = 'en')
+    public function stores(Request $request)
     {
-        app()->setLocale($lang);
-
-        // Fetch the language object based on the given code
-        $language = Language::where('code', $lang)->firstOrFail();
-
         // Build the store query
-        $storesQuery = Stores::where('language_id', $language->id);
+        $storesQuery = Stores::query();
 
         if ($request->filled('letter')) {
             $storesQuery->where('name', 'like', $request->input('letter') . '%');
@@ -71,50 +68,53 @@ class HomeController extends Controller
         // Fetch paginated stores
         $stores = $storesQuery->orderBy('name')->paginate(30);
 
-        // Append language-based URLs to each store
-        $stores->getCollection()->transform(fn ($store) =>
-            $store->forceFill([
-                'url_with_language' => url("$lang/store/{$store->id}")
-            ])
-        );
-
         return view('stores', compact('stores'));
     }
 
 
-public function StoreDetails($lang = 'en', $slug, Request $request)
-{
+    public function StoreDetails($lang = 'en', $slug, Request $request)
+    {
     app()->setLocale($lang);
     $title = ucwords(str_replace('-', ' ', Str::slug($slug)));
     $store = Stores::with('language')->where('slug', $title)->firstOrFail();
     if (!$store->language) {
-        return response()->json(['error' => 'No language selected for this store.'], 404);
+    return response()->json(['error' => 'No language selected for this store.'], 404);
     }
     if ($lang !== $store->language->code) {
-        return redirect()->route('store_details.withLang', [
-            'lang' => $store->language->code,
-            'slug' => $slug
-        ]);
+    return redirect()->route('store_details.withLang', [
+    'lang' => $store->language->code,
+    'slug' => $slug
+    ]);
     }
-    $query = Coupons::where('store', $store->slug)->orderByRaw('CAST(`order` AS SIGNED) ASC');
-   if ($request->query('sort') === 'codes') {
-        $query->whereNotNull('code');
+    $query = Coupons::where('store', $store->slug)->orderByRaw('CAST(`order` AS SIGNED) ASC')->where('status','enable');
+    if ($request->query('sort') === 'codes') {
+    $query->whereNotNull('code');
     } elseif ($request->query('sort') === 'deals') {
-        $query->whereNull('code');
+    $query->whereNull('code');
     }
     $coupons = $query->get();
     $codeCount = $coupons->whereNotNull('code')->count();
     $dealCount = $coupons->whereNull('code')->count();
     $relatedStores = Stores::where('category', $store->category)
-                           ->where('id', '!=', $store->id)
-                           ->where('language_id', $store->language_id)
-                           ->orderBy('created_at', 'desc')
-                            ->limit(15)
-                           ->get();
+    ->where('id', '!=', $store->id)
+    ->where('language_id', $store->language_id)
+    ->orderBy('created_at', 'desc')
+    ->limit(30)
+    ->get();
+    $relatedblogs = Blog::where('category',$store->category) ->orderBy('created_at', 'desc')->get();
 
-    return view('store_details', compact('store', 'coupons', 'relatedStores', 'codeCount', 'dealCount'));
-}
+    return view('store_details', compact('store', 'coupons', 'relatedStores', 'codeCount', 'dealCount','relatedblogs'));
+    }
 
+
+    public function categories(Request $request, )
+    {
+
+        $categories = Categories::select('id', 'title', 'category_image', 'status', 'created_at', 'updated_at')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('categories', compact('categories'));
+    }
 
 public function viewcategory($name) {
     $slug = Str::slug($name);

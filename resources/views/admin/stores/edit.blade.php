@@ -9,11 +9,11 @@ color: darkblue;
 }
 </style>
 
-  
+
 
 
 <div class="content-wrapper">
- 
+
 <section class="content-header">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -86,9 +86,9 @@ color: darkblue;
         <span class="text-danger">{{ $message }}</span>
         @enderror
         <input type="text" class="form-control" name="title" id="name" value="{{ $stores->title }} ">
-        
+
         </div>
-        
+
         <div class="form-group">
         <label for="meta_tag">Meta Tag <span class="text-danger">*</span></label>
         <input type="text" class="form-control" name="meta_tag" id="meta_tag" value="{{ $stores->meta_tag }}">
@@ -109,15 +109,15 @@ color: darkblue;
     <label for="meta_keyword">Meta Keyword <span class="text-danger">*</span></label>
     <input type="text" class="form-control" name="meta_keyword" id="meta_keyword" value="{{ $stores->meta_keyword }}">
     </div>
-    
-    
+
+
 <div class="form-group">
     <label for="meta_description">Meta Description</label>
     @error('meta_description')
     <span class="text-danger">{{ $message }}</span>
     @enderror
     <textarea name="meta_description" id="meta_description" class="form-control" cols="30" rows="1" style="resize: none;">{{ old('meta_description', $stores->meta_description) }}</textarea>
-    
+
     </div>
     <div class="form-group d-flex align-items-center">
         <label for="status" class="mr-2">Status <span class="text-danger">*</span></label>
@@ -125,12 +125,12 @@ color: darkblue;
         <label for="enable" class="mr-3 ml-1">Enable</label>
         <input type="radio" name="status" id="disable" {{ $stores->status == 'disable' ? 'checked' : '' }} value="disable">
         <label for="disable" class="mr-4 ml-1">Disable</label>
-      
+
         <label for="authentication" class="mr-2">Authentication</label>
         <input type="checkbox" name="authentication" id="authentication" {{ $stores->authentication == 'top_stores' ? 'checked' : '' }} value="top_stores">
         <label for="authentication" class="ml-1">Top Store</label>
       </div>
-      
+
 <div class="form-group">
     <label for="category">Category <span class="text-danger">*</span></label>
     <select name="category" id="category" class="form-control">
@@ -146,16 +146,16 @@ color: darkblue;
     <label for="lang">Language <span class="text-danger">*</span></label>
     <select name="language_id" id="lang" class="form-control">
         <option disabled>--Select Langs--</option>
-        
+
         <!-- Loop through languages and set the selected option -->
         @foreach ($langs as $lang)
-            <option value="{{ $lang->id }}" 
+            <option value="{{ $lang->id }}"
                 {{ isset($stores->language_id) && $stores->language_id == $lang->id ? 'selected' : '' }}>
                 {{ $lang->code }}
             </option>
         @endforeach
     </select>
-    
+
 
 
     </div>
@@ -231,7 +231,7 @@ document.getElementById('imagePreview').innerHTML = ''; // Clear preview if no f
         // Filter out non-alphabetic characters and update slug automatically
         const filteredValue = value.replace(/[^A-Za-z\s]/g, '');
         textOnlyInput.value = filteredValue;
-        
+
         // Automatically check slug existence after auto-filling
         checkSlugExistence(filteredValue);
     });
@@ -240,7 +240,7 @@ document.getElementById('imagePreview').innerHTML = ''; // Clear preview if no f
         // Check slug existence when the user types manually in the slug field
         $('#slug').on('keyup', function() {
             var slug = $(this).val();
-            
+
             // Check if the slug has any value (optional: avoid AJAX if empty)
             if (slug) {
                 checkSlugExistence(slug);
