@@ -261,8 +261,51 @@
     box-shadow: 0 0 15px rgba(142, 36, 170, 0.7), 0 0 30px rgba(213, 0, 249, 0.5); /* Purple-themed glow */
     animation: fadein 0.5s; /* Bounce effect on hover */
     }
+    @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
 
-    </style>
+        @keyframes bounce {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .btn-purple {
+            color: #6f42c1;
+            border: 2px solid #6f42c1;
+            background-color: transparent;
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            /* animation: fadeIn 0.8s ease; */
+            outline: none;
+        }
+
+        .btn-purple:hover {
+            color: #fff;
+            background-color: #6f42c1;
+            text-decoration: none;
+            border-color: #6f42c1;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            /* animation: bounce 0.5s; */
+        }
+
+ </style>
     @section('main-content')
     <main class="main container-fluid text-capitalize">
     @php
@@ -278,7 +321,7 @@
     $totalCount = $codeCount + $dealCount;
     @endphp
 
-    <nav aria-label="breadcrumb" class=" p-3"  >
+    <section aria-label="breadcrumb" class=" "  >
     <ol class="breadcrumb">
     <li class="breadcrumb-item">
     <a href="{{{ url(app()->getLocale() . '/') }}}" class="text-purple text-decoration-none">Home</a>
@@ -290,14 +333,15 @@
     @endif
     </li>
     <li class="breadcrumb-item">
-    <a href="{{ route('stores', ['lang' => app()->getLocale()]) }}" class="text-purple text-decoration-none ">Stores</a>
+    <a href="{{ route('stores' ) }}" class="text-purple text-decoration-none ">Stores</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
     {{ $store->slug }}
     </li>
     </ol>
-    </nav>
-    <div class="  py-5">
+    </section>
+
+    <div class="py-2">
     <div class="text-center mb-4">
     <h1 class="display-7 fw-bold text-dark">{{ $store->name }} </h1>
     {{-- <span>{{$store->language->code}}</span> --}}
@@ -311,7 +355,7 @@
             <div class="alert alert-warning shadow-lg p-4 rounded-lg">
                 <h4 class="fw-bold text-dark mb-3">Oops! No Coupons Available</h4>
                 <p class="text-muted">Don't worry, you can still explore amazing deals from our partnered brands.</p>
-                <a href="{{ route('stores', ['lang' => app()->getLocale()]) }}" class="btn btn-primary mt-3 px-4 py-2 fw-semibold">
+                <a href="{{ route('stores') }}" class="btn btn-primary mt-3 px-4 py-2 fw-semibold">
                     Explore Brands <i class="fas fa-arrow-right ms-2"></i>
                 </a>
             </div>
@@ -319,46 +363,43 @@
 
     @else
     @foreach ($coupons as $coupon)
-    <div class="col-md-4">
-    <div class="card-coupon h-100 shadow-lg p-4  rounded-lg d-flex flex-column">
-    <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="card-img-top coupon-image shadow mb-3 rounded" alt="{{ $store->name }}">
 
-    <span class="authentication">{{ $coupon->authentication }}</span>
-    <hr>
-
-    <!-- Set a fixed height for the text container to prevent pushing buttons down -->
-    <div class="text-container flex-grow-1">
-    <span class="coupon-name ">{{ $coupon->name }}</span>
-    <hr>
-    <p class="coupon-description ">{{ $coupon->description }}</p>
-    <hr>
+<div class="col-md-4">
+    <div class="card-coupon h-100 shadow-lg p-4 rounded-lg d-flex flex-column">
+        <div class="d-flex flex-column flex-md-column">
+            <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="card-img-top coupon-image shadow mb-3 rounded" alt="{{ $store->name }}">
+            <div class="d-flex flex-column flex-md-column justify-content-between w-100">
+                <span class="authentication">{{ $coupon->authentication }}</span>
+                <hr>
+                <!-- Set a fixed height for the text container to prevent pushing buttons down -->
+                <div class="text-container flex-grow-1">
+                    <span class="coupon-name">{{ $coupon->name }}</span>
+                    <hr>
+                    <p class="coupon-description">{{ $coupon->description }}</p>
+                    <hr>
+                </div>
+                <span class="ending-date" style="color: {{ strtotime($coupon->ending_date) < strtotime(now()) ? '#951d1d' :'#909090' }};">
+                    Ends: {{ \Carbon\Carbon::parse($coupon->ending_date)->format('d-m-Y') }}
+                </span>
+                <hr>
+                <span class="used" id="usedCount{{ $coupon->id }}">Used By: {{ $coupon->clicks }}</span>
+            </div>
+        </div>
+        <!-- Coupon Code Section - Buttons stay in one line -->
+        <div class="mt-auto d-flex justify-content-center align-items-center gap-2 w-100">
+            @if ($coupon->code)
+                <a href="{{ $coupon->destination_url }}" target="_blank" class="reveal-code" id="getCode{{ $coupon->id }}" onclick="handleRevealCode('{{ $coupon->id }}', '{{ $coupon->code }}')">
+                    <span class="coupon-text">Activate Coupon</span>
+                    <span class="coupon-code" id="couponCode{{ $coupon->id }}" style="display: none;">{{ $coupon->code }}</span>
+                </a>
+            @else
+                <a href="{{ $coupon->destination_url }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
+                    View Deal
+                </a>
+            @endif
+        </div>
     </div>
-
-    <span class="ending-date" style="color: {{ strtotime($coupon->ending_date) < strtotime(now()) ? '#951d1d' :'#909090' }};">
-    Ends: {{ \Carbon\Carbon::parse($coupon->ending_date)->format('d-m-Y') }}
-    </span>
-    <hr>
-
-    <span class="used" id="usedCount{{ $coupon->id }}">Used By: {{ $coupon->clicks }}</span>
-
-    <!-- Coupon Code Section - Buttons stay in one line -->
-    <div class="mt-auto d-flex justify-content-center align-items-center gap-2 w-100">
-    @if ($coupon->code)
-    <a href="{{ $coupon->destination_url }}"  target="_blank"  class="reveal-code" id="getCode{{ $coupon->id }}" onclick="handleRevealCode('{{ $coupon->id }}', '{{ $coupon->code }}')">
-    <span class="coupon-text">Activate Coupon</span>
-    <span class="coupon-code" id="couponCode{{ $coupon->id }}" style="display: none;">{{ $coupon->code }}</span>
-    </a>
-
-    @else
-    <a href="{{ $coupon->destination_url }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
-    View Deal
-    </a>
-    @endif
-    </div>
-    </div>
-    </div>
-
-
+</div>
     <!-- Coupon Code Modal -->
     <div class="modal fade" id="couponModal" tabindex="-1" aria-labelledby="couponModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -423,9 +464,9 @@
     <div class="store-info-card card shadow-sm p- mb-2 bg-white rounded">
     <h4 class=" filter-h mb-4">Filter By Voucher Codes</h4>
     <div class="btn-group" role="group" aria-label="Sort Coupons">
-    <a href="{{ url()->current() }}" class="btn btn-outline-dark">All</a>
-    <a href="{{ url()->current() }}?sort=codes" class="btn btn-outline-dark">Codes</a>
-    <a href="{{ url()->current() }}?sort=deals" class="btn btn-outline-dark">Deals</a>
+    <a href="{{ url()->current() }}" class=" btn-purple">All</a>
+    <a href="{{ url()->current() }}?sort=codes" class=" btn-purple">Codes</a>
+    <a href="{{ url()->current() }}?sort=deals" class=" btn-purple">Deals</a>
     </div>
     </div>
     <hr>

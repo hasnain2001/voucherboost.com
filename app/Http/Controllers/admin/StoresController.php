@@ -77,7 +77,7 @@ class StoresController extends Controller
         // Validate the incoming request data
         $request->validate([
             'name' => 'required|string|max:255',
-            'language_id' =>'required|integer',
+            'language_id' =>'nullable|integer',
             'slug' => 'nullable|string|max:255|unique:stores,slug', // Slug is now nullable
             'top_store' => 'nullable|integer',
             'description' => 'nullable|string',
@@ -130,7 +130,7 @@ class StoresController extends Controller
         Stores::create([
             'name' => $request->input('name'),
             'slug' => $slug, // Use the generated or provided slug
-            'language_id' => $request->input('language_id'),
+            'language_id' => $request->input('language_id', 1),
             'top_store' => $request->input('top_store'),
             'description' => $request->input('description'),
             'url' => $request->input('url'),
@@ -168,7 +168,7 @@ class StoresController extends Controller
         $request->validate([
         'name' => 'required|string|max:255',
         'slug' => ['required','string','max:255',Rule::unique('stores')->ignore($store->id),],
-        'language_id' =>'required|integer',
+        'language_id' =>'nullable|integer',
         'top_store' => 'nullable|integer',
         'description' => 'nullable|string',
         'url' => 'nullable|url',
@@ -218,7 +218,7 @@ class StoresController extends Controller
         $store->update([
             'name' => $request->input('name'),
             'slug' => $request->input('slug'),
-            'language_id' => $request->input('language_id'),
+            'language_id' => $request->input('language_id',$store->language_id),
             'top_store' => $request->input('top_store'),
             'description' => $request->input('description'),
             'url' => $request->input('url'),
@@ -249,7 +249,6 @@ class StoresController extends Controller
                 'deleted_by' => Auth::id(),
 
             ]);
-
             // Delete associated coupons with the same store name
             Coupons::where('store', $store->name)->delete();
 
@@ -262,32 +261,23 @@ class StoresController extends Controller
         return redirect()->back()->with('error', 'Store not found.');
     }
     public function deleteSelected(Request $request)
-{
-    // Get selected store IDs from the request
-    $storeIds = $request->input('selected_stores');
+    {
 
-    if ($storeIds) {
-        // Find the stores by IDs
+        $storeIds = $request->input('selected_stores');
+        if ($storeIds) {
         $stores = Stores::whereIn('id', $storeIds)->get();
-
         foreach ($stores as $store) {
-            // Log the store deletion attempt in the delete_store table
-            DeleteStore::create([
-                'store_id' => $store->id,
-                'store_name' => $store->name,
-                'deleted_by' => Auth::id(),
-            ]);
-
-            // Delete associated coupons with the same store name
-            Coupons::where('store', $store->slug)->delete();
-
-            // Delete the store (soft delete if the SoftDeletes trait is used)
-            $store->delete();
+        DeleteStore::create([
+        'store_id' => $store->id,
+        'store_name' => $store->name,
+        'deleted_by' => Auth::id(),
+        ]);
+        Coupons::where('store', $store->slug)->delete();
+        $store->delete();
         }
-
         return redirect()->back()->with('success', 'Selected stores and their associated coupons deleted successfully.');
-    } else {
+        } else {
         return redirect()->back()->with('error', 'No stores selected for deletion.');
+        }
     }
-}
 }

@@ -137,7 +137,12 @@ margin-right: 5px; /* Adjust spacing between the input and label */
 <label for="disable">Disable</label>
 </div>
 <label for="authentication">Authentication</label><br>
-<div class="checkbox-container">
+@foreach (['featured', ] as $auth)
+<input type="radio" name="authentication" id="{{ $auth }}" value="{{ $auth }}"
+{{ old('authentication') === $auth ? 'checked' : '' }}>
+<label for="{{ $auth }}">{{ ucfirst(str_replace('_', ' ', $auth)) }}</label>
+@endforeach
+{{-- <div class="checkbox-container">
 @foreach (['never expire', 'featured', 'free shipping', 'coupon code', 'top deals', 'valentine'] as $auth)
 <input type="radio" name="authentication" id="{{ $auth }}" value="{{ $auth }}"
 {{ old('authentication') === $auth ? 'checked' : '' }}>
@@ -157,7 +162,7 @@ margin-right: 5px; /* Adjust spacing between the input and label */
 <input type="text" class="form-control" name="authentication" id="otherAuthentication"
 value="{{ old('other_authentication') }}">
 </div>
-</div>
+</div> --}}
 
 
 

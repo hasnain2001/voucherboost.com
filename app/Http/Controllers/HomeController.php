@@ -14,14 +14,15 @@ class HomeController extends Controller
 {
     public function free_delivery()
     {
-$coupons = Coupons::where('namer','free deliver')->where('authentication', 'featured')->orderBy('created_at', 'desc')->get();
+        $populorstores = Stores::where('top_store', '>', 0)->where('status', 'enable')->get();
+$coupons = Coupons::where('name','Free Delivery')->get();
         return view('free-delivery', compact('coupons'));
 
     }
     public function index()
     {
 
-    return view('home', compact('sliders', 'stores', 'blogs'));
+    return view('home' );
     }
     public function blog_home(){
  $blogs = Blog::orderBy('created_at', 'desc')->paginate(5);
@@ -72,38 +73,36 @@ $chunks = Stores::where('top_store', '>', 0)->where('status', 'enable')->get();
     }
 
 
-    public function StoreDetails($lang = 'en', $slug, Request $request)
+    public function StoreDetails(Request $request, $slug)
     {
-    app()->setLocale($lang);
-    $title = ucwords(str_replace('-', ' ', Str::slug($slug)));
-    $store = Stores::with('language')->where('slug', $title)->firstOrFail();
-    if (!$store->language) {
-    return response()->json(['error' => 'No language selected for this store.'], 404);
-    }
-    if ($lang !== $store->language->code) {
-    return redirect()->route('store_details.withLang', [
-    'lang' => $store->language->code,
-    'slug' => $slug
-    ]);
-    }
-    $query = Coupons::where('store', $store->slug)->orderByRaw('CAST(`order` AS SIGNED) ASC')->where('status','enable');
-    if ($request->query('sort') === 'codes') {
-    $query->whereNotNull('code');
-    } elseif ($request->query('sort') === 'deals') {
-    $query->whereNull('code');
-    }
-    $coupons = $query->get();
-    $codeCount = $coupons->whereNotNull('code')->count();
-    $dealCount = $coupons->whereNull('code')->count();
-    $relatedStores = Stores::where('category', $store->category)
-    ->where('id', '!=', $store->id)
-    ->where('language_id', $store->language_id)
-    ->orderBy('created_at', 'desc')
-    ->limit(30)
-    ->get();
-    $relatedblogs = Blog::where('category',$store->category) ->orderBy('created_at', 'desc')->get();
+        $title = ucwords(str_replace('-', ' ', Str::slug($slug)));
+        $store = Stores::where('slug', $title)->firstOrFail();
 
-    return view('store_details', compact('store', 'coupons', 'relatedStores', 'codeCount', 'dealCount','relatedblogs'));
+        $query = Coupons::where('store', $store->slug)
+            ->orderByRaw('CAST(`order` AS SIGNED) ASC')
+            ->where('status', 'enable');
+
+        if ($request->query('sort') === 'codes') {
+            $query->whereNotNull('code');
+        } elseif ($request->query('sort') === 'deals') {
+            $query->whereNull('code');
+        }
+
+        $coupons = $query->get();
+        $codeCount = $coupons->whereNotNull('code')->count();
+        $dealCount = $coupons->whereNull('code')->count();
+
+        $relatedStores = Stores::where('category', $store->category)
+            ->where('id', '!=', $store->id)
+            ->orderBy('created_at', 'desc')
+            ->limit(30)
+            ->get();
+
+        $relatedblogs = Blog::where('category', $store->category)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('store_details', compact('store', 'coupons', 'relatedStores', 'codeCount', 'dealCount', 'relatedblogs'));
     }
 
 

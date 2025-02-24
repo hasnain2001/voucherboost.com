@@ -107,6 +107,14 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
+                                        <label for="top_store">Top Store <span class="text-danger">*</span></label>
+                                        <input type="radio" name="top_store" id="not_top_store" value="0" {{ old('top_store') == '0' ? 'checked' : '' }} required> Not Top Store
+                                        <input type="radio" name="top_store" id="top_store" value="1" {{ old('top_store') == '1' ? 'checked' : '' }}> Top Store
+                                        @error('top_store')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
                                         <label for="status">Status <span class="text-danger">*</span></label>
                                         <input type="radio" name="status" id="enable" value="enable" {{ old('status') == 'enable' ? 'checked' : '' }} required> Enable
                                         <input type="radio" name="status" id="disable" value="disable" {{ old('status') == 'disable' ? 'checked' : '' }}> Disable
@@ -142,7 +150,7 @@
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="language_id">Language <span class="text-danger">*</span></label>
                                         <select name="language_id" id="language_id" class="form-control" required>
                                             <option value="" disabled {{ old('language_id') ? '' : 'selected' }}>--Select Language--</option>
@@ -155,7 +163,7 @@
                                         @error('language_id')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                         <div class="form-group">
                                         <label for="store_image">Store Image <span class="text-danger">*</span></label>
                                         <input type="file" class="form-control" name="store_image" id="store_image"  value="{{ old('store_image') }}" required>

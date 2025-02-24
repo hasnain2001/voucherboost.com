@@ -77,7 +77,7 @@ public function checkSlug(Request $request)
         // Validate the incoming request data
         $request->validate([
             'name' => 'required|string|max:255',
-            'language_id' =>'required|integer',
+            'language_id' =>'nullable|integer',
             'slug' => 'nullable|string|max:255|unique:stores,slug', // Slug is now nullable
             'top_store' => 'nullable|integer',
             'description' => 'nullable|string',
@@ -130,7 +130,7 @@ public function checkSlug(Request $request)
         Stores::create([
             'name' => $request->input('name'),
             'slug' => $slug, // Use the generated or provided slug
-            'language_id' => $request->input('language_id'),
+            'language_id' => $request->input('language_id', 1),
             'top_store' => $request->input('top_store'),
             'description' => $request->input('description'),
             'url' => $request->input('url'),
@@ -168,12 +168,7 @@ public function checkSlug(Request $request)
         // Validate the request data
         $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('stores')->ignore($store->id),
-            ],
+            'slug' => [ 'required','string', 'max:255', Rule::unique('stores')->ignore($store->id),],
             'language_id' =>'nullable|integer',
             'top_store' => 'nullable|integer',
             'description' => 'nullable|string',

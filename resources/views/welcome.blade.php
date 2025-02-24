@@ -37,7 +37,7 @@ header("X-Robots-Tag:index, follow");
     </head>
     <body >
         <x-navbar/>
-        
+
 
         @yield('main-content')
 
@@ -101,8 +101,7 @@ $(document).ready(function() {
             $.ajax({
                 url: '{{ route("search") }}',
                 dataType: 'json',
-                data: {
-                    query: request.term
+                data: { query: request.term
                 },
                 success: function(data) {
                     response(data.stores); // Ensure `data.stores` is an array of strings or objects

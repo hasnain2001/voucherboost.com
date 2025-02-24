@@ -161,38 +161,7 @@
     background-color: #121213;
 }
 
-/* Autocomplete Dropdown Styling */
-.ui-autocomplete {
-    position: absolute;
-    z-index: 1000;
-    max-height: 200px;
-    overflow-y: scroll;
-    width: 600px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #b21898;
-    box-shadow: 0 4px 6px rgba(159, 10, 192, 0.1);
 
-}
-
-
-/* Individual suggestion item */
-.ui-autocomplete li {
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-/* Hover effect for suggestions */
-.ui-autocomplete li.ui-menu-item:hover {
-    background-color: #9a28c3; /* Highlight on hover */
-    color: white;
-}
-/* Styling for the selected item in the autocomplete dropdown */
-.ui-autocomplete li.ui-menu-item.ui-state-active {
-    background-color: #7b129e; /* Darker blue for selected item */
-    color: white;
-}
 </style>
 
 <main class="container-fluid">
@@ -202,15 +171,7 @@
         <hr>
     </div>
 
-    <div class="search-container">
-        <h3 class="heading">FIND YOUR FAVORITE BRANDS</h3>
-        <form id="searchForm" action="{{ route('search') }}" method="GET" class="d-flex" role="search">
-            <div class="input-group">
-                <input type="search" class="search-input" name="query" id="searchInput" placeholder="Search Here" aria-label="Search" value="{{ old('query', request()->input('query')) }}">
-                <button class="btn btn-primary search-button" type="submit"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
-    </div>
+
     @foreach ($coupons as $coupon)
     @php
     $store = App\Models\Stores::where('slug', $coupon->store)->first();
@@ -308,7 +269,7 @@
     </div>
     @endforeach
 
-    {{ $coupons->links('vendor.pagination.bootstrap-4') }}
+    {{ $coupons->links('vendor.pagination.custom') }}
 </main>
 
 @endsection

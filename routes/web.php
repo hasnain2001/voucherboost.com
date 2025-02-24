@@ -41,12 +41,14 @@ Route::middleware([Localization::class])->group(function () {
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/stores', 'stores')->name('stores');
-    Route::get('store/{slug}', function($slug) {return app(HomeController::class)->StoreDetails('en', $slug, request());})->name('store_details');
+    Route::get('/store/{slug}', 'StoreDetails')->name('store_details');
+    // Route::get('store/{slug}', function($slug) {return app(HomeController::class)->StoreDetails('en', $slug, request());})->name('store_details');
     // Route::get('/{lang}/store/{slug}', [HomeController::class, 'StoreDetails'])->name('store_details.withLang');
+
     Route::get('/coupon', 'coupons')->name('coupons');
     Route::get('/categories', 'categories')->name('categories');
     Route::get('/category/{slug}', 'viewcategory')->name('related_category');
-    Route::get('/FREE DELIVERY', 'free_delivery')->name('FREE-DELIVERY');
+    Route::get('/free-delivery-offers', 'free_delivery')->name('FREE-DELIVERY');
 
 
    // Route for search

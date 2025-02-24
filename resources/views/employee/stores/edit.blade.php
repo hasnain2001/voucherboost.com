@@ -121,11 +121,19 @@ color: darkblue;
         <input type="radio" name="status" id="disable" {{ $stores->status == 'disable' ? 'checked' : '' }} value="disable">
         <label for="disable" class="mr-4 ml-1">Disable</label>
 
+
+      </div>
+    <div class="form-group">
+        <label for="top_store">Top Store <span class="text-danger">*</span></label>
+        <input type="radio" name="top_store" id="not_top_store" value="0" {{ $stores->top_store == '0' ? 'checked' : '' }} required> Not Top Store
+        <input type="radio" name="top_store" id="top_store" value="1" {{ $stores->top_store == '1' ? 'checked' : '' }}> Top Store
+        @error('top_store')
+        <small class="text-danger">{{ $message }}</small>
+        @enderror
+    </div>
         {{-- <label for="authentication" class="mr-2">Authentication</label>
         <input type="checkbox" name="authentication" id="authentication" {{ $stores->authentication == 'top_stores' ? 'checked' : '' }} value="top_stores">
         <label for="authentication" class="ml-1">Top Store</label> --}}
-      </div>
-
 <div class="form-group">
     <label for="category">Category <span class="text-danger">*</span></label>
     <select name="category" id="category" class="form-control">
@@ -137,7 +145,7 @@ color: darkblue;
 
 
     </div>
-    <div class="form-group">
+    {{-- <div class="form-group">
     <label for="lang">Language <span class="text-danger">*</span></label>
     <select name="language_id" id="lang" class="form-control">
         <option disabled>--Select Langs--</option>
@@ -153,7 +161,7 @@ color: darkblue;
 
 
 
-    </div>
+    </div> --}}
 <div class="form-group">
 <label for="network">Network <span class="text-danger">*</span></label>
 <select name="network" id="network" class="form-control">

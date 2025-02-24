@@ -32,17 +32,22 @@
                     @foreach ($stores as $store)
                         <div class="col-6 col-lg-3 mb-4 d-flex">
                             <div class="card shadow flex-fill">
-                          @php
-    $language = $store->language ? $store->language->code : 'en'; // Default to 'en' if language is null
-    $storeSlug = Str::slug($store->slug);
+            {{-- @php
+            $language = $store->language ? $store->language->code : 'en'; // Default to 'en' if language is null
+            $storeSlug = Str::slug($store->slug);
 
-    // Conditionally generate the URL based on the language
-    $storeurl = $store->slug
-        ? ($language === 'en'
+            // Conditionally generate the URL based on the language
+            $storeurl = $store->slug
+            ? ($language === 'en'
             ? route('store_details', ['slug' => $storeSlug])  // English route without 'lang'
             : route('store_details.withLang', ['lang' => $language, 'slug' => $storeSlug]))  // Other languages
-        : '#';
-@endphp
+            : '#';
+            @endphp --}}
+                @php
+                $storeurl = $store->slug
+                  ? route('store_details', ['slug' => Str::slug($store->slug)])
+                  : '#';
+                @endphp
                                 <a href="{{$storeurl }}" class="text-decoration-none text-dark text-center">
                                     <div class="card-body d-flex flex-column">
                                         @if ($store->store_image)
@@ -60,6 +65,13 @@
             </div>
         </div>
     </div>
+
+        <div class="row mt-3 justify-content-end">
+            <div class="col-12">
+                {{ $stores->links('vendor.pagination.custom') }}
+            </div>
+        </div>
+
 </div>
 
 @endsection

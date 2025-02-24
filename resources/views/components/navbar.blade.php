@@ -13,13 +13,16 @@
 
     <!-- Search Bar -->
     <div class="search-bar d-flex">
-        <input type="text" class="form-control" placeholder="Search Stores and Offers in Couponiversal">
-        <button class="btn"><i class="bi bi-search"></i></button>
+        <form id="searchForm" action="{{ route('search') }}" method="GET" role="search">
+            <input type="text" class="form-control" name="query" id="searchInput" placeholder="Search Here" aria-label="Search" value="{{ old('query', request()->input('query')) }}">
+            <button class="btn" type="submit"><i class="bi bi-search"></i></button>
+        </form>
     </div>
+    
 
     <!-- Right Section -->
     <div class="nav-right d-flex align-items-center header-links">
-<a href=""><span class="me-3 ">FREE DELIVERY</span></a>
+<a href="{{route('FREE-DELIVERY')}}"><span class="me-3 ">FREE DELIVERY</span></a>
 <a href=""><span class="me-3 ">20% OFFERS</span></a>
     </div>
 </div>

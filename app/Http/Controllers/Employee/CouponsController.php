@@ -121,7 +121,7 @@ public function update(Request $request)
             'destination_url' => $request->destination_url,
             'ending_date' => $request->ending_date,
             'status' => $request->status,
-            'authentication' => $request->authentication ?? "On Sale",
+            'authentication' => $request->authentication ?? "Sale",
             'store' => $request->store ,
             'top_coupons' => $request->top_coupons,
         ]);
