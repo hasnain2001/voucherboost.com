@@ -2,7 +2,7 @@ Here’s the **one-page `README.md`** file ready for you to **copy and paste** d
 
 ---
 
-# Coupon Website
+# VoucherBoost.com
 
 <p align="center">
   <a href="https://laravel.com" target="_blank">
