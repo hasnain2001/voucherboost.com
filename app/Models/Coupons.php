@@ -31,4 +31,8 @@ class Coupons extends Model
 {
     return $this->belongsTo(Language::class, 'language_id');
 }
+public function store()
+{
+    return $this->belongsTo(Stores::class, 'store', 'slug'); // Adjust foreign key if needed
+}
 }

@@ -17,8 +17,8 @@
     }
 
     .coupon-name {
-        font-size: 2rem;
-        color: red;
+        font-size: 1.5rem;
+        color: rgb(0, 0, 0);
     }
 
     .ending-date {
@@ -109,24 +109,28 @@
 <main class="container-fluid text-capitalize">
 
     <div class="text-center text-dark bg-primary py-4">
-        <h1>free delivery offers</h1>
+        <h1>20 off offers</h1>
         <hr>
     </div>
 
 
 
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <h4 class="text-center">Popular Stores</h4>
             @foreach ($populorstores as $store )
-            @php $storeurl = $store->slug ? route('store_details', ['slug' => Str::slug($store->slug)]) : '#'; @endphp
+            @php
+            $storeurl = $store->slug
+              ? route('store_details', ['slug' => Str::slug($store->slug)])
+              : '#';
+            @endphp
             <div class="card mb-3">
-            <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="card-img-top" alt="{{ $store->name }} Image">
-            <div class="card-body text-center">
-                <a href="{{ $storeurl }}" class="text-dark text-decoration-none stretched-link">
-                <span class="card-title">{{ $store->slug ?: $store->name }}</span>
-                </a>
-            </div>
+                <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="card-img-top" alt="{{ $store->name }} Image">
+                <div class="card-body text-center">
+                    <a href="{{ $storeurl }}" class="text-dark text-decoration-none stretched-link">
+                        <span class="card-title">{{ $store->slug ?: $store->name }}</span>
+                    </a>
+                </div>
             </div>
             @endforeach
         </div>
@@ -143,7 +147,7 @@
                     <div class="col-md-2 col-4 text-center">
                         @if ($store && $store->store_image)
                         <a href="{{ route('store_details', ['slug' => Str::slug($coupon->store)]) }}">
-                            <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="img-fluid rounded" alt="{{ $store->name }} Logo">
+                            <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class=" img-fluid rounded" alt="{{ $store->name }} Logo" style="object-fit: fill">
                         </a>
                         @else
                         <span class="text-muted">{{$coupon->store}} no store found </span>
@@ -151,9 +155,10 @@
                     </div>
 
                     <div class="col-md-7 col-8">
-                        <h4 class="coupon-authentication">{{ $coupon->authentication }}</h4>
+
                         <span class="coupon-name">{{ $coupon->name }}</span>
                         <p class="coupon-description">{{ $coupon->description }}</p>
+                        <span class="coupon-authentication">{{ $coupon->authentication }}</span>
                         <a href="{{ route('store_details', ['slug' => Str::slug($coupon->store)]) }}" class="text-decoration-none">See All Offers</a>
                         <p class="ending-date text-muted">Ends: {{ \Carbon\Carbon::parse($coupon->ending_date)->format('d-m-Y') }}</p>
                         <p class="text-success">Used: {{ $coupon->clicks }}</p>
@@ -161,10 +166,10 @@
 
                     <div class="col-md-3 text-center">
                         @if ($coupon->code)
-                            <a href="{{ $coupon->destination_url }}" target="_blank" class="btn btn-success w-100" id="getCode{{ $coupon->id }}"
+                            <a href="{{ $coupon->destination_url }}" target="_blank" class=" reveal-code w-100" id="getCode{{ $coupon->id }}"
                                 onclick="handleRevealCode('{{ $coupon->id }}', '{{ $coupon->code }}')">Reveal Code</a>
                         @else
-                           <a href="{{ $coupon->destination_url }}" target="_blank" class="btn btn-primary w-100" onclick="updateClickCount('{{ $coupon->id }}')">View Deal</a>
+                           <a href="{{ $coupon->destination_url }}" target="_blank" class=" get w-100" onclick="updateClickCount('{{ $coupon->id }}')">View Deal</a>
                         @endif
                         <br>
                         <br>

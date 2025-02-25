@@ -32,6 +32,8 @@ header("X-Robots-Tag:index, follow");
 <!-- Styles -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="{{ asset('bootstrap-5.3.3-dist/css/icons/bootstrap-icons.min.css') }}">
+<link rel="stylesheet" href="{{asset('cssfiles/store-detail.css')}}">
+<link rel="stylesheet" href="{{asset('cssfiles/footer.css')}}">
 
 
     </head>

@@ -120,7 +120,7 @@ public function update(Request $request)
         // Create coupon using validated data
         Coupons::create([
             'name' => $request->name,
-            'language_id' => $request->input('language_id'),
+            'language_id' => $request->input('language_id', 1),
             'description' => $request->description,
             'code' => $request->code,
             'destination_url' => $request->destination_url,
@@ -149,21 +149,20 @@ public function update(Request $request)
         // Define validation rules
         $request->validate([
             'name' => 'required|string|max:255',
-            'language_id' => 'nullable|integer', // Allow null, so it doesn't throw an error if not provided
+            'language_id' => 'nullable|integer',
             'description' => 'nullable|string|max:1000',
             'code' => 'nullable|string|max:100',
             'destination_url' => 'nullable',
             'ending_date' => 'nullable|date|after_or_equal:today',
             'authentication' => 'nullable|string',
               'status' => 'required|in:enable,disable',
-            'store' => 'nullable|string|max:255', // Allow null, so it doesn't throw an error if not provided
+            'store' => 'nullable|string|max:255',
             'top_coupons' => 'nullable|integer|min:0',
         ]);
 
-        // Update the coupon details, retain old values if not provided
         $coupons->update([
             'name' => $request->name,
-            'language_id' => $request->input('language_id', $coupons->language_id), // Retain previous value if not provided
+            'language_id' => $request->input('language_id', $coupons->language_id , 1),
             'description' => $request->description,
             'code' => $request->code,
             'destination_url' => $request->destination_url,
@@ -177,13 +176,8 @@ public function update(Request $request)
         $store = Stores::where('slug', $coupons->store)->first();
 
         if ($store) {
-            // Assuming $coupon is the variable holding the coupon details
-            $couponName = $coupon->name ?? 'Coupon'; // Default to "Coupon" if name is not available
-
-            // Generate the URL for redirection
-            $url = route('admin.store_details', ['slug' => Str::slug($store->slug)]);
-
-            // Redirect with a dynamic success message
+         $couponName = $coupon->name ?? 'Coupon';
+           $url = route('admin.store_details', ['slug' => Str::slug($store->slug)]);
             return redirect($url)->with('success', "$couponName Updated Successfully");
         }
 

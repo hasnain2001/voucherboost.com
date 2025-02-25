@@ -121,7 +121,7 @@ public function update(Request $request)
             'destination_url' => $request->destination_url,
             'ending_date' => $request->ending_date,
             'status' => $request->status,
-            'authentication' => $request->authentication ?? "Sale",
+            'authentication' => $request->authentication ,
             'store' => $request->store ,
             'top_coupons' => $request->top_coupons,
         ]);
@@ -157,13 +157,13 @@ public function update(Request $request)
         // Update the coupon details, retain old values if not provided
         $coupons->update([
             'name' => $request->name,
-            'language_id' => $request->input('language_id', $coupons->language_id), // Retain previous value if not provided
+            'language_id' => $request->input('language_id', $coupons->language_id),
             'description' => $request->description,
             'code' => $request->code,
             'destination_url' => $request->destination_url,
             'ending_date' => $request->ending_date,
             'status' => $request->status,
-            'authentication' => $request->authentication ?? "Sale",
+            'authentication' => $request->authentication ,
             'store' => $request->input('store', $coupons->store), // Retain previous value if not provided
             'top_coupons' => $request->top_coupons,
         ]);

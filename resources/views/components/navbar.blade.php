@@ -18,18 +18,18 @@
             <button class="btn" type="submit"><i class="bi bi-search"></i></button>
         </form>
     </div>
-    
+
 
     <!-- Right Section -->
     <div class="nav-right d-flex align-items-center header-links">
 <a href="{{route('FREE-DELIVERY')}}"><span class="me-3 ">FREE DELIVERY</span></a>
-<a href=""><span class="me-3 ">20% OFFERS</span></a>
+<a href="{{route('20-off-offers')}}"><span class="me-3 ">20% OFFERS</span></a>
     </div>
 </div>
 
 <!-- Mobile Nav Menu -->
 <div class="mobile-nav" id="mobileNav">
-    <a href="#" onclick="toggleMobileNav()"><i class="bi bi-x"></i> </a>
+    <a href="#"  onclick="toggleMobileNav()"><i class="bi bi-x"></i> </a>
     <a href="/">Home</a>
     <a href="{{route('stores')}}">Stores</a>
     <a href="{{route('categories')}}">Categories</a>

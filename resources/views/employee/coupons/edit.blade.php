@@ -108,12 +108,12 @@
 
                                 <div class="form-group">
                                     <label>Authentication:</label>
-                                    @php $authOptions = ['never expire', 'featured', 'free shipping', 'coupon code', 'top deals', 'valentine']; @endphp
+                                    @php $authOptions = ['never expire', 'Featured', 'free shipping', 'coupon code', 'top deals', 'valentine']; @endphp
                                     @foreach ($authOptions as $auth)
                                         <div class="form-check"><input type="radio" class="form-check-input" name="authentication" id="{{ $auth }}" value="{{ $auth }}" {{ $coupons->authentication === $auth ? 'checked' : '' }} onchange="toggleOtherInputVisibility(false)"><label class="form-check-label" for="{{ $auth }}">{{ ucfirst($auth) }}</label></div>
                                     @endforeach
                                     <div class="form-check"><input type="radio" class="form-check-input" name="authentication" id="otherOption" value="other" {{ !in_array($coupons->authentication, $authOptions) ? 'checked' : '' }} onchange="toggleOtherInputVisibility(true)"><label class="form-check-label" for="otherOption">Other</label></div>
-                                    <div class="form-group" id="otherInputGroup" style="{{ !in_array($coupons->authentication, $authOptions) ? '' : 'display: none;' }}"><label for="otherAuthentication">Authentication</label><input type="text" class="form-control" name="authentication" id="otherAuthentication" value="{{ !in_array($coupons->authentication, $authOptions) ? $coupons->authentication : '' }}" oninput="updateAuthenticationValue(this)"></div>
+                                    <div class="form-group" id="otherInputGroup" style="{{ !in_array($coupons->authentication, $authOptions) ? '' : 'display: none;' }}"><label for="otherAuthentication">Authentication</label><input type="text" class="form-control" name="other_authentication" id="otherAuthentication" value="{{ !in_array($coupons->authentication, $authOptions) ? $coupons->authentication : '' }}" oninput="updateAuthenticationValue(this)"></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="store">Store <span class="text-danger">*</span></label>
@@ -124,7 +124,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
                                     <input type="url" class="form-control" name="destination_url" id="destination_url" value="{{ $coupons->destination_url }}">

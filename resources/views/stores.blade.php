@@ -84,52 +84,35 @@
 
 
     <div class="container">
-      <div class="row mt-3">
-        <h1 class="text-center display-4">Popular Stores</h1>
-        <p class="h5 m-0">Total stores: <span class="fw-bold">{{ $stores->total() }}</span></p>
-        <!-- Responsive grid -->
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-4">
-          @foreach ($stores as $store)
-            <div class="col">
-              <div class="card shadow-sm  overflow-hidden">
-                @php
-                $storeurl = $store->slug
-                  ? route('store_details', ['slug' => Str::slug($store->slug)])
-                  : '#';
-                @endphp
-                <a href="{{ $storeurl }}">
-                  @if ($store->store_image)
-                    <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="card-img-top" alt="{{ $store->name }} Image">
-                  @else
-                    @if ($store->previous_image)
-                      <img src="{{ asset('uploads/stores/' . $store->previous_image) }}" class="card-img-top" alt="{{ $store->name }} Image">
-                    @else
-                      <div class="d-flex align-items-center justify-content-center bg-light text-muted" style="height: 150px;">
-                        <i class="fas fa-store fa-3x"></i> <p class="ms-2">No image available</p>
-                      </div>
-                    @endif
-                  @endif
-                </a>
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <a href="{{ $storeurl }}" class="text-dark text-decoration-none stretched-link">
-                      <span class="card-title">{{ $store->slug ?: $store->name }}</span>
-                    </a>
-                  </div>
-
-
-              </div>
+        @if ($stores->isEmpty())
+            <div class="alert alert-info text-dark" role="alert">
+                No stores found.
             </div>
-          @endforeach
-        </div>
-        <div class="container bg-light mt-3">
-          <div class="row mt-3 justify-content-end">
-            <div class="col-12">
-              {{ $stores->links('vendor.pagination.custom') }}
+        @else
+            <div class="row">
+                @foreach ($stores as $store)
+                    @php
+                        $storeUrl = $store->slug
+                            ? route('store_details', ['slug' => Str::slug($store->slug)])
+                            : '#';
+                    @endphp
+                    <div class="col-md-3 col-sm-6 col-6 mb-4">
+                        <div class="card h-100 text-center">
+                            <a href="{{ $storeUrl }}" class="text-decoration-none store-card">
+                                <img src="{{ $store->store_image ? asset('uploads/stores/' . $store->store_image) : asset('front/assets/images/no-image-found.jpg') }}"
+                                     alt="{{ $store->name ?: 'Store Image' }}" class="card-img-top stores">
+                                <div class="card-body">
+                                    <span class="card-title text-dark">{{ $store->name ?: "Title not found" }}</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-          </div>
-        </div>
-      </div>
+        @endif
     </div>
-  </div>
+
+    {{ $stores->links('vendor.pagination.custom') }}
+
 </main>
 @endsection

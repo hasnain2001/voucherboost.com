@@ -40,7 +40,7 @@ Coupon Website is a Laravel-based platform that provides users with access to th
 
 ### Prerequisites
 
-- PHP >= 8.1  
+- PHP >= 8.2  
 - Composer  
 - MySQL  
 - Node.js and NPM  

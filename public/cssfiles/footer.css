@@ -1,0 +1,81 @@
+footer {
+    background-color: #4b0082;
+    color: white;
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+}
+.footer-signup {
+    background-color: #5c2a9d;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+.footer-signup h3 {
+    margin-bottom: 10px;
+}
+.footer-signup input[type="email"] {
+    padding: 10px;
+    width: 70%;
+    max-width: 300px;
+    border-radius: 5px;
+    border: none;
+}
+.footer-signup button {
+    background-color: orange;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.separator {
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    clip-path: polygon(0% 100%, 10% 80%, 20% 100%, 30% 80%, 40% 100%, 50% 80%, 60% 100%, 70% 80%, 80% 100%, 90% 80%, 100% 100%);
+}
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-top: 20px;
+}
+.footer-links div {
+    margin: 10px;
+    min-width: 200px;
+    text-align: center;
+}
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 5px;
+}
+.popular-stores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    text-align: center;
+}
+.popular-stores ul {
+    list-style: none;
+    padding: 0;
+}
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.3);
+}
+.footer-logo img {
+    width: 150px;
+}
+
+@media (max-width: 768px) {
+    .footer-links {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}

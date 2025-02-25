@@ -14,18 +14,31 @@ class HomeController extends Controller
 {
     public function free_delivery()
     {
-        $populorstores = Stores::where('top_store', '>', 0)->where('status', 'enable')->get();
-$coupons = Coupons::where('name','Free Delivery')->get();
+
+$coupons = Coupons::where('name','Free Delivery')->paginate(10);
         return view('free-delivery', compact('coupons'));
 
     }
-    public function index()
+    public function off_offers()
     {
 
-    return view('home' );
-    }
-    public function blog_home(){
- $blogs = Blog::orderBy('created_at', 'desc')->paginate(5);
+$coupons = Coupons::where('name', 'like', '20%')->paginate(10);
+return view('coupons-offer', compact('coupons'));
+
+}
+public function index()
+{
+
+    $topstores = Stores::orderBy('created_at','desc')->where('status', 'enable')->limit(18)->get();
+    $topcouponcode = Coupons::select('id', 'name', 'status', 'created_at', 'ending_date', 'store', 'clicks', 'destination_url', 'authentication')->where('authentication', 'Featured')->where('status', 'enable')->orderBy('created_at', 'desc')->limit(8)->get();
+    $Couponsdeals = Coupons::where('top_coupons', '>', 0)->where('status', 'enable')->orderBy('created_at','desc')->limit(8)->get();
+    $categories = Categories::where('authentication', 'top_category')->where('status', 'enable')->limit(4)->get();
+
+    return view('home', compact( 'topstores',  'categories','topcouponcode','Couponsdeals'));
+}
+
+public function blog_home(){
+    $blogs = Blog::orderBy('created_at', 'desc')->paginate(5);
 $chunks = Stores::where('top_store', '>', 0)->where('status', 'enable')->get();
         return view('blog', compact('blogs','chunks'));
     }

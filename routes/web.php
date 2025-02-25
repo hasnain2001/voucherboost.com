@@ -35,6 +35,16 @@ Route::get('/dashboard', [EmployeeController::class, 'dashboard'])->name('dashbo
 
 });
 
+// Route::middleware([SetLocale::class])->group(function () {
+//     Route::group(['prefix' => '{locale}',], function () {
+//     });
+// });
+    Route::get('/contact', function () {return view('contact');})->name('contact');
+    Route::get('/about', function () {return view('about');})->name('about');
+    Route::get('/terms-and-condition', function () {return view('terms_and_condition');})->name('terms_and_condition');
+    Route::get('/privacy', function () {return view('privacy');})->name('privacy');
+    Route::get('/cookies', function () {return view('cookies');})->name('cookies');
+    Route::get('/imprint', function () {return view('imprint');})->name('imprint');
 
 Route::middleware([Localization::class])->group(function () {
 });
@@ -49,6 +59,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/categories', 'categories')->name('categories');
     Route::get('/category/{slug}', 'viewcategory')->name('related_category');
     Route::get('/free-delivery-offers', 'free_delivery')->name('FREE-DELIVERY');
+    Route::get('/20-off-offers', 'off_offers')->name('20-off-offers');
 
 
    // Route for search

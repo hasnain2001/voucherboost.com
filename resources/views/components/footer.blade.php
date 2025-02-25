@@ -1,92 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Footer</title>
 
-    <style>
-        /* Footer Styling */
-        .footer {
-            background: linear-gradient(to right, #2a00b7, #b20078);
-            color: white;
-            padding: 50px 0;
-        }
-        .footer h2 {
-            font-weight: bold;
-        }
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 5px;
-        }
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .footer-img {
-            width: 100px;
-            border-radius: 10px;
-        }
-        .footer p {
-            font-size: 14px;
-            margin-top: 10px;
-            opacity: 0.8;
-        }
-    </style>
-</head>
-<body>
-
-    <footer class="footer">
+    <div class="footer-signup py-4">
         <div class="container">
-            <div class="row">
-                <!-- Left Side -->
+            <div class="row align-items-center">
                 <div class="col-md-6">
-                    <img src="{{asset('images/logo.gif')}}" alt="User" class="footer-img">
-                    <h2>Explore Reviews & Blogs</h2>
-                    <p>Discover candid, perceptive evaluations and captivating blog posts that ensure you stay
-                    abreast of the latest developments across various domains. Let us assist you in navigating
-                    through the clutter with our comprehensive reviews on pet food, fashion, health, and fitness,
-                    alongside compelling content.</p>
+                    <h5>Sign up for our weekly email newsletter with the best money-saving coupons.</h5>
+                    <p>We’ll never share your email address with a third-party.</p>
                 </div>
-
-                <!-- Right Side -->
                 <div class="col-md-6">
-                    <h2>More Links</h2>
-                    <div class="row footer-links">
-                        <div class="col-md-6">
-                            <a href="#">Home</a>
-                            <a href="{{route('blog')}}">Blogs</a>
-                            <a href="{{route('coupons')}}">Promo Codes</a>
-                            <a href="{{route('coupons')}}">Privacy Policy</a>
-                            <a href="{{route('coupons')}}">Terms & Conditions</a>
-                            <a href="{{route('coupons')}}">About Us</a>
-                        </div>
-                        <div class="col-md-6">
-                            
-                            <a href="#">Fashion</a>
-                            <a href="#">Beauty</a>
-                            <a href="#">HomeDecor</a>
-                            <a href="#">Petcare</a>
-                            <a href="#">Accessories</a>
-                            <a href="#">Travelling</a>
-                        </div>
-                    </div>
+                    <form class="d-flex align-items-center subscribe">
+                        <input type="email" class="me-3" placeholder="Enter Your Email">
+                        <button type="submit" class="subscribe-btn btn-warning">Subscribe &#9993;</button>
+                    </form>
                 </div>
-            </div>
-
-            <!-- Footer Bottom -->
-            <div class="footer-bottom">
-                <p>&copy; Copyright blogstrails.com. All symbols and information on this website are our exclusive property.</p>
             </div>
         </div>
+    </div>
+
+    <footer>
+        <div class="separator"></div>
+        <div class="footer-links">
+            <div class="footer-logo">
+                <img src="https://dt2sdf0db8zob.cloudfront.net/wp-content/uploads/2019/08/dc-logo.png" alt="Logo">
+                <p style="max-width: 250px; font-size: 14px;">Disclaimer: "We may earn a commission when you use one of our coupons/links to make a purchase."</p>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <p><a href="{{route('20-off-offers')}}">20 Off Offers</a></p>
+                <p><a href="{{route('FREE-DELIVERY')}}">Free Delivery Offers</a></p>
+                <p><a href="{{route('stores')}}">All Stores</a></p>
+                <p><a href="{{route('categories')}}">All Categories</a></p>
+            </div>
+            <div>
+                <h3>Information</h3>
+                <p><a href="{{route('about')}}">Who Are We</a></p>
+                <p><a href="{{route('privacy')}}">Privacy Policy</a></p>
+                <p><a href="{{route('terms_and_condition')}}">Terms of Use</a></p>
+                <p><a href="{{route('contact')}}">Contact</a></p>
+            </div>
+            <div>
+                <h3>Popular Stores</h3>
+                <div class="popular-stores">
+                    @foreach ($populorstores as $store)
+                    <ul>
+                        <li><p><a href="{{ route('store_details', ['slug' => Str::slug($store->slug)]) }}">{{$store->name}}</a></p></li>
+                    </ul>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; {{ date('Y') }} | All Rights Are Reserved.</p>
+        </div>
     </footer>
-
-
-</body>
-</html>

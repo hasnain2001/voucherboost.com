@@ -40,4 +40,9 @@ public function store_language()
 {
     return $this->belongsTo(Language::class, 'language_id');
 }
+public function category()
+{
+    return $this->belongsTo(Categories::class, 'category', 'slug');
+}
+
 }
