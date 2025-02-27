@@ -3,6 +3,7 @@
     Coupons
 @endsection
 @section('datatable-content')
+<main class=" container-fluid">
 
 
     <div class="content-wrapper">
@@ -41,7 +42,7 @@
                     </button>
                 </div>
             @endif
-            
+
                 <div class="row">
                     <div class="">
                         <div class="card">
@@ -60,7 +61,7 @@
             <th>Coupon Name</th>
             <th>Store</th>
             <th>Deal/Code</th>
-            <th>lang</th>
+            <th>Auth</th>
             <th>Status</th>
             <th>create at</th>
             <th>Last Updated</th> <!-- Add this column header -->
@@ -82,7 +83,8 @@
                     <span>Deal</span>
                                    @endif
                 </td>
-                <td>{{ $store->language->code ??'No language' }}</td>
+
+                <td>{{ $coupon->authentication  }}</td>
                 <td>
                    @if ($coupon->status == "disable")
                         <i class="fa fa-fw fa-times-circle" style="color: blue;"></i>
@@ -116,7 +118,7 @@
             <th>Coupon Name</th>
             <th>Store</th>
             <th>Deal/Code</th>
-            <th>lang</th>
+            <th>Auth</th>
             <th>Status</th>
             <th>created at</th>
             <th>Last Updated</th> <!-- Add this column footer -->
@@ -148,6 +150,7 @@
         </section>
 
     </div>
+</main>
 
 <script>
     // JavaScript to handle the select all functionality

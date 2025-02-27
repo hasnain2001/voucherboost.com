@@ -111,6 +111,9 @@
         .nav-item a:hover {
             color: orange;
         }
+        .nav-item a.active {
+            color: orange;
+        }
         /* Underline Effect */
         .nav-item a::after {
             content: "";
@@ -172,9 +175,13 @@
         }
 
         .mobile-nav a {
+            color: #d8d8d8;
+            font-size: 16px;
+            text-decoration: none;
             display: block;
             margin-bottom: 10px;
             font-size: 18px;
+            align-items: center ;
         }
 
         .mobile-nav a:first-child {

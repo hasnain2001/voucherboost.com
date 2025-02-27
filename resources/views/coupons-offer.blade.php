@@ -175,58 +175,7 @@
                         <br>
                         <a href="{{ route('store_details', ['slug' => Str::slug($coupon->store)]) }}" class="btn btn-dark w-100 text-decoration-none">See All Offers</a>
 
-                        <!-- Coupon Code Modal -->
-                        <div class="modal fade" id="couponModal" tabindex="-1" aria-labelledby="couponModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content rounded-4 shadow">
-                                    <!-- Modal Header -->
-                                    <div class="modal-header position-relative bg-light border-0">
-                                        <span class="badge bg-danger text-uppercase position-absolute top-0 start-50 translate-middle mt-2 px-4 py-1">
-                                            Limited Time Offer
-                                        </span>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <!-- Modal Body -->
-                                    <div class="modal-body text-center py-5">
-                                        <!-- Logo -->
-                                        @if ($store && $store->store_image)
-                                        <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="Brand Logo" class="mb-4 rounded-circle shadow-sm" style="width: 100px; height: 100px; object-fit: cover;">
-                                        @else
-                                        <span class="text-muted">No Logo</span>
-                                        @endif
-                                        <!-- Title -->
-                                        <h5 class="fw-bold text-purple">{{ $coupon->name }}</h5>
-                                        <!-- Coupon Code Section -->
-                                        <div class="d-flex flex-column align-items-center mt-4 mb-4">
-                                            <!-- Coupon Code -->
-                                            <div class="alert alert-purple d-inline-block px-4 py-3 text-center shadow-sm">
-                                                <strong>Coupon Code:</strong>
-                                                <strong id="couponCode" class="fs-4 text-dark">XXXX-XXXX</strong>
-                                                <!-- Copy Button -->
-                                                <button class="btn btn-purple mt-3 px-4 py-2 fw-semibold shadow-sm" onclick="copyToClipboard()">
-                                                    Copy Code
-                                                </button>
-                                            </div>
 
-                                            <!-- Copy Confirmation Message -->
-                                            <p id="copyMessage" class="text-success fw-bold mt-2" style="display: none;">
-                                                Coupon code copied successfully! 🎉
-                                            </p>
-                                        </div>
-                                        <!-- Description -->
-                                        <p class="text-muted mb-2">
-                                            Copy and paste this code at <a href="{{ $coupon->destination_url }}" class="text-decoration-none fw-semibold text-purple">
-                                                {{ $coupon->store }}
-                                            </a>
-                                        </p>
-                                    </div>
-                                    <!-- Modal Footer -->
-                                    <div class=" bg-purple text-white ">
-                                        <p class="">CRAZIEST DEALS OF THE SEASON</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

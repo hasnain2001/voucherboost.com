@@ -48,89 +48,133 @@ main{
         .breadcrumb-item.active {
             font-weight: bold;
         }
+        .btn-purple {
+            background-color: #6f42c1;
+            color: white;
+            border: none;
+        }     .btn-purple:hover {
+            background-color: #5a3ac5;
+        }
+         .fas{
+            color: #6f42c1;
+
+        }
     </style>
 
-</head>
-<body>
+   <main class=" text-capitalize">
+        <section class="hero bg-light py-5">
+          <div class="container">
+            <div class="row d-flex align-items-center">
+              <div class="col-md-6">
+                <h1>Unlock Savings & Shopping Sprees at voucherboost</h1>
+                <p class="lead">Find amazing deals, discounts & tips to stretch your budget further. We're your ultimate shopping sidekick!</p>
+                <a href="{{route('stores')}}" class="btn btn-purple">Explore Deals Now</a>
+              </div>
+              <div class="col-md-6">
+                <img src="{{ asset('images/about.jpg') }}" alt="voucherboost Welcome Image" class="img-fluid rounded-3">
+              </div>
+            </div>
+          </div>
+        </section>
 
+        <section class="about py-5">
+          <div class="container">
+            <h2>Welcome to voucherboost: Your Shopping Guru</h2>
+            <p>Tired of paying full price? We hear you! voucherboost is your trusted companion in the world of discounts, deals, promo codes, bundle offers, and invaluable money-saving tips. We're more than just a website; we empower you to be a smart and informed shopper, making your shopping sprees more fulfilling and budget-friendly.</p>
+          </div>
+        </section>
 
-<div class="container">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb bg-light shadow-sm p-3 rounded">
-            <li class="breadcrumb-item">
-                <a href="/" class="text-decoration-none text-primary">Home</a>
-            </li>
-            <li class="breadcrumb-item active text-secondary" aria-current="page">@lang('message.About-Us')</li>
-        </ol>
-    </nav>
+        <section class="vision py-5 bg-light">
+          <div class="container">
+            <div class="row d-flex align-items-center">
+              <div class="col-md-6">
+                <h2>Our Vision: Empowering Smarter Shopping</h2>
+                <p>voucherboost was born out of the desire to create a haven for frugal-minded individuals. We envision a world where everyone can shop confidently and save money on the things they love. We provide the tools and resources you need to make informed decisions and feel empowered on your shopping journey.</p>
+              </div>
+              <div class="col-md-6">
+                <img src="{{asset('images/vision.png')}}" alt="voucherboost Vision Image" class="img-fluid rounded-3">
+              </div>
+            </div>
+          </div>
+        </section>
 
-    <div class="text-main">
-                        <h1 class="page-heading"></h1>
-            <header>
-<h2>
-   @lang('about.heading-1')</h2>
-</header>
-<section>
-<p>
-   @lang('about.heading-2')</p>
-<h2>@lang('about.heading-3')    </h2>
-<p>
-   @lang('about.heading-4')</p>
-<h2>
-    @lang('about.heading-5')</h2>
-<p>
-    @lang('about.heading-6')</p>
-<h3>
-   @lang('about.heading-7')</h3>
-<p>
-   @lang('about.heading-8')</p>
-<h3>
-    @lang('about.heading-9')</h3>
-<p>
-    @lang('about.heading-10')</p>
-<h3>
-   @lang('about.heading-11')</h3>
-<p>   @lang('about.heading-12')</p>
-<h3>
-    @lang('about.heading-13')
- </h3>
-<p>
-    @lang('about.heading-14').</p>
-<p>@lang('about.heading-15').
-  </p>
-<h2>
-    @lang('about.heading-16')</h2>
-<p>@lang('about.heading-17')</p>
-<ul>
-    <li>
-        {{-- <strong>@lang('about.Exclusive Offers:')</strong> --}}
-         @lang('about.Access promotions you wont find anywhere else')</li>
-    <li>
-        {{-- <strong>@lang('about.Personalized Recommendations:')</strong> --}}
-         @lang('about.Tailored deals based on your preferences.')</li>
-    <li>
-        {{-- <strong>@lang('about.Real-Time Savings:')</strong> --}}
-        @lang('about.Stay ahead with the latest and most up-to-date coupons.')</li>
-    <li>
-        {{-- <strong>@lang('about.Community Engagement:')</strong> --}}
-        @lang('about. Connect with fellow savers, share tips, and celebrate your successes.')<br />
-         </li>
-</ul>
-<h2>@lang('about.heading-18')
-    </h2>
-<p>
-    @lang('about.heading-19')</p>
-<h2>
-   @lang('about.heading-20')</h2>
-<p> @lang('about.heading-21')</p>
-<p>
-    @lang('about.heading-22')</p>
-</section>
+        <section class="offer py-5">
+          <div class="container">
+            <h2>Unleash Your Savings Potential with voucherboost</h2>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body">
+                    <i class="fas fa-tags display-4 "></i>
+                    <h5 class="card-title">Discount Codes</h5>
+                    <p class="card-text">We curate and provide a wide range of discount codes from your favorite brands and retailers.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body">
+                    <i class="fas fa-percent display-4 "></i>
+                    <h5 class="card-title">Deals and Promotions</h5>
+                    <p class="card-text">Discover the latest and hottest deals on voucherboost. Save big on everything you need and love.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body">
+                    <i class="fas fa-shopping-cart display-4 "></i>
+                    <h5 class="card-title">Bundle Offers</h5>
+                    <p class="card-text">Save even more by exploring our bundle offers. Find fantastic deals on complementary products.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-md-4">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body">
+                    <i class="fas fa-balance-scale display-4 "></i>
+                    <h5 class="card-title">Product Comparisons</h5>
+                    <p class="card-text">Making informed decisions is crucial when shopping. We offer detailed product comparisons to help you choose the best option that fits your needs and budget.</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Add more offer cards here -->
+            </div>
+            <section class="why-choose-section bg-light py-5">
+              <div class="container">
+                <h2>Why Make voucherboost Your Shopping Ally?</h2>
+                <div class="row">
+                  <div class="col-md-6">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <i class="fas fa-check-circle  fs-4 me-3"></i>
+                        <span>Trustworthy Information</span>
+                        <span class="badge bg-primary rounded-pill">Reliable Deals!</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <i class="fas fa-tag  fs-4 me-3"></i>
+                        <span>Diverse Range of Deals</span>
+                        <span class="badge bg-primary rounded-pill">Something for Everyone!</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <i class="fas fa-users fs-4 me-3"></i>
+                        <span>Community and Support</span>
+                        <span class="badge bg-primary rounded-pill">Shop Savvy, Together!</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-6">
+                    <img src="{{ asset('images/why chose.jpg') }}" alt="Why Choose voucherboost Image" class="img-fluid rounded-3">
+                  </div>
+                </div>
+              </div>
+            </section>
 
-    </div>
-</div>
-</div>
-
+          </div>
+        </section>
+      </main>
 
 
 

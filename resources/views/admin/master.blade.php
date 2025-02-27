@@ -91,7 +91,7 @@
       @endif
     </li>
   </ul>
-</nav> 
+</nav>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
           <a  href="{{ route('admin.dashboard') }}" class="brand-link">
                 <img src="{{ asset('images/logo.png') }}" alt="dashboard"
@@ -99,7 +99,7 @@
                 <span class="brand-text font-weight-light">dashboard</span>
             </a>
            <div class="sidebar">
-             <nav class="mt-2">
+  <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
@@ -110,7 +110,7 @@
                                 </p>
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-ticket-alt"></i>
@@ -120,8 +120,8 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                            
-                               
+
+
                                 <li class="nav-item">
                                     <a href="{{ route('admin.coupon') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -134,7 +134,7 @@
                                         <p>Add New Coupons</p>
                                     </a>
                                 </li>
-                                
+
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -146,7 +146,7 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                              
+
                                 <li class="nav-item">
                                     <a href="{{ route('admin.stores') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -159,8 +159,8 @@
                                         <p>Add New Stores</p>
                                     </a>
                                 </li>
-                                
-                              
+
+
                             </ul>
                         </li>
 
@@ -173,7 +173,7 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                        
+
                                 <li class="nav-item">
                                     <a href="{{ route('admin.lang') }}" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
@@ -186,7 +186,7 @@
                                         <p class="text-white">Add New lang</p>
                                     </a>
                                 </li>
-                             
+
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -198,22 +198,22 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                             
-                               
+
+
                             <li class="nav-item">
                             <a href="{{ route('admin.blog.show') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Blog</p>
                             </a>
                             </li>
-                               
+
                                 <li class="nav-item">
                                     <a href="{{ route('admin.blog.create') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add New Blog</p>
                                     </a>
                                 </li>
-                            
+
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -225,7 +225,7 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                            
+
                             <li class="nav-item">
                                     <a href="{{ route('admin.network') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
@@ -238,10 +238,10 @@
                                         <p>Add New Network</p>
                                     </a>
                                 </li>
-                                
+
                             </ul>
                         </li>
-                    
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-list"></i>
@@ -263,11 +263,11 @@
                                         <p>Add New Categories</p>
                                     </a>
                                 </li>
-                               
-                               
+
+
                             </ul>
                         </li>
-                     
+
                       <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-user-alt"></i>
@@ -277,16 +277,16 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                                    
-                          
+
+
                             <li class="nav-item">
                                 <a href="{{ route('admin.user.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>User</p>
                                 </a>
                             </li>
-    
-                           
+
+
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -297,7 +297,7 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        
+
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('admin.slider') }}" class="nav-link">
@@ -313,7 +313,7 @@
                             </li>
 
                         </ul>
-                    </li>             
+                    </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-store-alt"></i>
@@ -341,7 +341,7 @@
                         </li>
                     </li>
                     </ul>
-                </nav>
+ </nav>
 
             </div>
 

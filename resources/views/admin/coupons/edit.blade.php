@@ -108,7 +108,7 @@
 
                                 <div class="form-group">
                                     <label>Authentication:</label>
-                                    @php $authOptions = ['never expire', 'featured', 'free shipping', 'coupon code', 'top deals', 'valentine']; @endphp
+                                    @php $authOptions = ['never expire', 'Featured', 'free shipping', 'coupon code', 'top deals', 'valentine']; @endphp
                                     @foreach ($authOptions as $auth)
                                         <div class="form-check"><input type="radio" class="form-check-input" name="authentication" id="{{ $auth }}" value="{{ $auth }}" {{ $coupons->authentication === $auth ? 'checked' : '' }} onchange="toggleOtherInputVisibility(false)"><label class="form-check-label" for="{{ $auth }}">{{ ucfirst($auth) }}</label></div>
                                     @endforeach

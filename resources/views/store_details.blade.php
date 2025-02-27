@@ -15,6 +15,37 @@
         object-fit: fill;
         border-radius: 50%;
     }
+    .btn-purple {
+        width: 120px;
+    background: linear-gradient(to right, #7a1bb4, #ab47bc); /* Enhanced contrast */
+    color: #ffffff; /* High contrast for better readability */
+    text-align: center;
+    padding: 5px 15px;
+    border-radius: 25px;
+    text-decoration: none;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3), -3px -3px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    margin-right: 10px; /* Add margin between buttons */
+    display: inline-block;
+    font-size: 16px;
+    }
+    .btn-purple:hover {
+    background-color: #5a3ac5;
+    }
+.card-coupon {
+    border: none;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 10px;
+    height: 100%;
+    border:2px dotted #7a1bb4;
+}
+.card-coupon:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
 </style>
     @section('main-content')
     <main class="main container-fluid text-capitalize">
@@ -79,7 +110,14 @@
         <div class="d-flex flex-column flex-md-column">
             <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="card-img-top coupon-image shadow mb-3 rounded" alt="{{ $store->name }}">
             <div class="d-flex flex-column flex-md-column justify-content-between w-100">
+                @if ($coupon->authentication && $coupon->authentication !== 'No Auth')
                 <span class="authentication">{{ $coupon->authentication }}</span>
+
+                @else
+                <span class="authentication"></span>
+            @endif
+
+
                 <hr>
                 <!-- Set a fixed height for the text container to prevent pushing buttons down -->
                 <div class="text-container flex-grow-1">
@@ -98,10 +136,12 @@
         <!-- Coupon Code Section - Buttons stay in one line -->
         <div class="mt-auto d-flex justify-content-center align-items-center gap-2 w-100">
             @if ($coupon->code)
-                <a href="{{ $coupon->destination_url }}" target="_blank" class="reveal-code" id="getCode{{ $coupon->id }}" onclick="handleRevealCode('{{ $coupon->id }}', '{{ $coupon->code }}')">
+
+                <a href="{{ $coupon->destination_url }}" target="_blank" class="reveal-code" id="getCode{{ $coupon->id }}" onclick="handleRevealCode({{ $coupon->id }}, '{{ $coupon->code }}', '{{ $coupon->name }}', '{{ asset('uploads/stores/' . $store->store_image) }}', '{{ $coupon->destination_url }}', '{{ $coupon->store }}')">
                     <span class="coupon-text">Activate Coupon</span>
                     <span class="coupon-code" id="couponCode{{ $coupon->id }}" style="display: none;">{{ $coupon->code }}</span>
                 </a>
+                
             @else
                 <a href="{{ $coupon->destination_url }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
                     View Deal
@@ -110,54 +150,9 @@
         </div>
     </div>
 </div>
-    <!-- Coupon Code Modal -->
-    <div class="modal fade" id="couponModal" tabindex="-1" aria-labelledby="couponModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content rounded-4 shadow">
-    <!-- Modal Header -->
-    <div class="modal-header position-relative bg-light border-0">
-    <span class="badge bg-danger text-uppercase position-absolute top-0 start-50 translate-middle mt-2 px-4 py-1">
-    Limited Time Offer
-    </span>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <!-- Modal Body -->
-    <div class="modal-body text-center py-5">
-    <!-- Logo -->
-    <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="Brand Logo" class="mb-4 rounded-circle shadow-sm" style="width: 100px; height: 100px; object-fit: cover;">
-    <!-- Title -->
-    <h5 class="fw-bold text-purple">{{ $coupon->name }}</h5>
-    <!-- Coupon Code Section -->
-    <div class="d-flex flex-column align-items-center mt-4 mb-4">
-    <!-- Coupon Code -->
-    <div class="alert alert-purple d-inline-block px-4 py-3 text-center shadow-sm">
-    <strong>Coupon Code:</strong>
-    <strong id="couponCode" class="fs-4 text-dark">XXXX-XXXX</strong>
-    <!-- Copy Button -->
-    <button class="btn btn-success mt-3 px-4 py-2 fw-semibold shadow-sm" onclick="copyToClipboard()">
-    Copy Code
-    </button>
-    </div>
 
-    <!-- Copy Confirmation Message -->
-    <p id="copyMessage" class="text-success fw-bold mt-2" style="display: none;">
-    Coupon code copied successfully! 🎉
-    </p>
-    </div>
-    <!-- Description -->
-    <p class="text-muted mb-2">
-    Copy and paste this code at <a href="{{ $coupon->destination_url }}" class="text-decoration-none fw-semibold text-purple">
-    {{ $coupon->store }}
-    </a>
-    </p>
-    </div>
-    <!-- Modal Footer -->
-    <div class=" bg-purple text-white text-center ">
-    <p class="">CRAZIEST DEALS OF THE SEASON</p>
-    </div>
-    </div>
-    </div>
-    </div>
+
+
     @endforeach
     @endif
     </div>
@@ -169,6 +164,7 @@
     <h4 class="store-name fw-bold text-dark">{{ $store->name }}</h4>
     <p class="text-warning fs-5">⭐⭐⭐⭐☆</p>
     </div>
+    <a href="{{$store->destination_url}}" class="btn-purple"> Visit Store </a>
     <p class="text-muted">{{ $store->description }}</p>
 
     <div class="store-info-card card shadow-sm p- mb-2 bg-white rounded">

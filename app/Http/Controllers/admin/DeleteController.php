@@ -26,13 +26,18 @@ class DeleteController extends Controller
         $deletedcoupons = DeleteCoupons::with('deletedBy')->orderBy('created_at','desc')->get();
         return view('admin.deleted.coupons', compact('deletedcoupons'));
     }
+    public function delete_coupon($id) {
+        DeleteCoupons::find($id)->delete();
+        return redirect()->back()->with('success', ' Deleted Successfully');
+    }
     public function blog()
     {
         $blogs = DeleteBlogs::with('deletedBy')->orderBy('created_at','desc')->get();
         return view('admin.deleted.blog', compact('blogs'));
     }
-    public function delete_coupon($id) {
-        DeleteCoupons::find($id)->delete();
+
+    public function delete_blog($id) {
+        DeleteBlogs::find($id)->delete();
         return redirect()->back()->with('success', ' Deleted Successfully');
     }
 

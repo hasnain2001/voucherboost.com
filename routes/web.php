@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\admin\BlogController;
 use App\Http\Controllers\admin\CouponsController;
-
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\StoresController;
 use App\Http\Controllers\EmployeeController;
@@ -16,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

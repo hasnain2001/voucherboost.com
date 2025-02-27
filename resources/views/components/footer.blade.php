@@ -20,7 +20,9 @@
         <div class="separator"></div>
         <div class="footer-links">
             <div class="footer-logo">
+                <a href="/">
                 <img src="https://dt2sdf0db8zob.cloudfront.net/wp-content/uploads/2019/08/dc-logo.png" alt="Logo">
+            </a>
                 <p style="max-width: 250px; font-size: 14px;">Disclaimer: "We may earn a commission when you use one of our coupons/links to make a purchase."</p>
             </div>
             <div>
@@ -32,10 +34,10 @@
             </div>
             <div>
                 <h3>Information</h3>
-                <p><a href="{{route('about')}}">Who Are We</a></p>
-                <p><a href="{{route('privacy')}}">Privacy Policy</a></p>
-                <p><a href="{{route('terms_and_condition')}}">Terms of Use</a></p>
-                <p><a href="{{route('contact')}}">Contact</a></p>
+                <p><a class="@if(Route::currentRouteName() == 'about') active @endif" href="{{route('about')}}">Who Are We</a></p>
+                <p><a class="@if(Route::currentRouteName() == 'privacy') active @endif" href="{{route('privacy')}}">Privacy Policy</a></p>
+                <p><a class=" @if(Route::currentRouteName() == 'terms_and_condition') active @endif" href="{{route('terms_and_condition')}}">Terms of Use</a></p>
+                <p><a class="@if(Route::currentRouteName() == 'contact') active @endif" href="{{route('contact')}}">Contact</a></p>
             </div>
             <div>
                 <h3>Popular Stores</h3>

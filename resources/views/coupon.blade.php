@@ -1,6 +1,6 @@
 @extends('welcome')
 @section('title')
-    Coupon Codes
+    Coupon Codes - Find the latest coupon codes and deals for your favorite stores
 @endsection
 @section('description')
     Find the latest coupon codes and deals for your favorite stores. Save money on your online shopping with our exclusive discount codes.
@@ -12,13 +12,13 @@
 
 <style>
      .coupon-authentication {
-        font-size: 2.15rem;
-        font-weight: 600;
+        font-size: 20px;
+        font-weight: 400;
     }
 
     .coupon-name {
-        font-size: 2rem;
-        color: red;
+        font-size: 25px;
+        color: rgb(62, 28, 74);
     }
 
     .ending-date {
@@ -190,7 +190,13 @@
             </div>
 
             <div class="col-md-7 col-8">
+                @if ($coupon->authentication && $coupon->authentication !== 'No Auth')
                 <h4 class="coupon-authentication">{{ $coupon->authentication }}</h4>
+
+                @else
+                <span class="coupon-authentication"></span>
+            @endif
+
                 <span class="coupon-name">{{ $coupon->name }}</span>
                 <p class="coupon-description">{{ $coupon->description }}</p>
                 <a href="{{ route('store_details', ['slug' => Str::slug($coupon->store)]) }}" class="text-decoration-none">See All Offers</a>
@@ -200,68 +206,18 @@
 
             <div class="col-md-3 text-center">
                 @if ($coupon->code)
-
-                    <a href="{{ $coupon->destination_url }}" target="_blank" class="btn btn-success w-100" id="getCode{{ $coupon->id }}"
-                        onclick="handleRevealCode('{{ $coupon->id }}', '{{ $coupon->code }}')">Reveal Code</a>
+                <a href="{{ $coupon->destination_url }}" target="_blank" class="reveal-code" id="getCode{{ $coupon->id }}" onclick="handleRevealCode({{ $coupon->id }}, '{{ $coupon->code }}', '{{ $coupon->name }}', '{{ asset('uploads/stores/' . $store->store_image) }}', '{{ $coupon->destination_url }}', '{{ $coupon->store }}')">
+                <span class="coupon-text">Activate Coupon</span>
+                <span class="coupon-code" id="couponCode{{ $coupon->id }}" style="display: none;">{{ $coupon->code }}</span>
+                </a>
                 @else
-                   <a href="{{ $coupon->destination_url }}" target="_blank" class="btn btn-primary w-100" onclick="updateClickCount('{{ $coupon->id }}')">View Deal</a>
+                <a href="{{ $coupon->destination_url }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
+                View Deal
+                </a>
                 @endif
                 <br>
                 <br>
-                <a href="{{ route('store_details', ['slug' => Str::slug($coupon->store)]) }}" class="btn btn-dark w-100 text-decoration-none">See All Offers</a>
-
-<!-- Coupon Code Modal -->
-<div class="modal fade" id="couponModal" tabindex="-1" aria-labelledby="couponModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4 shadow">
-            <!-- Modal Header -->
-            <div class="modal-header position-relative bg-light border-0">
-                <span class="badge bg-danger text-uppercase position-absolute top-0 start-50 translate-middle mt-2 px-4 py-1">
-                    Limited Time Offer
-                </span>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <!-- Modal Body -->
-            <div class="modal-body text-center py-5">
-                <!-- Logo -->
-                @if ($store && $store->store_image)
-                <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="Brand Logo" class="mb-4 rounded-circle shadow-sm" style="width: 100px; height: 100px; object-fit: cover;">
-                @else
-                <span class="text-muted">No Logo</span>
-                @endif
-                <!-- Title -->
-                <h5 class="fw-bold text-purple">{{ $coupon->name }}</h5>
-                <!-- Coupon Code Section -->
-                <div class="d-flex flex-column align-items-center mt-4 mb-4">
-                    <!-- Coupon Code -->
-                    <div class="alert alert-purple d-inline-block px-4 py-3 text-center shadow-sm">
-                        <strong>Coupon Code:</strong>
-                        <strong id="couponCode" class="fs-4 text-dark">XXXX-XXXX</strong>
-                                            <!-- Copy Button -->
-                    <button class="btn btn-purple mt-3 px-4 py-2 fw-semibold shadow-sm" onclick="copyToClipboard()">
-                        Copy Code
-                    </button>
-                    </div>
-
-                    <!-- Copy Confirmation Message -->
-                    <p id="copyMessage" class="text-success fw-bold mt-2" style="display: none;">
-                        Coupon code copied successfully! 🎉
-                    </p>
-                </div>
-                <!-- Description -->
-                <p class="text-muted mb-2">
-                    Copy and paste this code at <a href="{{ $coupon->destination_url }}" class="text-decoration-none fw-semibold text-purple">
-                        {{ $coupon->store }}
-                    </a>
-                </p>
-            </div>
-            <!-- Modal Footer -->
-            <div class=" bg-purple text-white ">
-                <p class="">CRAZIEST DEALS OF THE SEASON</p>
-            </div>
-        </div>
-    </div>
-</div>
+                <a href="{{ route('store_details', ['slug' => Str::slug($coupon->store)]) }}" class="get">See All Offers</a>
 
 
             </div>

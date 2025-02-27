@@ -22,6 +22,7 @@ class SliderController extends Controller
       $request->validate([
           'title' => 'nullable',
           'description' => 'nullable',
+            'url' => 'nullable|url',
           'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3048',
           'status' => 'required',
           'url' => 'nullable|url',
@@ -50,6 +51,7 @@ class SliderController extends Controller
         $request->validate([
             'title' => 'nullable',
             'description' => 'nullable',
+            'url' => 'nullable|url',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3048',
             'status' => 'required',
         ]);

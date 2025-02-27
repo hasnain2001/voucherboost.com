@@ -32,6 +32,14 @@
             font-size: 25px;
             color: black;
         }
+        .btn-purple {
+            background-color: #45046a;
+            color: white;
+            border: none;
+        }
+        .btn-purple:hover {
+            background-color: #291634;
+        }
     </style>
 </head>
 <body>
@@ -56,7 +64,7 @@
     <div class="login-card col-md-4 col-sm-8">
         <!-- Logo Section -->
         <div class="logo">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" width="100">
+            <img src="https://dt2sdf0db8zob.cloudfront.net/wp-content/uploads/2019/08/dc-logo.png" alt="Logo" width="100">
         </div>
         <div><h1 class="heading">Login</h1></div>
 
@@ -82,7 +90,7 @@
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                 </div>
             </div>
-           
+
             <!-- Remember Me -->
             <div class="form-check mb-3">
                 <input type="checkbox" class="form-check-input" id="remember_me" name="remember">
@@ -90,7 +98,7 @@
             </div>
                 <!-- Login Button -->
                 <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary">{{ __('Log in') }}</button>
+                    <button type="submit" class="btn btn-purple">{{ __('Log in') }}</button>
                   </div>
 
             <!-- Forgot Password Link -->
@@ -99,11 +107,11 @@
                     <a href="{{ route('password.request') }}" class="text-sm text-decoration-none">{{ __('Forgot your password?') }}</a>
                 </div>
             @endif
-    
+
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                     <a href="{{route('register')}}" class="btn btn-primary" >Register</a>
+                     <a href="{{route('register')}}" class="btn btn-purple" >Register</a>
               </div>
-            
+
         </form>
 
 

@@ -30,13 +30,12 @@
 <!-- Mobile Nav Menu -->
 <div class="mobile-nav" id="mobileNav">
     <a href="#"  onclick="toggleMobileNav()"><i class="bi bi-x"></i> </a>
-    <a href="/">Home</a>
-    <a href="{{route('stores')}}">Stores</a>
-    <a href="{{route('categories')}}">Categories</a>
-    <a href="{{route('blog')}}">blog</a>
-    <a href="#">Categories</a>
-    <a href="#">About Us</a>
-    <a href="#">Contact Us</a>
+    <a class="{{ request()->is('/') ? 'active' : '' }}" href="/">Home</a>
+    <a  class="@if(Route::currentRouteName() == 'stores') active @endif" href="{{route('stores')}}">Stores</a>
+    <a  class="@if(Route::currentRouteName() == 'blog') active @endif" href="{{route('blog')}}">blog</a>
+    <a  class="@if(Route::currentRouteName() == 'categories') active @endif" href="{{route('categories')}}">Categories</a>
+    <a  class="@if(Route::currentRouteName() == 'about') active @endif" href="{{route('about')}}">About Us</a>
+    <a  class="@if(Route::currentRouteName() == 'contact') active @endif" href="{{route('contact')}}">Contact Us</a>
 </div>
 
 <!-- Navbar -->
@@ -44,16 +43,15 @@
     <div class="container-fluid">
         <div class="nav-container">
             <!-- Left: Nav Items (Now aligned left) -->
-            <div class="nav-links">
-                <div class="nav-item"><a href="/">Home</a></div>
-                <div class="nav-item"><a href="{{route('stores')}}">Stores</a></div>
-                <div class="nav-item"><a href="{{route('categories')}}">Categories</a></div>
-                <div class="nav-item"><a href="{{route('blog')}}">blog</a></div>
-                <div class="nav-item"><a href="{{route('coupons')}}">coupons </a></div>
-                <div class="nav-item"><a href="{{route('categories')}}">About Us</a></div>
-
-                <div class="nav-item"><a href="{{route('categories')}}">Contact Us</a></div>
-            </div>
+    <div class="nav-links">
+    <div class="nav-item"><a class="{{ request()->is('/') ? 'active' : '' }}" href="/">Home</a></div>
+    <div class="nav-item"><a class="@if(Route::currentRouteName() == 'stores') active @endif" href="{{route('stores')}}">Stores</a></div>
+    <div class="nav-item"><a  class="@if(Route::currentRouteName() == 'categories') active @endif" href="{{route('categories')}}">Categories</a></div>
+    <div class="nav-item"><a  class="@if(Route::currentRouteName() == 'blog') active @endif" href="{{route('blog')}}">blog</a></div>
+    <div class="nav-item"><a  class="@if(Route::currentRouteName() == 'coupons') active @endif" href="{{route('coupons')}}">coupons </a></div>
+    <div class="nav-item"><a  class="@if(Route::currentRouteName() == 'about') active @endif" href="{{route('about')}}">About Us</a></div>
+    <div class="nav-item"><a  class="@if(Route::currentRouteName() == 'contact') active @endif" href="{{route('contact')}}">Contact Us</a></div>
+    </div>
             <!-- Right: Categories Button -->
             <button class="category-btn"><i class="bi bi-grid"></i> Categories</button>
         </div>
