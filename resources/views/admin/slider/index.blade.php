@@ -38,6 +38,7 @@
                                         <th>Slider Name</th>
                                         <th>Description</th>
                                         <th>Slider Image</th>
+                                        <th>Status</th>
                                         <th>Added</th>
                                         <th>Updated</th>
                                         <th>Action</th>
@@ -50,6 +51,14 @@
                                             <td>{{ $slider->description }}</td>
                                             <td>
                                                 <img src="{{ asset('uploads/slider/'.$slider->image) }}" alt="{{ $slider->title }}" style="width: 100px;">
+                                            </td>
+                                            <td>@if ($slider->status === 'active')
+                                                <span class="badge badge-success">Active</span>
+
+                                            @else
+                                                <span class="badge badge-danger">Inactive</span>
+
+                                            @endif
                                             </td>
                                             <td>
                                                 {{ $slider->created_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}

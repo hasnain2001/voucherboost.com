@@ -24,7 +24,7 @@
                     </button>
                 </div>
             @endif
-            
+
             <!-- Error Messages -->
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -50,20 +50,20 @@
                                 <!-- Title -->
                                 <div class="form-group">
                                     <label for="title" class="font-weight-bold">Title <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="title" id="title" value="{{ $slider->title }}" placeholder="Enter slider title" required>
+                                    <input type="text" class="form-control" name="title" id="title" value="{{ $slider->title }}" placeholder="Enter slider title" >
                                 </div>
 
                                 <!-- Description -->
                                 <div class="form-group">
                                     <label for="description" class="font-weight-bold">Description <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" name="description" id="description" rows="3" placeholder="Enter slider description" required>{{ $slider->description }}</textarea>
+                                    <textarea class="form-control" name="description" id="description" rows="3" placeholder="Enter slider description" >{{ $slider->description }}</textarea>
                                 </div>
 
                                 <!-- Image Upload -->
                                 <div class="form-group">
                                     <label for="image" class="font-weight-bold">Slider Image <span class="text-danger">*</span></label>
                                     <input type="file" class="form-control-file" name="image" id="image" onchange="previewImage(event)">
-                                    
+
                                     <div class="mt-3">
                                         <label class="font-weight-bold">Current Image:</label><br>
                                         @if ($slider->image)
@@ -74,10 +74,14 @@
                                     </div>
                                          {{-- Status --}}
 
-                                    
+
                                     <!-- Preview container -->
                                     <div id="imagePreview" class="mt-3"></div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="url"> URL <span class="text-danger">*</span></label>
+                                    <input  type="url" class="form-control" name="url" id="url" value="{{ $slider->url }} " required>
+                                    </div>
                                 <div class="form-group"></div>
                                 <label for="status" class="font-weight-bold">Status <span class="text-danger">*</span></label>
                                 <select name="status" id="status" class="form-control" required>

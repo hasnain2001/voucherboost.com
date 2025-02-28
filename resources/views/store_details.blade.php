@@ -46,6 +46,11 @@
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
+@media (max-width: 768px) {
+    .display-7 {
+        font-size: 15px;
+    }
+}
 </style>
     @section('main-content')
     <main class="main container-fluid text-capitalize">
@@ -141,7 +146,7 @@
                     <span class="coupon-text">Activate Coupon</span>
                     <span class="coupon-code" id="couponCode{{ $coupon->id }}" style="display: none;">{{ $coupon->code }}</span>
                 </a>
-                
+
             @else
                 <a href="{{ $coupon->destination_url }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
                     View Deal

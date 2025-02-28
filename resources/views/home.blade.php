@@ -131,47 +131,38 @@
 </style>
 
 @section('main-content')
-<main class=" text-capitalize container-fluid">
-    <section class=" container mt-4">
+<main class=" text-capitalize ">
+
+
+    <section class="container mt-4">
         <h1 class="title">VoucherBoost Has Some Special Offers For You</h1>
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <!-- Slide 1 -->
-                <div class="carousel-item active">
-                    <img src="{{asset('images/brand/img-1.png')}}" class=" slider-image d-block w-100" alt="Slide 1">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Flat £10 Discount When You Refer A Friend</h5>
-                        <p>Save on pet care with Rover</p>
-                        <a href="#" class="get">View More</a>
-                    </div>
-                </div>
-                <!-- Slide 2 -->
-                <div class="carousel-item">
-                    <img src="{{asset('images/brand/img-1.png')}}" class=" slider-image d-block w-100" alt="Slide 2">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Exclusive Pet Care Offers</h5>
-                        <p>Book now and enjoy great discounts</p>
-                        <a href="#" class="get">Learn More</a>
-                    </div>
-                </div>
-                <!-- Slide 3 -->
-                <div class="carousel-item">
-                    <img src="{{asset('images/brand/img-1.png')}}" class=" slider-image d-block w-100" alt="Slide 3">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Limited Time Deals</h5>
-                        <p>Get the best care for your pet today!</p>
-                        <a href="#" class="get">Explore</a>
-                    </div>
-                </div>
+                @if($sliders->isNotEmpty())
+                    @foreach ($sliders as $slider)
+                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                            @if(!empty($slider->image))
+                                <img src="{{ asset('uploads/slider/' . $slider->image) }}" class="slider-image d-block w-100" alt="{{ $slider->title }}">
+                            @endif
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>{{ $slider->title }}</h5>
+                                <p>{{ $slider->description }}</p>
+                                @if(!empty($slider->url))
+                                    <a target="_blank" href="{{ $slider->url }}" class="get">View More</a>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <p>No sliders available.</p>
+                @endif
             </div>
-
-            <button class="custom-carousel-btn custom-prev-btn" type="button"  data-bs-target="#carouselExample" data-bs-slide="prev">
+            <button class="custom-carousel-btn custom-prev-btn" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                 &#9665;
             </button>
-            <button class="custom-carousel-btn custom-next-btn" type="button" data-bs-target="#carouselExample"data-bs-slide="next">
+            <button class="custom-carousel-btn custom-next-btn" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
                 &#9655;
             </button>
-
         </div>
     </section>
     <section class="store container mt-4">
@@ -346,17 +337,19 @@
             </div>
             @endif
  </section>
-
 <section class="disclaimer container mt-5">
     <div class="row align-items-center">
-        <div class="col-md-4 text-center">
-            <img src="{{ asset('images/bg-disclaimer.png') }}" alt="Disclaimer Image" class="img-fluid">
+        <div class="col-md-4 text-center d-none d-md-flex">
+            <img src="{{ asset('images/bg-disclaimer.png') }}" alt="Disclaimer Image" class="img-fluid rounded shadow-sm">
         </div>
         <div class="col-md-8">
             <div class="text-left p-4 bg-light rounded shadow-sm">
-                <h4 class="fw-bold">DISCLAIMER</h4>
-                <p class="mb-0">Disclaimer Is Necessary For Our AS & Advertising Policies, But Make Sure That Your Ailment With All The Appropriates Government Regulations. Disclaimer Are Required For Everyone Who Can Make Money Form These Kind Of Ads Using Affiliate Links. The Only Purpose Is To Help Our Consumers Who Can Understood The Publisher Earn Money From That Links.If Publisher's Affiliate Links Seen On Some One Else's Website Or User Comments, A Disclaimer Should Be Added Any Time A Product Is Support Of And The Publisher Receives Reward. Its Is Necessary Of Both The Audibles And Visuals Disclaimer 14,749 On Videos Or Live Streaming As A Consumers Can Enter Or Exit A Video, Therefore A Clear Visual Disclaimer Is Available. All The Guideline Apply To Mobile Sites And Apps. Digital Marketing And Disclaimer Guidelines Will Continue To Changed And Evolve, So It Is Aware That Any Of The Changes And Make Sure That You Are Always Transparent With Consumers. 1,310 February.</p>
+                <h4 class="fw-bold text-dark">DISCLAIMER</h4>
+                <p class="mb-0 text-muted">Disclaimer is necessary for our AS & advertising policies, but make sure that your ailment complies with all the appropriate government regulations. Disclaimers are required for everyone who can make money from these kinds of ads using affiliate links. The only purpose is to help our consumers understand that the publisher earns money from these links. If a publisher's affiliate links are seen on someone else's website or user comments, a disclaimer should be added any time a product is supported and the publisher receives a reward. It is necessary for both audible and visual disclaimers on videos or live streaming as consumers can enter or exit a video, therefore a clear visual disclaimer is available. All guidelines apply to mobile sites and apps. Digital marketing and disclaimer guidelines will continue to change and evolve, so be aware of any changes and make sure that you are always transparent with consumers.</p>
             </div>
+        </div>
+        <div class="col-12 text-center d-md-none mt-4">
+            <img src="{{ asset('images/bg-disclaimer.png') }}" alt="Disclaimer Image" class="img-fluid rounded shadow-sm">
         </div>
     </div>
 </section>

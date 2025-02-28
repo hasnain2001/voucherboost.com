@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\DeleteBlogs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 use Intervention\Image\ImageManager;
@@ -201,29 +203,50 @@ foreach ($images as $img) {
     }
 
 
-public function destroy($id)
-{
-
-    $blog = Blog::findOrFail($id);
-
-    $blog->delete();
-
-    return redirect()->back()->with('success', 'Blog deleted successfully.');
-}
-
-          public function deleteSelected(Request $request)
+    public function destroy($id)
     {
-        $selectedIds = $request->input('selected_blogs');
 
-        if ($selectedIds) {
+        $blog = Blog::findOrFail($id);
+       if ($blog) {
+           // Log the deletion in the delete_coupons table
+            DeleteBlogs::create([
+                'blog_id' => $blog->id,
+                'blog_title' => $blog->title,
+                'deleted_by' => Auth::id(),
+            ]);
 
-            Blog::whereIn('id', $selectedIds)->delete();
-
-            return redirect()->back()->with('success', 'Selected blog entries deleted successfully.');
-        } else {
-            return redirect()->back()->with('error', 'No blog entries selected for deletion.');
+            // Delete the coupon
+            $blog->delete();
         }
+
+        return redirect()->back()->with('success', 'Blog deleted successfully.');
     }
+
+
+        public function deleteSelected(Request $request)
+        {
+            $selectedIds = $request->input('selected_blogs');
+
+            if ($selectedIds) {
+                $blogs = Blog::whereIn('id', $selectedIds)->get();
+
+                foreach ($blogs as $blog) {
+                    DeleteBlogs::create([
+                        'blog_id' => $blog->id,
+                        'blog_title' => $blog->title,
+                        'deleted_by' => Auth::id(),
+                    ]);
+                }
+
+                Blog::whereIn('id', $selectedIds)->delete();
+
+                return redirect()->back()->with('success', 'Selected blog entries deleted successfully.');
+            } else {
+                return redirect()->back()->with('error', 'No blog entries selected for deletion.');
+            }
+        }
+
+
 
 public function bulkDelete(Request $request)
     {

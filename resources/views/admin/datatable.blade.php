@@ -85,7 +85,7 @@
             <a  href="{{ route('admin.dashboard') }}" class="brand-link">
                 <img src="{{ asset('images/logo.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">CouponsArena</span>
+                <span class="brand-text font-weight-light">VoucherBoost</span>
             </a>
 
             <div class="sidebar">
@@ -276,6 +276,12 @@
                                     <p>User</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.user.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add New slider</p>
+                                </a>
+                            </li>
 
 
                         </ul>
@@ -423,7 +429,7 @@
               $.ajax({
                 type: "POST",
                 dataType: "json",
-                url: "{{ route('employee.custom-sortable') }}",
+                url: "{{ route('admin.custom-sortable') }}",
                     data: {
                   order: order,
                   _token: token

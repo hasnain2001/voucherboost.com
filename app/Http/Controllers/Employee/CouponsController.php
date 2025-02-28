@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\Coupons;
+use App\Models\DeleteCoupons;
 use App\Models\Language;
 use App\Models\Stores;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CouponsController extends Controller
 {
@@ -33,9 +36,10 @@ class CouponsController extends Controller
         }
 
 
-        $coupons = $productsQuery->orderBy('created_at', 'desc')
+        $coupons = $productsQuery
         ->orderBy('store')
         ->orderByRaw('CAST(`order` AS SIGNED) ASC')
+        ->orderBy('created_at', 'desc')
         ->limit(1000)
         ->get();
         return view('employee.coupons.index', compact('coupons','couponstore','selectedCoupon'));
@@ -115,7 +119,7 @@ public function update(Request $request)
         // Create coupon using validated data
         Coupons::create([
             'name' => $request->name,
-            'language_id' => $request->input('language_id'),
+            'language_id' => $request->input('language_id', 1),
             'description' => $request->description,
             'code' => $request->code,
             'destination_url' => $request->destination_url,
@@ -179,8 +183,32 @@ public function update(Request $request)
 
 
     public function delete_coupon($id) {
-        Coupons::find($id)->delete();
-        return redirect()->back()->with('success', 'Coupon Deleted Successfully');
+        $coupon = Coupons::find($id);
+
+        if (!$coupon) {
+            return redirect()->back()->with('error', 'Coupon not found');
+        }
+
+        try {
+            DB::beginTransaction();
+
+            // Log the deletion in the delete_coupons table
+            DeleteCoupons::create([
+                'coupon_id' => $coupon->id,
+                'coupon_name' => $coupon->name,
+                'deleted_by' => Auth::id(),
+            ]);
+
+            // Delete the coupon
+            $coupon->delete();
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Coupon Deleted Successfully');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to delete coupon. Please try again.');
+        }
     }
 
 public function deleteSelected(Request $request)
@@ -188,7 +216,21 @@ public function deleteSelected(Request $request)
     $couponIds = $request->input('selected_coupons');
 
     if ($couponIds) {
-        Coupons::whereIn('id', $couponIds)->delete();
+        foreach ($couponIds as $couponId) {
+            $coupon = Coupons::find($couponId);
+            if ($coupon) {
+                // Log the deletion in the delete_coupons table
+                DeleteCoupons::create([
+                    'coupon_id' => $coupon->id,
+                    'coupon_name' => $coupon->name,
+                    'deleted_by' => Auth::id(),
+                ]);
+
+                // Delete the coupon
+                $coupon->delete();
+            }
+        }
+
         return redirect()->back()->with('success', 'Selected coupons deleted successfully');
     } else {
         return redirect()->back()->with('error', 'No coupons selected for deletion');

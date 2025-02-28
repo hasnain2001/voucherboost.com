@@ -250,6 +250,15 @@ public function destroy($id)
         $selectedIds = $request->input('selected_blogs');
 
         if ($selectedIds) {
+            $blogs = Blog::whereIn('id', $selectedIds)->get();
+
+            foreach ($blogs as $blog) {
+                DeleteBlogs::create([
+                    'blog_id' => $blog->id,
+                    'blog_title' => $blog->title,
+                    'deleted_by' => Auth::id(),
+                ]);
+            }
 
             Blog::whereIn('id', $selectedIds)->delete();
 

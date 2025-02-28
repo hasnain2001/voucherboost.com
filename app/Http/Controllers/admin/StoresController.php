@@ -219,7 +219,7 @@ class StoresController extends Controller
             'name' => $request->input('name'),
             'slug' => $request->input('slug'),
             'language_id' => $request->input('language_id',$store->language_id),
-            'top_store' => $request->input('top_store'),
+            'top_store' => $request->input('top_store', $store->top_store),
             'description' => $request->input('description'),
             'url' => $request->input('url'),
             'destination_url' => $request->input('destination_url'),

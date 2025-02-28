@@ -130,6 +130,8 @@
             <div class="col-12">
                 <div class="alert alert-warning text-center" role="alert">
                     No stores found in this category!
+                    Explore new
+                    <a href="{{ route('stores') }}" class=" get text-decoration-none fw-bold"> stores</a>
                 </div>
             </div>
         @endforelse

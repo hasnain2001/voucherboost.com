@@ -21,7 +21,7 @@
         <div class="footer-links">
             <div class="footer-logo">
                 <a href="/">
-                <img src="https://dt2sdf0db8zob.cloudfront.net/wp-content/uploads/2019/08/dc-logo.png" alt="Logo">
+                <img src="{{asset('images/logo.png')}}" alt="Logo">
             </a>
                 <p style="max-width: 250px; font-size: 14px;">Disclaimer: "We may earn a commission when you use one of our coupons/links to make a purchase."</p>
             </div>
@@ -51,6 +51,6 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; {{ date('Y') }} | All Rights Are Reserved.</p>
+            <p>Copyright &copy; {{ date('Y') }} | All Rights Are Reserved.</p>
         </div>
     </footer>

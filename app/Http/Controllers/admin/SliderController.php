@@ -21,11 +21,10 @@ class SliderController extends Controller
 
       $request->validate([
           'title' => 'nullable',
-          'description' => 'nullable',
+          'description' => 'nullable|string|max:455',
             'url' => 'nullable|url',
           'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3048',
-          'status' => 'required',
-          'url' => 'nullable|url',
+          'status' => 'required|string',
       ]);
 
       $imageName = time().'.'.$request->image->extension();
@@ -36,6 +35,7 @@ class SliderController extends Controller
           'description' => $request->description,
           'image' => $imageName,
           'status' => $request->status,
+          'url' => $request->url,
       ]);
 
       return redirect()->back()->with('success', 'Slider Created Successfully');
@@ -50,7 +50,7 @@ class SliderController extends Controller
 
         $request->validate([
             'title' => 'nullable',
-            'description' => 'nullable',
+            'description' => 'nullable|string | max:455',
             'url' => 'nullable|url',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3048',
             'status' => 'required',
@@ -68,9 +68,10 @@ class SliderController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'status' => $request->status,
+            'url' => $request->url,
         ]);
 
-        return redirect()->back()->with('success', 'Slider Updated Successfully');
+        return redirect()->route('admin.slider')->with('success', 'Slider Updated Successfully');
     }
 
     public function delete_slider($id) {

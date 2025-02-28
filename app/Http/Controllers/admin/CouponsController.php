@@ -89,7 +89,7 @@ public function update(Request $request)
 }
 
     public function create_coupon() {
-        $stores = Stores::all();
+        $stores = Stores::orderBy('created_at', 'desc')->get();
         $langs = Language::all();
         return view('admin.coupons.create', compact('stores','langs'));
     }
@@ -103,7 +103,7 @@ public function update(Request $request)
         // Define validation rules
         $request->validate([
             'name' => 'required|string|max:255',
-            'language_id' =>'required|integer',
+            'language_id' =>'nullable|integer',
             'description' => 'nullable|string|max:1000',
             'code' => 'nullable|string|max:100',
             'destination_url' => 'nullable|url',

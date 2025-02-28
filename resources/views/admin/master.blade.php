@@ -96,7 +96,7 @@
           <a  href="{{ route('admin.dashboard') }}" class="brand-link">
                 <img src="{{ asset('images/logo.png') }}" alt="dashboard"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">dashboard</span>
+                <span class="brand-text font-weight-light">VoucherBoost</span>
             </a>
            <div class="sidebar">
   <nav class="mt-2">
@@ -283,6 +283,12 @@
                                 <a href="{{ route('admin.user.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>User</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.user.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add New slider</p>
                                 </a>
                             </li>
 

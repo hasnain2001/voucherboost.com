@@ -80,45 +80,51 @@ margin-right: 5px; /* Adjust spacing between the input and label */
 
 
 <div class="form-group">
-<label for="ending_date">Ending Date <span class="text-danger">*</span></label>
-<input type="date" class="form-control" name="ending_date" id="ending_date" value="{{ old('ending_date') }}" required>
+    <label for="ending_date">Ending Date <span class="text-danger">*</span></label>
+    <input type="date" class="form-control" name="ending_date" id="ending_date" value="{{ old('ending_date') }}" required>
+    <small id="dateError" class="text-danger" style="display: none;">Please select a future date.</small>
 </div>
+
 <div class="form-group">
     <label for="store">Store <span class="text-danger">*</span></label>
-    <select name="store" id="store" class="form-control" onchange="updateDestinationUrl()" required>
-    <option value="" disabled selected>--Select Store--</option>
-    @foreach($stores as $store)
-    <option value="{{ $store->slug }}" data-url="{{ $store->destination_url }}"
-    {{ old('store') == $store->slug ? 'selected' : '' }}>
-    {{ $store->slug }}
-    </option>
-    @endforeach
+    <select name="store" id="store" class="form-control" onchange="updateDestinationAndLanguage()" required>
+        <option value="" disabled selected>--Select Store--</option>
+        @foreach($stores as $store)
+            <option value="{{ $store->slug }}" data-url="{{ $store->destination_url }}" data-language-id="{{ $store->language_id }}"
+                {{ old('store') == $store->slug ? 'selected' : '' }}>
+                {{ $store->slug }}
+            </option>
+        @endforeach
     </select>
-    </div>
-    <div class="form-group">
-        <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
-        <input type="url" class="form-control" name="destination_url" id="destination_url" value="{{ old('destination_url') }}" required>
-        </div>
+</div>
+
+<div class="form-group">
+    <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
+    <input type="url" class="form-control" name="destination_url" id="destination_url" value="{{ old('destination_url') }}" required>
+</div>
+
+
+
 </div>
 </div>
 </div>
 <div class="col-6">
 <div class="card">
 <div class="card-body">
-    <div class="form-group">
+    {{-- <div class="form-group">
         <label for="language_id">Language <span class="text-danger">*</span></label>
         <select name="language_id" id="language_id" class="form-control" required>
             <option value="" disabled {{ old('language_id') ? '' : 'selected' }}>--Select Language--</option>
             @foreach ($langs as $lang)
-            <option value="{{ $lang->id }}" {{ old('language_id') == $lang->id ? 'selected' : '' }}>
-                {{ $lang->code }}
-            </option>
+                <option value="{{ $lang->id }}" {{ old('language_id') == $lang->id ? 'selected' : '' }}>
+                    {{ $lang->code }}
+                </option>
             @endforeach
         </select>
         @error('language_id')
-        <small class="text-danger">{{ $message }}</small>
+            <small class="text-danger">{{ $message }}</small>
         @enderror
-    </div>
+    </div> --}}
 <div class="form-group">
 {{-- <label for="top_coupons">Top Coupons Code <span class="text-danger">*</span></label><br>
 @for ($i = 0; $i <= 10; $i++)
@@ -135,14 +141,19 @@ margin-right: 5px; /* Adjust spacing between the input and label */
 <label for="disable">Disable</label>
 </div>
 <label for="authentication">Authentication</label><br>
-<div class="checkbox-container">
+@foreach (['never expire', 'featured', 'free shipping', 'coupon code', 'top deals', 'valentine' ] as $auth)
+<input type="radio" name="authentication" id="{{ $auth }}" value="{{ $auth }}"
+{{ old('authentication') === $auth ? 'checked' : '' }}>
+<label for="{{ $auth }}">{{ ucfirst(str_replace('_', ' ', $auth)) }}</label>
+@endforeach
+{{-- <div class="checkbox-container">
 @foreach (['never expire', 'featured', 'free shipping', 'coupon code', 'top deals', 'valentine'] as $auth)
 <input type="radio" name="authentication" id="{{ $auth }}" value="{{ $auth }}"
 {{ old('authentication') === $auth ? 'checked' : '' }}>
 <label for="{{ $auth }}">{{ ucfirst(str_replace('_', ' ', $auth)) }}</label>
 @endforeach
-
-<!-- Other Option -->
+--}}
+{{-- <!-- Other Option -->
 <div class="form-check">
 <input type="radio" class="form-check-input" name="authentication" id="toggleOtherCheckbox" value="other"
 {{ old('authentication') === 'other' ? 'checked' : '' }} onchange="toggleOtherInput(this)">
@@ -155,7 +166,7 @@ margin-right: 5px; /* Adjust spacing between the input and label */
 <input type="text" class="form-control" name="authentication" id="otherAuthentication"
 value="{{ old('other_authentication') }}">
 </div>
-</div>
+</div> --}}
 
 
 
@@ -182,18 +193,40 @@ value="{{ old('other_authentication') }}">
 
 </section>
 </div>
+
+
 <script>
-function updateDestinationUrl() {
-const storeSelect = document.getElementById('store');
-const selectedOption = storeSelect.options[storeSelect.selectedIndex];
-const destinationUrlInput = document.getElementById('destination_url');
+    document.getElementById('ending_date').addEventListener('change', function() {
+        const selectedDate = new Date(this.value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Set time to midnight to compare only dates
 
-// Get the data-url attribute from the selected option
-const destinationUrl = selectedOption.getAttribute('data-url') || '';
+        if (selectedDate < today) {
+            document.getElementById('dateError').style.display = 'block';
+            this.value = ''; // Clear the input value
+        } else {
+            document.getElementById('dateError').style.display = 'none';
+        }
+    });
 
-// Update the input field with the URL
-destinationUrlInput.value = destinationUrl;
+    function updateDestinationAndLanguage() {
+    const storeSelect = document.getElementById('store');
+    const selectedOption = storeSelect.options[storeSelect.selectedIndex];
+
+    // Get the destination URL and language ID from the selected store
+    const destinationUrl = selectedOption.getAttribute('data-url') || '';
+    const languageId = selectedOption.getAttribute('data-language-id') || '';
+
+    // Update the destination URL input field
+    document.getElementById('destination_url').value = destinationUrl;
+
+    // Set the selected language in the language dropdown
+    const languageSelect = document.getElementById('language_id');
+    if (languageId) {
+        languageSelect.value = languageId;
+    }
 }
+
 </script>
 
 <script>

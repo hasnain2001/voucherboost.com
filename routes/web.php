@@ -8,10 +8,12 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Localization;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,6 +25,9 @@ Route::get('/', function () {
 
 //     Route::middleware(Normalization::class)->group(function () {
 // });
+
+Route::get('/generate-sitemap', [SitemapController::class, 'generate']);
+Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 // Admin routes
 Route::middleware([RoleMiddleware::class])->group(function () {

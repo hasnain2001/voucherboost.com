@@ -28,13 +28,13 @@ return view('coupons-offer', compact('coupons'));
 }
 public function index()
 {
-
+    $sliders = Slider::where('status', 'active')->orderBy('created_at', 'desc')->get();
     $topstores = Stores::orderBy('created_at','desc')->where('status', 'enable')->limit(18)->get();
     $topcouponcode = Coupons::select('id', 'name', 'status', 'code','created_at', 'ending_date', 'store', 'clicks', 'destination_url', 'authentication')->where('authentication', 'Featured')->where('status', 'enable')->orderBy('created_at', 'desc')->limit(8)->get();
     $Couponsdeals = Coupons::select('id', 'name', 'status', 'code','created_at', 'ending_date', 'store', 'clicks', 'destination_url', 'authentication')->where('top_coupons', '>', 0)->where('status', 'enable')->orderBy('created_at','desc')->limit(8)->get();
     $homecategories = Categories::where('authentication', 'top_category')->where('status', 'enable')->limit(4)->get();
 
-    return view('home', compact( 'topstores',  'homecategories','topcouponcode','Couponsdeals'));
+    return view('home', compact( 'topstores',  'homecategories','topcouponcode','Couponsdeals','sliders'));
 }
 
 public function blog_home(){
@@ -91,6 +91,10 @@ $chunks = Stores::where('top_store', '>', 0)->where('status', 'enable')->get();
         $title = ucwords(str_replace('-', ' ', Str::slug($slug)));
         $store = Stores::where('slug', $title)->firstOrFail();
 
+        if ($store->status == 'disable') {
+            abort(403, 'Store status is disabled');
+        }
+
         $query = Coupons::where('store', $store->slug)
             ->orderByRaw('CAST(`order` AS SIGNED) ASC')
             ->where('status', 'enable');
@@ -123,7 +127,7 @@ $chunks = Stores::where('top_store', '>', 0)->where('status', 'enable')->get();
     {
 
         $categories = Categories::select('id', 'title','slug', 'category_image', 'status', 'created_at', 'updated_at')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('created_at', 'asc')
             ->get();
         return view('categories', compact('categories'));
     }

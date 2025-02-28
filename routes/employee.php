@@ -9,18 +9,18 @@ use App\Http\Middleware\RoleMiddleware;
 use App\Http\Middleware\EmployeeMiddleware;
 use Illuminate\Support\Facades\Route;
 Route::middleware([RoleMiddleware::class])->group(function () {
-     // Employee Routes Begin   
+     // Employee Routes Begin
       Route::controller(BlogController::class)->prefix('employee')->group(function () {
           Route::get('/Blog',  'blogs_show')->name('employee.blog.index');
           Route::get('/blog/create',  'create')->name('employee.blog.create');
           Route::post('/blog/store', 'store')->name('employee.blog.store');
           Route::get('/blog/{id}/edit', 'edit')->name('employee.blog.edit');
           Route::post('/employee/Blog/update/{id}', 'update')->name('employee.Blog.update');
-          Route::delete('/employee/Blog/{id}', [BlogController::class, 'destroy'])->name('employee.blog.delete');
-          Route::post('/blog/deleteSelected', [BlogController::class, 'deleteSelected'])->name('employee.blog.deleteSelected');
-          Route::delete('/blog/bulk-delete', [BlogController::class, 'deleteSelected'])->name('employee.blog.bulkDelete');
+          Route::get('/employee/Blog/delete/{id}', 'destroy')->name('employee.blog.delete');
+          Route::post('/blog/deleteSelected',  'deleteSelected')->name('employee.blog.deleteSelected');
+          Route::delete('/blog/bulk-delete',  'deleteSelected')->name('employee.blog.bulkDelete');
       });
-  
+
       // Stores Routes Begin
       Route::controller(StoresController::class)->prefix('employee')->name('employee.')->group(function () {
           Route::get('/store', 'store')->name('stores');
@@ -34,8 +34,8 @@ Route::middleware([RoleMiddleware::class])->group(function () {
           Route::post('/check-slug', 'checkSlug')->name('check.slug');
 
       });
-  
-  
+
+
       // Categories Routes Begin
       Route::controller(CategoriesController::class)->prefix('employee')->name('employee.')->group(function () {
           Route::get('/category', 'category')->name('category');
@@ -46,8 +46,8 @@ Route::middleware([RoleMiddleware::class])->group(function () {
           Route::get('/category/delete/{id}', 'delete_category')->name('category.delete');
            Route::post('/category/deleteSelected', 'deleteSelected')->name('category.deleteSelected');
       });
-  
-  
+
+
       // Networks Routes Begin
       Route::controller(NetworksController::class)->prefix('employee')->group(function () {
           Route::get('/network', 'network')->name('employee.network');
@@ -57,10 +57,10 @@ Route::middleware([RoleMiddleware::class])->group(function () {
           Route::post('/network/update/{id}', 'update_network')->name('employee.network.update');
           Route::get('/network/delete/{id}', 'delete_network')->name('employee.network.delete');
       });
-  
+
       // Coupons Routes Begin
-  
-  
+
+
       Route::controller(CouponsController::class)->prefix('employee')->group(function () {
           Route::get('/coupon', 'coupon')->name('employee.coupon');
           Route::get('/coupon/create', 'create_coupon')->name('employee.coupon.create');

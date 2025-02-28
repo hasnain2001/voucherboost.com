@@ -269,15 +269,22 @@ public function checkSlug(Request $request)
 
     public function deleteSelected(Request $request)
     {
+
         $storeIds = $request->input('selected_stores');
-
         if ($storeIds) {
-            // Delete only the stores
-            Stores::whereIn('id', $storeIds)->delete();
-
-            return redirect()->back()->with('success', 'Selected stores deleted successfully');
+        $stores = Stores::whereIn('id', $storeIds)->get();
+        foreach ($stores as $store) {
+        DeleteStore::create([
+        'store_id' => $store->id,
+        'store_name' => $store->name,
+        'deleted_by' => Auth::id(),
+        ]);
+        Coupons::where('store', $store->slug)->delete();
+        $store->delete();
+        }
+        return redirect()->back()->with('success', 'Selected stores and their associated coupons deleted successfully.');
         } else {
-            return redirect()->back()->with('error', 'No stores selected for deletion');
+        return redirect()->back()->with('error', 'No stores selected for deletion.');
         }
     }
 

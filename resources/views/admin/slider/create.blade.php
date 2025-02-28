@@ -40,7 +40,7 @@
                         <div class="card-body">
                             <form name="CreateSlider" id="CreateSlider" method="POST" action="{{ route('admin.slider.store') }}" enctype="multipart/form-data">
                                 @csrf
-                                
+
                                 {{-- Title --}}
                                 <div class="form-group mb-3">
                                     <label for="title" class="fw-bold">Title <span class="text-danger">*</span></label>
@@ -52,6 +52,13 @@
                                     <label for="description" class="fw-bold">Description <span class="text-danger">*</span></label>
                                     <textarea class="form-control border-dark" name="description" id="description" rows="3" >{{ old('description') }}</textarea>
                                 </div>
+                                <div class="form-group">
+                                    <label for="destination_url"> URL <span class="text-danger">*</span></label>
+                                    <input type="url" class="form-control" name="url" id="url" value="{{ old('destination_url') }}" required>
+                                    @error('url')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
 
                                 {{-- Image Upload --}}
                                 <div class="form-group mb-3">
@@ -59,6 +66,9 @@
                                     <input type="file" class="form-control border-dark" name="image" id="image" required onchange="previewImage(event)">
                                     <div id="imagePreview" class="mt-3"></div>
                                 </div>
+
+
+
 
                                 {{-- Status --}}
                                 <div class="form-group mb-4">
