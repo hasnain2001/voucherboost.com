@@ -163,21 +163,20 @@ to {
     transform: translateY(-4px);
 }
 }
-
 .reveal-code {
     position: relative;
     padding: 15px 30px;
     font-size: 18px;
     text-align: center;
     color: #fff;
-    background-color: #7a1bb4;
-    border: 2px dashed #fff; /* Dashed border */
+    background-color:#7a1bb4;
+    border: 2px dashed #fff; /* Dashed border to mimic a coupon */
     border-radius: 5px;
     cursor: pointer;
     overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.5s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    animation: pulse 2s infinite, borderGlow 1.5s infinite alternate;
+    animation: pulse 2s infinite; /* Add pulsating animation */
 }
 
 /* Pulsating Animation */
@@ -193,18 +192,6 @@ to {
     100% {
         transform: scale(1);
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-}
-
-/* Border Glowing Animation */
-@keyframes borderGlow {
-    0% {
-        border-color: #b300ff;
-        box-shadow: 0 0 10px #b300ff;
-    }
-    100% {
-        border-color: #ff00ff;
-        box-shadow: 0 0 15px #ff00ff;
     }
 }
 
@@ -224,7 +211,10 @@ to {
 .reveal-code:hover {
     transform: scale(0.97);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    border-color: #d500f9;
+}
+
+.reveal-code:hover .coupon-code{
+    display: block;
 }
 
 .reveal-code:hover::before {
@@ -276,7 +266,7 @@ text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
     }
     .get {
-        width: 220px;
+        width: 100%;
         background: linear-gradient(to right, #7a1bb4, #ab47bc);
         color: #ffffff;
         text-align: center;

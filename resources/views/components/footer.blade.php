@@ -9,9 +9,10 @@
                 <div class="col-md-6">
                     <form class="d-flex align-items-center subscribe">
                         <input type="email" class="me-3" placeholder="Enter Your Email">
-                        <button type="submit" class="subscribe-btn btn-warning">Subscribe &#9993;</button>
+                        <button type="submit" class="subscribe-btn">Subscribe &#9993;</button>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>

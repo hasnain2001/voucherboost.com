@@ -53,6 +53,11 @@
         align-items: center;
         gap: 8px;
     }
+        .bg-purple {
+        background-color: #6f42c1;
+        color: #fff;
+    }
+
     /* .coupon-actions a {
         text-decoration: none;
         font-size: 14px;
@@ -96,7 +101,7 @@
 </style>
 
 <main class=" container-fluid">
-    <div class="text-center text-dark bg-primary py-4">
+    <div class="text-center text-white bg-purple py-4">
         <h1>Free Delivery Offers</h1>
         <hr>
     </div>

@@ -1,6 +1,6 @@
 @extends('welcome')
 @section('title')
-    privacy 
+    privacy
 @endsection
 @section('description')
     Find the latest coupon codes and deals for your favorite stores. Save money on your online shopping with our exclusive discount codes.
@@ -126,7 +126,7 @@
                   <span class="me-3">
                     <i class="fas fa-envelope text-primary fs-4"></i> Contact Us
                   </span>
-                  <p class="ms-auto mb-0">Have questions? Contact us at <a href="mailto:admin@voucherboost.com">admin@voucherboost.com</a>.</p>
+                  <p class="ms-auto mb-0">Have questions? Contact us at <a href="mailto:admin@voucherboost.com">info@voucherboost.com</a>.</p>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <span class="me-3">

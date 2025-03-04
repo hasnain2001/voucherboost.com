@@ -11,6 +11,11 @@ use Illuminate\Support\Str;
 
 class SitemapController extends Controller
 {
+    public function index(){
+        $stores = Stores::all();
+        $categories = Categories::all();
+        return view('sitemap',compact('stores','categories'));
+    }
     public function generate()
     {
         $sitemap = Sitemap::create();

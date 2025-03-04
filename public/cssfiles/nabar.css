@@ -14,11 +14,13 @@
             font-weight: bold;
             font-size: 24px;
             text-transform: uppercase;
-        }
+            align-items: center;
+                 }
         .navbar-brand img {
             width: 100%;
-            height: 50px;
+            height: 100px;
             padding-left: 30px;
+            padding-bottom: 20px;
         }
         .navbar-brand span {
             font-family: 'Poppins', sans-serif;
@@ -238,6 +240,11 @@
         .mobile-nav.active {
             display: block;
         }
+        .mobile-nav img {
+            width: 150px;
+            height: 50px;
+            margin-bottom: 20px;
+        }
 
         .mobile-nav a {
             color: #d8d8d8;
@@ -290,6 +297,7 @@
             .navbar-brand img {
             width: 100%;
             height: 50px;
+            margin-bottom: 20px;
         }
             .mobile-nav-toggle {
                 display: block;

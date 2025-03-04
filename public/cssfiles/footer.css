@@ -1,5 +1,5 @@
 footer {
-    background-color: #4b0082;
+    background-color: #45046a;
     color: white;
     padding: 20px 0;
     font-family: Arial, sans-serif;
@@ -10,24 +10,59 @@ footer {
     text-align: center;
     padding: 20px;
 }
-.footer-signup h3 {
+
+.footer-signup h5 {
     margin-bottom: 10px;
+    font-size: 1.25rem; /* Adjust font size for better readability */
 }
-.footer-signup input[type="email"] {
+
+.footer-signup p {
+    font-size: 0.9rem; /* Smaller font size for mobile responsiveness */
+}
+
+.footer-signup input {
     padding: 10px;
-    width: 70%;
-    max-width: 300px;
+    margin-top: 10px; /* Add spacing for stacked layout on mobile */
+    width: 100%; /* Full width for smaller screens */
+    max-width: auto; /* Limit width on larger screens */
     border-radius: 5px;
     border: none;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
+
 .footer-signup button {
     background-color: orange;
     color: white;
-    padding: 10px 15px;
+    padding: 10px 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 10px; /* Add spacing for stacked layout on mobile */
+    white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer-signup {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-signup .subscribe {
+        display: flex;
+        flex-direction: column; /* Stack input and button vertically on small screens */
+        align-items: stretch; /* Stretch items to full width */
+        width: 100%;
+    }
+    .footer-signup input {
+        margin-left: 0; /* Remove left margin for input */
+        width: 100%; /* Full width for smaller screens */
+
+    }
+    .footer-signup button {
+        width: 100%; /* Full width for smaller screens */
+margin-right: 13px;
+    }
 }
 .separator {
     width: 100%;
@@ -80,7 +115,7 @@ footer {
     border-top: 1px solid rgba(255,255,255,0.3);
 }
 .footer-logo img {
-    width: 150px;
+    width: 250px;
 }
 
 @media (max-width: 768px) {
@@ -89,4 +124,6 @@ footer {
         align-items: center;
         text-align: center;
     }
+
 }
+

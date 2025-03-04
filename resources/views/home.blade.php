@@ -141,14 +141,16 @@
                 @if($sliders->isNotEmpty())
                     @foreach ($sliders as $slider)
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                            <a target="_blank" href="{{ $slider->url }}">
                             @if(!empty($slider->image))
                                 <img src="{{ asset('uploads/slider/' . $slider->image) }}" class="slider-image d-block w-100" alt="{{ $slider->title }}">
                             @endif
+                        </a>
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>{{ $slider->title }}</h5>
                                 <p>{{ $slider->description }}</p>
                                 @if(!empty($slider->url))
-                                    <a target="_blank" href="{{ $slider->url }}" class="get">View More</a>
+                                    <a target="_blank" href="{{ $slider->url }}" class="btn bt-purple">View More</a>
                                 @endif
                             </div>
                         </div>

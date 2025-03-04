@@ -1,12 +1,14 @@
 @extends('welcome')
 @section('title')
-Stores - Best Deals and Discounts on voucher Boost
+ VoucherBoost Terms & Conditions | Your Guide to Safe & Smart Savings
 @endsection
+
 @section('description')
-    Find the latest coupon codes and deals for your favorite stores. Save money on your online shopping with our exclusive discount codes.
+    Read the terms and conditions of VoucherBoost to understand the rules and guidelines for using our coupon codes and deals.
 @endsection
+
 @section('keywords')
-    coupon codes, discount codes, promo codes, deals, offers, vouchers, discounts, savings, online shopping
+    terms and conditions, voucherboost policies, user agreement, coupon rules, discount guidelines
 @endsection
             <!-- Styles -->
             <style>
@@ -210,7 +212,7 @@ Stores - Best Deals and Discounts on voucher Boost
 
     <ul>
              <li>Email: contact@voucherboost.com</li>
-             <li>Emal:voucherboost@gmail.comss</li>
+             <!--<li>Emal:voucherboost@gmail.comss</li>-->
          </ul>
 
 

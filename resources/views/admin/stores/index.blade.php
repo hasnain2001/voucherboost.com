@@ -60,6 +60,7 @@
                    <th>created at</th>
                     <th> last updated </th>
                     <th>Action</th>
+
                     <th>EDIT Coupon</th>
                 </tr>
             </thead>
@@ -105,7 +106,9 @@
                     <td>
                         <a href="{{ route('admin.store.edit', $store->id) }}" class="btn btn-info btn-sm">Edit</a>
                         <a href="{{ route('admin.store.delete', $store->id) }}" onclick="return confirm('Are you sure you want to delete this!')" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="{{ route('store_details', ['slug' => Str::slug($store->slug)]) }}" class=" btn btn-dark text-white btn-sm">view on website</a>
                     </td>
+
                     <td>
                         <a class="btn btn-success text-white btn-sm"
                            href="{{ route('admin.store_details', ['slug' => Str::slug($store->slug)]) }}"
@@ -129,6 +132,7 @@
                   <th>created at</th>
                     <th> last updated </th>
                     <th>Action</th>
+
                     <th>EDIT Coupon</th>
                 </tr>
             </tfoot>

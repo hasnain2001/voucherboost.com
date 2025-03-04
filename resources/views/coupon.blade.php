@@ -56,6 +56,7 @@
     }
     .bg-purple {
         background-color: #6f42c1;
+        color: #fff;
     }
 
     .text-purple {
@@ -166,7 +167,7 @@
 
 <main class="container-fluid">
 
-    <div class="text-center text-dark bg-primary py-4">
+    <div class="text-center text-white bg-purple py-4">
         <h1>Coupon Codes</h1>
         <hr>
     </div>

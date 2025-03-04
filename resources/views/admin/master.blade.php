@@ -103,7 +103,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
-                            <a href="{{ route('admin.dashboard') }}" class="nav-link active">
+                            <a class="nav-link @if(Route::currentRouteName() == 'admin.dashboard') active @endif" href="{{ route('admin.dashboard') }}" >
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Dashboard

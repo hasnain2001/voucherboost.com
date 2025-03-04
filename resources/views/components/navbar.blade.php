@@ -30,7 +30,9 @@
 
 <!-- Mobile Nav Menu -->
 <div class="mobile-nav" id="mobileNav">
+
     <a href="#"  onclick="toggleMobileNav()"><i class="bi bi-x"></i> </a>
+    <img src="{{asset('images/logo.png')}}" alt="">
     <a class="{{ request()->is('/') ? 'active' : '' }}" href="/">Home</a>
     <a  class="@if(Route::currentRouteName() == 'stores') active @endif" href="{{route('stores')}}">Stores</a>
     <a  class="@if(Route::currentRouteName() == 'blog') active @endif" href="{{route('blog')}}">blog</a>

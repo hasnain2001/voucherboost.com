@@ -27,7 +27,7 @@ Route::get('/', function () {
 // });
 
 Route::get('/generate-sitemap', [SitemapController::class, 'generate']);
-Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 // Admin routes
 Route::middleware([RoleMiddleware::class])->group(function () {
@@ -44,7 +44,7 @@ Route::get('/dashboard', [EmployeeController::class, 'dashboard'])->name('dashbo
 //     });
 // });
     Route::get('/contact', function () {return view('contact');})->name('contact');
-    Route::get('/about', function () {return view('about');})->name('about');
+    Route::get('/about-us', function () {return view('about');})->name('about');
     Route::get('/terms-and-condition', function () {return view('terms_and_condition');})->name('terms_and_condition');
     Route::get('/privacy', function () {return view('privacy');})->name('privacy');
     Route::get('/cookies', function () {return view('cookies');})->name('cookies');
