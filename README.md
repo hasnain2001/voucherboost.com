@@ -12,7 +12,7 @@ Here’s the **one-page `README.md`** file ready for you to **copy and paste** d
 
 ## About
 
-Coupon Website is a Laravel-based platform that provides users with access to the latest discounts, deals, and coupons from various brands. Developed by **Hasnain Ali Khan**, this project emphasizes simplicity, scalability, and user experience.
+VoucherBoost Website is a Laravel-based platform that provides users with access to the latest discounts, deals, and coupons from various brands. Developed by **Hasnain Ali Khan**, this project emphasizes simplicity, scalability, and user experience.
 
 ---
 
