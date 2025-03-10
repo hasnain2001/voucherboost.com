@@ -65,14 +65,14 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="destination_url"> URL <span class="text-danger">*</span></label>
-                                        <input type="url" class="form-control" name="url" id="url" value="{{ old('destination_url') }}" required>
+                                        <label for="destination_url">Store  URL <span class="text-danger">*</span></label>
+                                        <input type="url" class="form-control" name="url" id="url" value="{{ old('url') }}" required>
                                         @error('url')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="destination_url">Destination URL\Affiliate Links <span class="text-danger">*</span></label>
+                                        <label for="destination_url">Affiliate Links <span class="text-danger">*</span></label>
                                         <input type="url" class="form-control" name="destination_url" id="destination_url" value="{{ old('destination_url') }}" required>
                                         @error('destination_url')
                                         <small class="text-danger">{{ $message }}</small>
@@ -164,6 +164,11 @@
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div> --}}
+                                                                        <div class="form-group">
+                                        <label for="about">About Description</label>
+                                        <textarea name="about" id="about" class="form-control" cols="30" rows="3"
+                                        style="resize: none;" >{{ old('about') }}</textarea>
+                                        </div>
                                         <div class="form-group">
                                         <label for="store_image">Store Image <span class="text-danger">*</span></label>
                                         <input type="file" class="form-control" name="store_image" id="store_image"  value="{{ old('store_image') }}" required>
@@ -177,9 +182,18 @@
                           <a href="{{ route('employee.store.store') }}" class=" btn btn-danger">Cancel</a>
                           <button type="reset" class="btn btn-light">Reset</button>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
+                                                <div class="form-group">
+                            <label for="">Main Content</label>
+                            <div id="container">
+                            <textarea required id="editor" name="content" >
+                                {{ old('content') }}
+                            </textarea>
+                            </div>
+                            </div>
                     </div>
 </form>
 

@@ -27,6 +27,8 @@ class Stores extends Model
         'authentication',
         'network',
         'store_image',
+        'content',
+        'about'
     ];
 
 // Store Model

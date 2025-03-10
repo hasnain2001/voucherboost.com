@@ -66,8 +66,9 @@ color: darkblue;
 </div>
 <div class="form-group">
 <label for="description">Description</label>
-<textarea name="description" id="description" class="form-control" cols="30" rows="5" style="resize: none;" >{{ $stores->description }}</textarea>
+<textarea name="description" id="description" class="form-control" cols="30" rows="2" >{{ $stores->description }}</textarea>
 </div>
+
 {{-- <div class="form-group">
 <label for="url">URL <span class="text-danger">*</span></label>
 <input type="url" class="form-control" name="url" id="url" value="{{ $stores->url }}" required>
@@ -119,6 +120,14 @@ color: darkblue;
     <textarea name="meta_description" id="meta_description" class="form-control" cols="30" rows="1" style="resize: none;">{{ old('meta_description', $stores->meta_description) }}</textarea>
 
     </div>
+    <div class="form-group">
+        <label for="top_store">Top Store <span class="text-danger">*</span></label>
+        <input type="radio" name="top_store" id="not_top_store" value="0" {{ $stores->top_store == '0' ? 'checked' : '' }} required> Not Top Store
+        <input type="radio" name="top_store" id="top_store" value="1" {{ $stores->top_store == '1' ? 'checked' : '' }}> Top Store
+        @error('top_store')
+        <small class="text-danger">{{ $message }}</small>
+        @enderror
+    </div>
     <div class="form-group d-flex align-items-center">
         <label for="status" class="mr-2">Status <span class="text-danger">*</span></label>
         <input type="radio" name="status" id="enable" {{ $stores->status == 'enable' ? 'checked' : '' }} value="enable">
@@ -126,9 +135,9 @@ color: darkblue;
         <input type="radio" name="status" id="disable" {{ $stores->status == 'disable' ? 'checked' : '' }} value="disable">
         <label for="disable" class="mr-4 ml-1">Disable</label>
 
-        <label for="authentication" class="mr-2">Authentication</label>
+        {{-- <label for="authentication" class="mr-2">Authentication</label>
         <input type="checkbox" name="authentication" id="authentication" {{ $stores->authentication == 'top_stores' ? 'checked' : '' }} value="top_stores">
-        <label for="authentication" class="ml-1">Top Store</label>
+        <label for="authentication" class="ml-1">Top Store</label> --}}
       </div>
 
 <div class="form-group">
@@ -169,6 +178,10 @@ color: darkblue;
 </select>
 </div>
 <div class="form-group">
+    <label for="about">about Description</label>
+    <textarea name="about" id="about" class="form-control" cols="30" rows="5" style="resize: none;" >{{ $stores->about }}</textarea>
+    </div>
+<div class="form-group">
 <label for="store_image">Store Image <span class="text-danger">*</span></label>
 <input type="file" class="form-control" name="store_image" id="store_image">
 @if($stores->store_image)
@@ -195,6 +208,14 @@ color: darkblue;
 
     </div>
 </div>
+<div class="form-group">
+    <label for="">Main Content</label>
+    <div id="container">
+    <textarea required id="editor" name="content" >
+        {!!$stores->content!!}
+    </textarea>
+    </div>
+    </div>
 
 </div>
 </form>

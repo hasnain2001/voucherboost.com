@@ -23,14 +23,13 @@ Create User
                 </div>
                 @endif
 
-
                 <div class="card-body">
                     <form action="{{ route('admin.user.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group @error('name') has-error @enderror">
                             <label for="name">Name</label>
                             <input type="text" name="name" class="form-control" id="name" placeholder="Enter name"
-                                value="{{ old('name') }}" autocomplete="off">
+                                value="{{ old('name') }}">
                             @error('name')
                             <span class="help-block text-danger">{{ $message }}</span>
                             @enderror

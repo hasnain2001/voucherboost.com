@@ -13,10 +13,10 @@
         width: 100%;
         height: 200px;
         object-fit: fill;
-        border-radius: 50%;
+        border-radius: 5%;
     }
     .btn-purple {
-        width: 120px;
+        width: 100%;
     background: linear-gradient(to right, #7a1bb4, #ab47bc); /* Enhanced contrast */
     color: #ffffff; /* High contrast for better readability */
     text-align: center;
@@ -50,6 +50,37 @@
     .display-7 {
         font-size: 15px;
     }
+    .card-coupon {
+        padding: 10px;
+        height: 100%;
+    }
+    .card-coupon .coupon-image {
+        height: 50px;
+    }
+    .card-coupon .coupon-name {
+        font-size: 16px;
+    }
+    .card-coupon .coupon-description {
+        font-size: 14px;
+    }
+    .card-coupon .ending-date {
+        font-size: 14px;
+    }
+    .card-coupon .used {
+        font-size: 14px;
+    }
+    .coupon-text {
+        font-size: 14px;
+    }
+    .coupon-code {
+        font-size: 14px;
+    }
+
+}
+.h-3{
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 </style>
     @section('main-content')
@@ -67,30 +98,30 @@
     $totalCount = $codeCount + $dealCount;
     @endphp
 
-    <section aria-label="breadcrumb" class=" "  >
-    <ol class="breadcrumb">
-    <li class="breadcrumb-item">
-    <a href="{{{ url(app()->getLocale() . '/') }}}" class="text-purple text-decoration-none">Home</a>
-    </li>
-    <li class="breadcrumb-item   ">
-    @if($store->category)
-    <a class="text-decoration-none text-purple" href="{{ route('related_category', ['slug' => Str::slug($store->category)]) }}">{{ $store->category }}</a>
-    @else <span>No Category</span>
-    @endif
-    </li>
-    <li class="breadcrumb-item">
-    <a href="{{ route('stores' ) }}" class="text-purple text-decoration-none ">Stores</a>
-    </li>
-    <li class="breadcrumb-item active" aria-current="page">
-    {{ $store->slug }}
-    </li>
-    </ol>
+    <section aria-label="breadcrumb" class=" ">
+        <ol class="breadcrumb d-flex flex-wrap">
+            <li class="breadcrumb-item">
+                <a href="{{{ url(app()->getLocale() . '/') }}}" class="text-purple text-decoration-none">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                @if($store->category)
+                    <a class="text-decoration-none text-purple" href="{{ route('related_category', ['slug' => Str::slug($store->category)]) }}">{{ $store->category }}</a>
+                @else
+                    <span>No Category</span>
+                @endif
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ route('stores' ) }}" class="text-purple text-decoration-none">Stores</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ $store->slug }}
+            </li>
+        </ol>
     </section>
-
     <div class="py-2">
     <div class="text-center mb-4">
     <h1 class="display-7 fw-bold text-dark">{{ $store->name }} </h1>
-    {{-- <span>{{$store->language->code}}</span> --}}
+
     <p class="text-muted">Save more with the best deals and discounts!</p>
     </div>
     <div class="row">
@@ -101,7 +132,7 @@
             <div class="alert alert-warning shadow-lg p-4 rounded-lg">
                 <h4 class="fw-bold text-dark mb-3">Oops! No Coupons Available</h4>
                 <p class="text-muted">Don't worry, you can still explore amazing deals from our partnered brands.</p>
-                <a href="{{ route('stores') }}" class=" btn-purple mt-3 px-4 py-2 fw-semibold">
+                <a href="{{ route('stores') }}" class=" text-nowrap btn-purple mt-3 px-4 py-2 fw-semibold">
                     Explore Brands <i class="fas fa-arrow-right ms-2"></i>
                 </a>
             </div>
@@ -113,14 +144,14 @@
 <div class="col-md-4">
     <div class="card-coupon h-100 shadow-lg p-4 rounded-lg d-flex flex-column">
         <div class="d-flex flex-column flex-md-column">
-            <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="card-img-top coupon-image shadow mb-3 rounded" alt="{{ $store->name }}">
+            <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="coupon-image" alt="{{ $store->name }}">
             <div class="d-flex flex-column flex-md-column justify-content-between w-100">
-                @if ($coupon->authentication && $coupon->authentication !== 'No Auth')
+                  {{-- @if ($coupon->authentication && $coupon->authentication !== 'No Auth')
                 <span class="authentication">{{ $coupon->authentication }}</span>
 
                 @else
-                <span class="authentication"></span>
-            @endif
+              <span class="authentication"></span>
+            @endif--}}
 
 
                 <hr>
@@ -128,7 +159,7 @@
                 <div class="text-container flex-grow-1">
                     <span class="coupon-name">{{ $coupon->name }}</span>
                     <hr>
-                    <p class="coupon-description">{{ $coupon->description }}</p>
+                    {{-- <p class="coupon-description">{{ $coupon->description }}</p> --}}
                     <hr>
                 </div>
                 <span class="ending-date" style="color: {{ strtotime($coupon->ending_date) < strtotime(now()) ? '#951d1d' :'#909090' }};">
@@ -154,12 +185,20 @@
             @endif
         </div>
     </div>
+
 </div>
 
 
 
     @endforeach
     @endif
+<div class="container p-4">
+    @if ($store->content)
+    <div class="content mt-4">{!! $store->content !!}</div>
+@else
+    <span>no content</span>
+@endif
+</div>
     </div>
     </div>
     <div class="col-lg-3">
@@ -169,9 +208,16 @@
     <h4 class="store-name fw-bold text-dark">{{ $store->name }}</h4>
     <p class="text-warning fs-5">⭐⭐⭐⭐☆</p>
     </div>
-    <a href="{{$store->destination_url}}" class="btn-purple"> Visit Store </a>
-    <p class="text-muted">{{ $store->description }}</p>
-
+        <a href="{{$store->destination_url}}" class="btn-purple mb-3"> Visit Store </a>
+        <p class="text-muted">{{ $store->description }}</p>
+        <hr>
+        <h3 class="h-3">About {{ $store->name }}</h3>
+        <div class="card shadow-sm p-2  bg-white rounded">
+            <div class="card-body">
+                <p class="card-text">{{ $store->about }}</p>
+            </div>
+        </div>
+          <hr>
     <div class="store-info-card card shadow-sm p- mb-2 bg-white rounded">
     <h4 class=" filter-h mb-4">Filter By Voucher Codes</h4>
     <div class="btn-group" role="group" aria-label="Sort Coupons">

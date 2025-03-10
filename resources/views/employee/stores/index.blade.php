@@ -66,6 +66,7 @@
                         <td><img class="img-thumbnail" src="{{ $store->store_image ? asset('uploads/stores/' . $store->store_image) : asset('front/assets/images/no-image-found.jpg') }}" alt="Card Image"  style="max-width: 40px;"></td>
                         <td>{{ $store->network }}</td>
                         <td>{{ $store->category }}</td>
+                        
 
                         <td>
                              @if ($store->status == "disable")

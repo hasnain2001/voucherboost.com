@@ -1,6 +1,6 @@
     @extends('welcome')
     @section('title')
-    Voucher Boost - Best Deals and Discounts on voucher Boost
+    Voucher Boost -  Best Deals and Discounts on voucher Boost
     @endsection
     @section('description')
     Find the best deals, discounts, and coupons on voucher Boost. Save money on your favorite products from top brands.
@@ -346,7 +346,7 @@
         </div>
         <div class="col-md-8">
             <div class="text-left p-4 bg-light rounded shadow-sm">
-                <h4 class="fw-bold text-dark">DISCLAIMER</h4>
+                <h4 class="fw-bold text-dark">Disclaimer</h4>
                 <p class="mb-0 text-muted">Disclaimer is necessary for our AS & advertising policies, but make sure that your ailment complies with all the appropriate government regulations. Disclaimers are required for everyone who can make money from these kinds of ads using affiliate links. The only purpose is to help our consumers understand that the publisher earns money from these links. If a publisher's affiliate links are seen on someone else's website or user comments, a disclaimer should be added any time a product is supported and the publisher receives a reward. It is necessary for both audible and visual disclaimers on videos or live streaming as consumers can enter or exit a video, therefore a clear visual disclaimer is available. All guidelines apply to mobile sites and apps. Digital marketing and disclaimer guidelines will continue to change and evolve, so be aware of any changes and make sure that you are always transparent with consumers.</p>
             </div>
         </div>

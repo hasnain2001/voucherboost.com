@@ -279,7 +279,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('admin.user.create') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Add New slider</p>
+                                    <p>Add New user</p>
                                 </a>
                             </li>
 

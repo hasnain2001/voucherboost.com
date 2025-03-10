@@ -59,20 +59,20 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
-                                        <textarea name="description" id="description" class="form-control" cols="30" rows="3" style="resize: none;" required>{{ old('description') }}</textarea>
+                                        <textarea name="description" id="description" class="form-control" cols="30" rows="2" required>{{ old('description') }}</textarea>
                                         @error('description')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="destination_url"> URL <span class="text-danger">*</span></label>
+                                        <label for="destination_url">Store URL <span class="text-danger">*</span></label>
                                         <input type="url" class="form-control" name="url" id="url" value="{{ old('destination_url') }}" required>
                                         @error('url')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="destination_url">Destination URL\Affiliate Links <span class="text-danger">*</span></label>
+                                        <label for="destination_url">Affiliate Links <span class="text-danger">*</span></label>
                                         <input type="url" class="form-control" name="destination_url" id="destination_url" value="{{ old('destination_url') }}" required>
                                         @error('destination_url')
                                         <small class="text-danger">{{ $message }}</small>
@@ -101,8 +101,16 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="meta_description">Meta Description</label>
-                                        <textarea name="meta_description" id="meta_description" class="form-control" cols="20" rows="2" style="resize: none;">{{ old('meta_description') }}</textarea>
+                                        <textarea name="meta_description" id="meta_description" class="form-control"   >{{ old('meta_description') }}</textarea>
                                         @error('meta_description')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="top_store">Top Store <span class="text-danger">*</span></label>
+                                        <input type="radio" name="top_store" id="not_top_store" value="0" {{ old('top_store') == '0' ? 'checked' : '' }} required> Not Top Store
+                                        <input type="radio" name="top_store" id="top_store" value="1" {{ old('top_store') == '1' ? 'checked' : '' }}> Top Store
+                                        @error('top_store')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
@@ -142,7 +150,7 @@
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="language_id">Language <span class="text-danger">*</span></label>
                                         <select name="language_id" id="language_id" class="form-control" required>
                                             <option value="" disabled {{ old('language_id') ? '' : 'selected' }}>--Select Language--</option>
@@ -155,7 +163,12 @@
                                         @error('language_id')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
-                                    </div>
+                                    </div> --}}
+                                    <div class="form-group">
+                                        <label for="about">About Description</label>
+                                        <textarea name="about" id="about" class="form-control" cols="30" rows="3"
+                                        style="resize: none;" >{{ old('about') }}</textarea>
+                                        </div>
                                         <div class="form-group">
                                         <label for="store_image">Store Image <span class="text-danger">*</span></label>
                                         <input type="file" class="form-control" name="store_image" id="store_image"  value="{{ old('store_image') }}" required>
@@ -169,9 +182,18 @@
                           <a href="{{ route('admin.store.store') }}" class=" btn btn-danger">Cancel</a>
                           <button type="reset" class="btn btn-light">Reset</button>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="">Main Content</label>
+                            <div id="container">
+                            <textarea required id="editor" name="content" >
+                                {{ old('content') }}
+                            </textarea>
+                            </div>
+                            </div>
                     </div>
 </form>
 

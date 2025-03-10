@@ -10,7 +10,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- Swiper CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-
+<link rel="shortcut icon" href="{{asset('images/favicon.png')}}" type="image/x-icon">
         <!-- Swiper JS -->
         <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
         <!-- Styles -->

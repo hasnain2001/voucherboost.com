@@ -103,6 +103,14 @@
           transform: translateY(-5px);
           box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
+        .page-link {
+            color: purple; font-weight: bold;
+        }
+        .page-item.active .page-link {
+          background-color: rgb(175, 16, 154);
+          border-color: purple;
+          color: rgb(255, 255, 255);
+        }
 
         /* Responsive Adjustments */
         @media (max-width: 768px) {
@@ -134,7 +142,7 @@
             <ul class="pagination pagination-responsive justify-content-center flex-wrap">
               @foreach(range('A', 'Z') as $letter)
               <li class="page-item {{ request()->get('letter') == $letter ? 'active' : '' }}">
-                <a class="page-link" href="{{ route('stores', ['letter' => $letter]) }}" style="color: purple; font-weight: bold;">
+                <a class="page-link" href="{{ route('stores', ['letter' => $letter]) }}">
                   {{ $letter }}
                 </a>
               </li>

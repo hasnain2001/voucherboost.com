@@ -90,7 +90,10 @@ public function checkSlug(Request $request)
             'meta_description' => 'nullable|string',
             'authentication' => 'nullable|string',
             'network' => 'nullable|string',
-            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Validates image file
+            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048', // Validates image file
+            'content' => 'nullable|string',
+            'about' => 'nullable|string',
+            'status' => 'required|in:enable,disable', // Example statuses
         ]);
 
         // Generate a slug from the name if not provided
@@ -144,6 +147,8 @@ public function checkSlug(Request $request)
             'authentication' => $request->input('authentication', 'No Auth'),
             'network' => $request->input('network'),
             'store_image' => $storeImage ?? 'No Store Image',
+            'content' => $request->input('content'),
+            'about' => $request->input('about'),
         ]);
 
         // Redirect back with a success message
@@ -183,6 +188,9 @@ public function checkSlug(Request $request)
             'authentication' => 'nullable|string',
             'network' => 'nullable|string',
             'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Validates image file
+            'content' => 'nullable|',
+            'about' => 'nullable|string',
+            'status' => 'required|in:enable,disable', // Example statuses
         ]);
 
 
@@ -234,6 +242,8 @@ public function checkSlug(Request $request)
             'authentication' => $request->input('authentication', 'No Auth'),
             'network' => $request->input('network', $store->network),
             'store_image' => $storeImage, // Updated or existing image
+            'content' => $request->input('content', $store->content),
+            'about' => $request->input('about'),
         ]);
 
         // Redirect back with a success message

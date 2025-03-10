@@ -55,7 +55,7 @@ public function openCoupon($couponId)
         $coupon->save();
 
         // Assuming you have a route named 'store.detail' that shows the store detail page
-        return redirect()->route('store.detail', ['id' => $coupon->store_id]);
+        return redirect()->route('store_details', ['id' => $coupon->store_id]);
     }
     // Handle case where coupon is not found
     return redirect()->back()->with('error', 'Coupon not found.');

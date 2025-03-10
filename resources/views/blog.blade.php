@@ -1,6 +1,6 @@
 @extends('welcome')
 @section('title')
-    Blog  
+    Blog Posts | Shopping Hacks & Savings Tips & Tricks
 @endsection
 @section('description')
     Find the latest blog posts, shopping hacks, savings tips, and tricks. Stay updated with the latest trends and news in the world of online shopping.
@@ -9,7 +9,7 @@
     blog, blog posts, shopping hacks, savings tips, tricks, trends, news, online shopping
 @endsection
 @section('main-content')
-  
+
 <style>
  .blog .btn {
     background-color:#701e7d; /* Purple */
@@ -54,7 +54,7 @@
             <li class="breadcrumb-item">
                 <a href="{{ url(app()->getLocale() . '/') }}" class="text-decoration-none text-primary" style="font-weight: 500;">@lang('message.home')</a>
                 </li>
-            
+
 
 <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">Blog</li>
     </ol>
@@ -94,7 +94,7 @@
   </section>
 </div>
 
-  
+
       <!-- Stores Section (Right Side) -->
       <div class="col-md-4">
         <aside class="sidebar p-3 bg-light">
@@ -120,12 +120,12 @@
           </div>
         </aside>
       </div>
-      
-      
+
+
     </div>
   </div>
 </div>
 @endsection
-  
+
 
 

@@ -6,7 +6,14 @@
 
 
     <div class="content-wrapper">
-
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{{ route('employee.dashboard') }}">Dahboard</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('employee.stores') }}">stores</a></li>
+              <li class="breadcrumb-item active" aria-current="page">copoun</li>
+              <li class="breadcrumb-item active" aria-current="page">{{ $store->name }}</li>
+            </ol>
+          </nav>
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -74,7 +81,7 @@
                     <span>Deal</span>
                                    @endif
                 </td>
-                <td>{{ $store->language->name ??'No language' }}</td>
+                <td>{{ $store->language->code ??'No language' }}</td>
                 <td>
                    @if ($coupon->status == "disable")
                         <i class="fa fa-fw fa-times-circle" style="color: blue;"></i>

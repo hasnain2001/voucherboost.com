@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class SliderController extends Controller
 {
   public function slider() {
-    $sliders = Slider::all();
+    $sliders = Slider::orderBy('created_at', 'desc')->get();
     return view('admin.slider.index', compact('sliders'));
   }
   public function create_slider()

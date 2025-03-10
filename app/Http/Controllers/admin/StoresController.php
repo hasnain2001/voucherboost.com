@@ -91,6 +91,8 @@ class StoresController extends Controller
             'authentication' => 'nullable|string',
             'network' => 'nullable|string',
             'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Validates image file
+            'content' => 'nullable|',
+            'about' => 'nullable|string|max:255',
         ]);
 
         // Generate a slug from the name if not provided
@@ -143,6 +145,8 @@ class StoresController extends Controller
             'authentication' => $request->input('authentication', 'No Auth'),
             'network' => $request->input('network'),
             'store_image' => $storeImage ?? 'No Store Image',
+            'content' => $request->input('content'),
+            'about' => $request->input('about'),
         ]);
 
         // Redirect back with a success message
@@ -181,6 +185,8 @@ class StoresController extends Controller
         'authentication' => 'nullable|string',
         'network' => 'nullable|string',
         'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Validates image file
+        'content' => 'nullable|',
+        'about' => 'nullable|string|max:255',
         ]);
 
 
@@ -231,6 +237,8 @@ class StoresController extends Controller
             'authentication' => $request->input('authentication', 'No Auth'),
             'network' => $request->input('network', $store->network),
             'store_image' => $storeImage, // Updated or existing image
+            'content' => $request->input('content'),
+            'about' => $request->input('about'),
         ]);
 
         // Redirect back with a success message

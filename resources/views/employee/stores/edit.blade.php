@@ -172,6 +172,10 @@ color: darkblue;
 </select>
 </div>
 <div class="form-group">
+    <label for="about">about Description</label>
+    <textarea name="about" id="about" class="form-control" cols="30" rows="5" style="resize: none;" >{{ $stores->about }}</textarea>
+    </div>
+<div class="form-group">
 <label for="store_image">Store Image <span class="text-danger">*</span></label>
 <input type="file" class="form-control" name="store_image" id="store_image">
 @if($stores->store_image)

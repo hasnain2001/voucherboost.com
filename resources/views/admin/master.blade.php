@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> @yield('title') | New Website  </title>
+    <title> @yield('title') | VoucherBoost  </title>
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
 
 
@@ -288,7 +288,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('admin.user.create') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Add New slider</p>
+                                    <p>Add New user</p>
                                 </a>
                             </li>
 

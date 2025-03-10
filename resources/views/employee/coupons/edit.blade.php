@@ -112,32 +112,32 @@
                                     @foreach ($authOptions as $auth)
                                         <div class="form-check"><input type="radio" class="form-check-input" name="authentication" id="{{ $auth }}" value="{{ $auth }}" {{ $coupons->authentication === $auth ? 'checked' : '' }} onchange="toggleOtherInputVisibility(false)"><label class="form-check-label" for="{{ $auth }}">{{ ucfirst($auth) }}</label></div>
                                     @endforeach
-                                    <div class="form-check"><input type="radio" class="form-check-input" name="authentication" id="otherOption" value="other" {{ !in_array($coupons->authentication, $authOptions) ? 'checked' : '' }} onchange="toggleOtherInputVisibility(true)"><label class="form-check-label" for="otherOption">Other</label></div>
-                                    <div class="form-group" id="otherInputGroup" style="{{ !in_array($coupons->authentication, $authOptions) ? '' : 'display: none;' }}"><label for="otherAuthentication">Authentication</label><input type="text" class="form-control" name="other_authentication" id="otherAuthentication" value="{{ !in_array($coupons->authentication, $authOptions) ? $coupons->authentication : '' }}" oninput="updateAuthenticationValue(this)"></div>
+                                    {{-- <div class="form-check"><input type="radio" class="form-check-input" name="authentication" id="otherOption" value="other" {{ !in_array($coupons->authentication, $authOptions) ? 'checked' : '' }} onchange="toggleOtherInputVisibility(true)"><label class="form-check-label" for="otherOption">Other</label></div>
+                                    <div class="form-group" id="otherInputGroup" style="{{ !in_array($coupons->authentication, $authOptions) ? '' : 'display: none;' }}"><label for="otherAuthentication">Authentication</label><input type="text" class="form-control" name="authentication" id="otherAuthentication" value="{{ !in_array($coupons->authentication, $authOptions) ? $coupons->authentication : '' }}" oninput="updateAuthenticationValue(this)"></div> --}}
                                 </div>
                                 <div class="form-group">
                                     <label for="store">Store <span class="text-danger">*</span></label>
-                                    <select name="store" id="store" class="form-control" onchange="updateDestinationUrl()">
+                                    <select name="store" id="store" class="form-control" onchange="updateDestinationAndLanguage()">
                                         <option value="" disabled selected>{{ $coupons->store }}</option>
                                         @foreach($stores as $store)
-                                            <option value="{{ $store->slug }}" data-url="{{ $store->destination_url }}">{{ $store->slug }}</option>
+                                            <option value="{{ $store->slug }}" data-url="{{ $store->destination_url }}" data-language-id="{{ $store->language_id }}">{{ $store->slug }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-
                                 <div class="form-group">
                                     <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
                                     <input type="url" class="form-control" name="destination_url" id="destination_url" value="{{ $coupons->destination_url }}">
                                 </div>
-                                <div class="form-group">
-                                    <label for="lang">Language <span class="text-danger">*</span></label>
-                                    <select name="language_id" id="lang" class="form-control" required>
+                                {{-- <div class="form-group">
+                                    <label for="language_id">Language <span class="text-danger">*</span></label>
+                                    <select name="language_id" id="language_id" class="form-control" required>
                                         <option disabled selected>{{ $coupons->language->code ?? '--Select Language--' }}</option>
                                         @foreach ($langs as $lang)
                                             <option value="{{ $lang->id }}">{{ $lang->code }}</option>
                                         @endforeach
                                     </select>
-                                </div>
+                                </div> --}}
+
                             </div>
                         </div>
                     </div>
@@ -151,8 +151,27 @@
         </div>
     </section>
 </div>
-
 <script>
+    function updateDestinationAndLanguage() {
+        const storeSelect = document.getElementById('store');
+        const selectedOption = storeSelect.options[storeSelect.selectedIndex];
+
+        // Get the destination URL and language ID from the selected store
+        const destinationUrl = selectedOption.getAttribute('data-url') || '';
+        const languageId = selectedOption.getAttribute('data-language-id') || '';
+
+        // Update the destination URL input field
+        document.getElementById('destination_url').value = destinationUrl;
+
+        // Set the selected language in the language dropdown
+        const languageSelect = document.getElementById('language_id');
+        if (languageId) {
+            languageSelect.value = languageId;
+        } else {
+            languageSelect.selectedIndex = 0; // Reset to default if no language ID
+        }
+    }
+
     function toggleOtherInputVisibility(showOther) {
         const otherInputGroup = document.getElementById('otherInputGroup');
         const otherAuthentication = document.getElementById('otherAuthentication');
@@ -171,17 +190,6 @@
         otherOption.value = input.value; // Update the value of the "Other" radio button dynamically.
     }
 
-    function updateDestinationUrl() {
-        const storeSelect = document.getElementById('store');
-        const selectedOption = storeSelect.options[storeSelect.selectedIndex];
-        const destinationUrlInput = document.getElementById('destination_url');
-
-        // Get the data-url attribute from the selected option
-        const destinationUrl = selectedOption.getAttribute('data-url') || '';
-
-        // Update the input field with the URL
-        destinationUrlInput.value = destinationUrl;
-    }
 
     function toggleCodeInput(checkboxElement) {
     const codeInputGroup = document.getElementById('codeInputGroup');

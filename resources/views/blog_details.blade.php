@@ -53,7 +53,7 @@
         }
 
         .h-1 span {
-            color: #ff6347;
+            color: #73097d;
         }
 
         .blog-container {
@@ -109,15 +109,15 @@
     <ol class="breadcrumb mb-0">
 
             <li class="breadcrumb-item">
-<a href="{{ url(app()->getLocale() . '/') }}" class="text-decoration-none text-primary" style="font-weight: 500;">Home</a>
+<a href="{{ url(app()->getLocale() . '/') }}" class="text-decoration-none text-purple" style="font-weight: 500;">Home</a>
                 </li>
 <li class="breadcrumb-item">
-<a class="text-decoration-none" href="{{ route('related_category', ['slug' => Str::slug($blog->category)]) }}">
+<a class="text-decoration-none text-purple" href="{{ route('related_category', ['slug' => Str::slug($blog->category)]) }}">
     {{ $blog->category }}
 </a>
 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ url(app()->getLocale() . '/blog') }}" class="text-decoration-none text-primary" style="font-weight: 500;">Blog</a>
+                    <a href="{{ url(app()->getLocale() . '/blog') }}" class="text-decoration-none text-purple" style="font-weight: 500;">Blog</a>
                     </li>
 
 
@@ -165,7 +165,7 @@
 <section class="blog-section py-5">
     <div class="container">
         <h1 class="h-1 text-center mb-4">
-            Upgrade Your Wardrobe <span class="text-danger">And Enhance Your</span> Living Spaces.
+            Upgrade Your Wardrobe <span class="">And Enhance Your</span> Living Spaces.
         </h1>
         <div class="blog-container d-flex overflow-auto pb-3">
             @foreach ($relatedblogs as $blog)

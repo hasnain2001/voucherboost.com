@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('authentication')->nullable();
             $table->string('network')->nullable();
             $table->string('store_image')->nullable();
+            $table->longText('content')->nullable();
+            $table->text('about')->nullable();
             $table->softDeletes();
             $table->string('title')->nullable();
             $table->longText('meta_tag')->nullable();

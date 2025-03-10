@@ -133,4 +133,4 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 5. Replace placeholders like `yourusername` and `hasnainalikhan@example.com` with your actual details.
 6. Save the file.
 
-Let me know if you need further assistance! 😊
+Let me know if you need further help! 😊
