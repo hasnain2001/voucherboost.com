@@ -1,6 +1,17 @@
 <IfModule mod_rewrite.c>
-    RewriteEngine on 
+    RewriteEngine On
     RewriteBase /
+
+    # Redirect all requests to the public directory
     RewriteRule ^$ public/index.php [L]
     RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
+
+    # Prevent access to sensitive files
+    <FilesMatch "^(\.env|\.git|composer\.(json|lock)|artisan|server\.php|.htaccess)$">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+
+    # Block directory listing
+    Options -Indexes
 </IfModule>

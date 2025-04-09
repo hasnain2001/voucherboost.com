@@ -22,10 +22,14 @@ class Categories extends Model
     ];
     public function stores():HasMany
     {
-        return $this->hasMany(Stores::class, 'category', 'id');
+        return $this->hasMany(Stores::class, );
     }
     public function coupons():HasMany
     {
-        return $this->hasMany(Coupons::class, 'category', 'id');
+        return $this->hasMany(Coupons::class, );
+    }
+    public function user():HasMany
+    {
+        return $this->hasMany(User::class, );
     }
 }

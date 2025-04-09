@@ -21,21 +21,21 @@ $coupons = Coupons::where('name','Free Delivery')->paginate(10);
     }
     public function off_offers()
     {
-
-$coupons = Coupons::where('name', 'like', '20%')->paginate(10);
-return view('coupons-offer', compact('coupons'));
-
-}
+    $coupons = Coupons::where('name', 'like', '20%')->paginate(10);
+    return view('coupons-offer', compact('coupons'));
+    }
+    
 public function index()
 {
     $sliders = Slider::where('status', 'active')->orderBy('created_at', 'desc')->get();
     $topstores = Stores::orderBy('created_at','desc')->where('status', 'enable')->limit(18)->get();
-    $topcouponcode = Coupons::select('id', 'name', 'status', 'code','created_at', 'ending_date', 'store', 'clicks', 'destination_url', 'authentication')->where('authentication', 'Featured')->where('status', 'enable')->orderBy('created_at', 'desc')->limit(8)->get();
+    $topcouponcode = Coupons::select('id', 'name', 'status', 'code','created_at', 'ending_date', 'store', 'clicks', 'destination_url', 'authentication')->where('authentication', 'Featured')->where('status', 'enable')->whereNotNull('code')->orderBy('created_at', 'desc')->limit(8)->get();
     $Couponsdeals = Coupons::select('id', 'name', 'status', 'code','created_at', 'ending_date', 'store', 'clicks', 'destination_url', 'authentication')->where('top_coupons', '>', 0)->where('status', 'enable')->orderBy('created_at','desc')->limit(8)->get();
     $homecategories = Categories::where('authentication', 'top_category')->where('status', 'enable')->limit(4)->get();
 
     return view('home', compact( 'topstores',  'homecategories','topcouponcode','Couponsdeals','sliders'));
 }
+
 
 public function blog_home(){
     $blogs = Blog::orderBy('created_at', 'desc')->paginate(5);
@@ -132,25 +132,25 @@ $chunks = Stores::where('top_store', '>', 0)->where('status', 'enable')->get();
         return view('categories', compact('categories'));
     }
 
-public function viewcategory($name) {
-    $slug = Str::slug($name);
-    $title = ucwords(str_replace('-', ' ', $slug));
+    public function viewcategory($name) {
+        $slug = Str::slug($name);
+        $title = ucwords(str_replace('-', ' ', $slug));
 
-    // Fetch the store
-    $category = Categories::where('slug', $title)->first();
+        // Fetch the store
+        $category = Categories::where('slug', $title)->first();
 
 
-    if (!$category) {
-return redirect('404');
-    }
+        if (!$category) {
+            return redirect('404');
+        }
 
-    // Fetch related coupons and stores
-    $stores = Stores::where('category', $title)->orderBy('created_at','desc')->paginate(10);
         // Fetch related coupons and stores
-        $blogs = Blog::where('category', $title)->get();
+        $stores = Stores::where('category', $title)->orderBy('created_at','desc')->paginate(10);
+            // Fetch related coupons and stores
+            $blogs = Blog::where('category', $title)->get();
 
 
-    return view('related_category', compact('category', 'stores','blogs' ));
-}
+        return view('related_category', compact('category', 'stores','blogs' ));
+    }
 
 }

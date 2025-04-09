@@ -26,7 +26,7 @@ class BlogController extends Controller
     }
 
     public function blogs_show() {
-        $blogs = Blog::select('id','title','category_image','category')->orderby('created_at','desc')->get();
+        $blogs = Blog::with('user')->select('id','title','category_image','category','user_id')->orderby('created_at','desc')->get();
         return view('admin.Blog.show', compact('blogs'));
     }
 
@@ -50,6 +50,7 @@ class BlogController extends Controller
             'meta_description' => 'nullable|string',
             'meta_keyword' => 'nullable|string',
             'top' => 'nullable|string',
+   
         ]);
 
         // Handle file upload for category_image
@@ -93,6 +94,7 @@ class BlogController extends Controller
         $blog->meta_title = $request->input('meta_title');
         $blog->meta_description = $request->input('meta_description');
         $blog->meta_keyword = $request->input('meta_keyword');
+        $blog->user_id = Auth::id();
 
         // Process content from CKEditor
         $content = $request->input('content');
@@ -153,6 +155,7 @@ foreach ($images as $img) {
             'meta_keyword' => 'nullable|string|',
             'meta_keyword' => 'nullable|string|',
             'top'=> 'nullable|string|',
+            
         ]);
 
         // Find the blog by ID
@@ -204,6 +207,7 @@ foreach ($images as $img) {
         $blog->meta_title = $request->input('meta_title');
         $blog->meta_description = $request->input('meta_description');
         $blog->meta_keyword = $request->input('meta_keyword');
+        $blog->user_id = Auth::id();
 
         // Process content from CKEditor
         $content = $request->input('content');

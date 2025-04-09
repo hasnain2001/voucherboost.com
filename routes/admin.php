@@ -19,9 +19,9 @@ Route::middleware([RoleMiddleware::class])->group(function () {
 
 Route::controller(AdminController::class)->prefix('admin')->name('admin.')->group(function () {
 Route::get('/dashboard', 'dashboard')->name('dashboard');
+Route::get('/users', 'index')->name('user.index');
 Route::get('/user/create', 'create_user')->name('user.create');
 Route::post('/user/store', 'store_user')->name('user.store');
-Route::get('/users', 'index')->name('user.index');
 Route::get('/user/edit/{id}', 'edit_user')->name('user.edit');
 Route::post('/user/update/{id}', 'update_user')->name('user.update');
 Route::delete('/users/{id}',  'destroy')->name('user.destroy');

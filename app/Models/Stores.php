@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Stores extends Model
 {
     use HasFactory;
@@ -28,7 +28,8 @@ class Stores extends Model
         'network',
         'store_image',
         'content',
-        'about'
+        'about',
+        'user_id'
     ];
 
 // Store Model
@@ -36,15 +37,21 @@ class Stores extends Model
 
 public function language()
 {
-    return $this->belongsTo(Language::class, 'language_id');
+    return $this->belongsTo(Language::class,);
 }
 public function store_language()
 {
-    return $this->belongsTo(Language::class, 'language_id');
+    return $this->belongsTo(Language::class, );
 }
-public function category()
-{
-    return $this->belongsTo(Categories::class, 'category', 'slug');
-}
+ /**
+  * Get the user that owns the Stores
+  *
+  * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+  */
+ public function user(): BelongsTo
+ {
+    return $this->belongsTo(User::class);
+ }
+
 
 }

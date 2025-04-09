@@ -64,6 +64,7 @@
             <th>Auth</th>
             <th>Status</th>
             <th>create at</th>
+            <th>create by</th>
             <th>Last Updated</th> <!-- Add this column header -->
             <th>Action</th>
         </tr>
@@ -92,16 +93,17 @@
                         <i class="fa fa-fw fa-check-circle" style="color: green;"></i>
                     @endif
                 </td>
-                       <td>
-    <span class="badge bg-info text-dark" data-bs-toggle="tooltip" title="{{ $coupon->created_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
-        {{ $coupon->created_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
-    </span>
-</td>
-<td>
-    <span class="badge bg-warning text-dark" data-bs-toggle="tooltip" title="{{ $coupon->updated_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
-        {{ $coupon->updated_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
-    </span>
-</td>
+                <td>{{ $coupon->user->name ?? null }}</td>
+        <td>
+            <span class="badge bg-info text-dark" data-bs-toggle="tooltip" title="{{ $coupon->created_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
+            {{ $coupon->created_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
+            </span>
+        </td>
+        <td>
+            <span class="badge bg-warning text-dark" data-bs-toggle="tooltip" title="{{ $coupon->updated_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
+                {{ $coupon->updated_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
+            </span>
+        </td>
 
                 <td>
                     <a href="{{ route('admin.coupon.edit', $coupon->id) }}" class="btn btn-info btn-sm">Edit</a>
@@ -120,6 +122,7 @@
             <th>Deal/Code</th>
             <th>Auth</th>
             <th>Status</th>
+            <th>create by</th>
             <th>created at</th>
             <th>Last Updated</th> <!-- Add this column footer -->
             <th>Action</th>

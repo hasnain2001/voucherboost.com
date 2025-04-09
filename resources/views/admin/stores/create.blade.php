@@ -35,6 +35,18 @@
                         </ul>
                     </div>
                 @endif
+                @if ($errors->any())
+            <div class="alert alert-danger">
+            <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+            </div>
+            @endif
+            @if($errors->any())
+            {{ implode('', $errors->all('<div>:message</div>')) }}
+            @endif
 
 <form name="CreateStore" id="CreateStore" method="POST" enctype="multipart/form-data" action="{{ route('admin.store.store') }}">
                     @csrf
@@ -108,7 +120,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="top_store">Top Store <span class="text-danger">*</span></label>
-                                        <input type="radio" name="top_store" id="not_top_store" value="0" {{ old('top_store') == '0' ? 'checked' : '' }} required> Not Top Store
+                                        <input type="radio" name="top_store" id="not_top_store" value="0" {{ old('top_store') == '0' ? 'checked' : '' }} checked required> Not Top Store
                                         <input type="radio" name="top_store" id="top_store" value="1" {{ old('top_store') == '1' ? 'checked' : '' }}> Top Store
                                         @error('top_store')
                                         <small class="text-danger">{{ $message }}</small>
@@ -116,7 +128,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="status">Status <span class="text-danger">*</span></label>
-                                        <input type="radio" name="status" id="enable" value="enable" {{ old('status') == 'enable' ? 'checked' : '' }} required> Enable
+                                        <input type="radio" name="status" id="enable" value="enable" {{ old('status') == 'enable' ? 'checked' : '' }} checked required> Enable
                                         <input type="radio" name="status" id="disable" value="disable" {{ old('status') == 'disable' ? 'checked' : '' }}> Disable
                                         @error('status')
                                         <small class="text-danger">{{ $message }}</small>

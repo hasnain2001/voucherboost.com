@@ -6,14 +6,7 @@
 
 
     <div class="content-wrapper">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="{{ route('employee.dashboard') }}">Dahboard</a></li>
-              <li class="breadcrumb-item"><a href="{{ route('employee.stores') }}">stores</a></li>
-              <li class="breadcrumb-item active" aria-current="page">copoun</li>
-              <li class="breadcrumb-item active" aria-current="page">{{ $store->name }}</li>
-            </ol>
-          </nav>
+
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -59,7 +52,8 @@
             <th>Coupon Name</th>
             <th>Store</th>
             <th>Deal/Code</th>
-            <th>lang</th>
+            <th>auth</th>
+            <!--<th>lang</th>-->
             <th>Status</th>
             <th>create at</th>
             <th>Last Updated</th> <!-- Add this column header -->
@@ -81,7 +75,16 @@
                     <span>Deal</span>
                                    @endif
                 </td>
-                <td>{{ $store->language->code ??'No language' }}</td>
+                                <td>
+             @if (trim($coupon->authentication) === "featured")
+    <i class="fa fa-fw fa-check-circle" style="color: blue;"></i>
+@else
+    <i class="fa fa-fw fa-times-circle" style="color: red;"></i>
+@endif
+
+                </td>
+
+                <!--<td>{{ $coupon->language->code ??'No language' }}</td>-->
                 <td>
                    @if ($coupon->status == "disable")
                         <i class="fa fa-fw fa-times-circle" style="color: blue;"></i>
@@ -115,7 +118,8 @@
             <th>Coupon Name</th>
             <th>Store</th>
             <th>Deal/Code</th>
-            <th>lang</th>
+            <th>auth</th>
+            <!--<th>lang</th>-->
             <th>Status</th>
             <th>created at</th>
             <th>Last Updated</th> <!-- Add this column footer -->

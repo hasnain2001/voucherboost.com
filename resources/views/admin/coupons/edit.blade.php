@@ -108,7 +108,7 @@
 
                                 <div class="form-group">
                                     <label>Authentication:</label>
-                                    @php $authOptions = ['never expire', 'Featured', 'free shipping', 'coupon code', 'top deals', 'valentine']; @endphp
+                                    @php $authOptions = ['never expire', 'featured', 'free shipping', 'coupon code', 'top deals', 'valentine']; @endphp
                                     @foreach ($authOptions as $auth)
                                         <div class="form-check"><input type="radio" class="form-check-input" name="authentication" id="{{ $auth }}" value="{{ $auth }}" {{ $coupons->authentication === $auth ? 'checked' : '' }} onchange="toggleOtherInputVisibility(false)"><label class="form-check-label" for="{{ $auth }}">{{ ucfirst($auth) }}</label></div>
                                     @endforeach
@@ -146,15 +146,7 @@
                         <button type="reset" class="btn btn-warning">Reset</button>
                         <a href="{{ route('admin.coupon') }}" class="btn btn-secondary">Cancel</a>
                     </div>
-                    <div class="form-group">
-                        <label for="">Main Content</label>
-                        <div id="container">
-                        <textarea required id="editor" name="content" >
-                            {{ $stores ->content }}
-                        </textarea>
-                        </div>
-                        </div>
-                </div>
+                              </div>
             </form>
         </div>
     </section>

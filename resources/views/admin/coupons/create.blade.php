@@ -126,12 +126,12 @@ margin-right: 5px; /* Adjust spacing between the input and label */
         @enderror
     </div> --}}
 <div class="form-group">
-{{-- <label for="top_coupons">Top Coupons Code <span class="text-danger">*</span></label><br>
+<label for="top_coupons">Top Coupons Code <span class="text-danger">*</span></label><br>
 @for ($i = 0; $i <= 10; $i++)
 <input type="radio" name="top_coupons" id="top_{{ $i }}" value="{{ $i }}" {{ old('top_coupons') == $i ? 'checked' : '' }}>
 <label for="top_{{ $i }}">{{ $i }}</label>
 @endfor
-</div> --}}
+</div>
 <div class="form-group">
 <label for="status">Status <span class="text-danger">*</span></label><br>
 <div class="radio-container">

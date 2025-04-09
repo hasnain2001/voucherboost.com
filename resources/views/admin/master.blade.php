@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
       <style>
             .sidebar-dark-primary {
-                background-color: #000000;
+                background-color: #45046a !important;
 
         }
 

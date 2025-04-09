@@ -28,7 +28,7 @@ class StoresController extends Controller
         if (!$store) {
             return redirect('404');
         }
-        $coupons = Coupons::where('store', $title)->orderByRaw('CAST(`order` AS SIGNED) ASC')->get();
+        $coupons = Coupons::with('user')->where('store', $title)->orderByRaw('CAST(`order` AS SIGNED) ASC')->get();
         $relatedStores = Stores::where('category', $store->category)->where('id', '!=', $store->id)->get();
 
         return view('admin.stores.store-detail', compact('store', 'coupons', 'relatedStores'));
@@ -48,8 +48,8 @@ class StoresController extends Controller
     // In your StoreController
     public function store()
     {
-        $stores = Stores::with('store_language')
-        ->select('id', 'name', 'slug', 'status', 'created_at', 'updated_at', 'store_image', 'network', 'category')
+        $stores = Stores::with('language')->with('user')
+        ->select('id', 'name', 'slug', 'status', 'created_at', 'updated_at', 'store_image', 'network', 'category','user_id','language_id',)
         ->orderBy('created_at', 'desc')
         ->get();
 // // In the controller
@@ -74,11 +74,12 @@ class StoresController extends Controller
 
     public function store_store(Request $request)
     {
+        // dd(Auth::id());
         // Validate the incoming request data
         $request->validate([
             'name' => 'required|string|max:255',
             'language_id' =>'nullable|integer',
-            'slug' => 'nullable|string|max:255|unique:stores,slug', // Slug is now nullable
+            'slug' => 'nullable|string|max:255|unique:stores,slug',
             'top_store' => 'nullable|integer',
             'description' => 'nullable|string',
             'url' => 'nullable|url',
@@ -90,37 +91,23 @@ class StoresController extends Controller
             'meta_description' => 'nullable|string',
             'authentication' => 'nullable|string',
             'network' => 'nullable|string',
-            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Validates image file
-            'content' => 'nullable|',
+            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'content' => 'nullable',
             'about' => 'nullable|string|max:255',
         ]);
 
-        // Generate a slug from the name if not provided
-        $slug = $request->input('slug') ? $request->input('slug') : Str::slug($request->input('name'));
+        // Generate a slug if not provided
+        $slug = $request->input('slug') ?: Str::slug($request->input('name'));
 
-        // Handle the file upload if a store image is provided
+        // Handle file upload
         $storeImage = null;
         if ($request->hasFile('store_image')) {
             $file = $request->file('store_image');
             $storeImage = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
             $filePath = public_path('uploads/stores/') . $storeImage;
-
-            // Save the file to the specified location
             $file->move(public_path('uploads/stores/'), $storeImage);
 
-            // Ensure that the file has been saved before trying to read it
             if (file_exists($filePath)) {
-                // Optimize the image
-                // Use Imagick to create a new image instance
-                // $image = ImageManager::imagick()->read($filePath);
-
-                // // Resize the image to 300x200 pixels
-                // $image->resize(300, 200);
-
-                // // Optionally, resize only the height to 200 pixels
-                // $image->resize(null, 200, function ($constraint) {
-                //     $constraint->aspectRatio();
-                // });
                 $optimizer = OptimizerChainFactory::create();
                 $optimizer->optimize($filePath);
             } else {
@@ -128,10 +115,10 @@ class StoresController extends Controller
             }
         }
 
-        // Create a new store record
+        // Create a new store record with the authenticated user's ID
         Stores::create([
             'name' => $request->input('name'),
-            'slug' => $slug, // Use the generated or provided slug
+            'slug' => $slug,
             'language_id' => $request->input('language_id', 1),
             'top_store' => $request->input('top_store'),
             'description' => $request->input('description'),
@@ -147,11 +134,13 @@ class StoresController extends Controller
             'store_image' => $storeImage ?? 'No Store Image',
             'content' => $request->input('content'),
             'about' => $request->input('about'),
+            'user_id' => Auth::id(),
+
         ]);
 
-        // Redirect back with a success message
         return redirect()->back()->withInput()->with('success', 'Store Created Successfully');
-     }
+    }
+
 
 
     public function edit_store($id)

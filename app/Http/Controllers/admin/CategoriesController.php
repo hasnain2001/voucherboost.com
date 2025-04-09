@@ -16,7 +16,7 @@ class CategoriesController extends Controller
     {
         $slug = $request->slug;
         $exists = Categories::where('slug', $slug)->exists();
-    
+
         return response()->json([
             'exists' => $exists
         ]);
@@ -85,7 +85,7 @@ class CategoriesController extends Controller
             'category_image' => $CategoryImage ?? 'No Category Image',
         ]);
 
-        return redirect()->back()->with('success', 'Category Created Successfully');
+        return redirect()->back()->withInput()->with('success', 'Category Created Successfully');
     }
 
 

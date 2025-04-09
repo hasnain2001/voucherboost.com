@@ -64,6 +64,7 @@
             <!--<th>Never Expire</th>-->
             <th>Deal/Code</th>
             <th>Status</th>
+            <th>create by</th>
             <th>create at</th>
             <th>Last Updated</th> <!-- Add this column header -->
             <th>Action</th>
@@ -76,7 +77,7 @@
                 <th scope="row">{{ $loop->iteration }}</th>
                 <td class="pl-3"><i class="fa fa-sort"></i></td>
                 <td>{{ $coupon->name ?:'null' }}</td>
-                <td>{{ $coupon->store ?:'null' }}</td>
+                                <td>{{ $coupon->store ?:'null' }}</td>
                 <td>
                     @if ($coupon->code)
                         <span class="custom-badge bg-primary text-white">Code</span>
@@ -99,6 +100,7 @@
                         <i class="fa fa-fw fa-check-circle" style="color: green;"></i>
                     @endif
                 </td>
+                <td>{{ $coupon->user->name ?? null }}</td>
                        <td>
     <p class="badge bg-info text-dark" data-bs-toggle="tooltip" title="{{ $coupon->created_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
         {{ $coupon->created_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}

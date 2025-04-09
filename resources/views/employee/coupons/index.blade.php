@@ -61,7 +61,7 @@
             <th width="30px">#</th>
             <th>Coupon Name</th>
             <th>Store</th>
-            <!--<th>Never Expire</th>-->
+            <th>authentication</th>
             <th>Deal/Code</th>
             <th>Status</th>
             <th>create at</th>
@@ -85,13 +85,14 @@
 
                     @endif
                 </td>
-                             <!--<td>-->
-                <!--    @if ($coupon->authentication == "never_expire")-->
-                <!--        <i class="fa fa-fw fa-check-circle" style="color: blue;"></i>-->
-                <!--    @else-->
-                <!--        <i class="fa fa-fw fa-times-circle"style="color:red;"></i>-->
-                <!--    @endif-->
-                <!--</td>-->
+                             <td>
+                         @if (trim($coupon->authentication) === "featured")
+                            <i class="fa fa-fw fa-check-circle" style="color: blue;"></i>
+                        @else
+                            <i class="fa fa-fw fa-times-circle" style="color: red;"></i>
+                        @endif
+
+                </td>
                 <td>
                    @if ($coupon->status == "disable")
                         <i class="fa fa-fw fa-times-circle" style="color: blue;"></i>
@@ -100,15 +101,15 @@
                     @endif
                 </td>
                        <td>
-    <p class="badge bg-info text-dark" data-bs-toggle="tooltip" title="{{ $coupon->created_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
-        {{ $coupon->created_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
-    </p>
-</td>
-<td>
-    <p class="badge bg-warning text-dark" data-bs-toggle="tooltip" title="{{ $coupon->updated_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
-        {{ $coupon->updated_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
-    </p>
-</td>
+                        <p class="badge bg-info text-dark" data-bs-toggle="tooltip" title="{{ $coupon->created_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
+                            {{ $coupon->created_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
+                        </p>
+                    </td>
+        <td>
+            <p class="badge bg-warning text-dark" data-bs-toggle="tooltip" title="{{ $coupon->updated_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
+                {{ $coupon->updated_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
+            </p>
+        </td>
 
                 <td>
                     <a href="{{ route('employee.coupon.edit', $coupon->id) }}" class="btn btn-info btn-sm">Edit</a>
@@ -125,7 +126,7 @@
             <th>Coupon Name</th>
             <th>Store</th>
             <th>Deal/Code</th>
-            <!--<th>Never Expire</th>-->
+            <th>authentication </th>
             <th>Status</th>
             <th>created at</th>
             <th>Last Updated</th> <!-- Add this column footer -->

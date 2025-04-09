@@ -21,7 +21,7 @@ class CouponsController extends Controller
         }
 
         // Get distinct store names only
-        $couponstore = Coupons::select('store')->distinct()->get();
+        $couponstore = Coupons::with('user')->select('store')->distinct()->get();
         $selectedCoupon = $request->input('store');
 
         // Initialize query
@@ -129,6 +129,7 @@ public function update(Request $request)
             'authentication' => $request->authentication ?? "On Sale",
             'store' => $request->store ,
             'top_coupons' => $request->top_coupons,
+            'user_id' => Auth::id(),
         ]);
 
         return redirect()->back()->withInput()->with('success', 'Coupon Created Successfully');
@@ -171,6 +172,7 @@ public function update(Request $request)
             'authentication' => $request->authentication,
             'store' => $request->input('store', $coupons->store),
             'top_coupons' => $request->top_coupons,
+            'user_id' => Auth::id(),
         ]);
 
         $store = Stores::where('slug', $coupons->store)->first();

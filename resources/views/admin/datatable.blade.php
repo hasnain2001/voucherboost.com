@@ -24,7 +24,7 @@
 
       <style>
             .sidebar-dark-primary {
-            background-color: #050505;
+            background-color: #45046a !important;
 
         }
 

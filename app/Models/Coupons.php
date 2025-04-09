@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Coupons extends Model
 {
     use HasFactory;
@@ -21,6 +21,7 @@ class Coupons extends Model
         'status',
         'authentication',
         'store',
+        'user_id',
 
     ];
     protected $casts = [
@@ -29,10 +30,16 @@ class Coupons extends Model
 
     public function language()
 {
-    return $this->belongsTo(Language::class, 'language_id');
+    return $this->belongsTo(Language::class, );
 }
-public function store()
-{
-    return $this->belongsTo(Stores::class, 'store', 'slug'); // Adjust foreign key if needed
-}
+
+/**
+  * Get the user that owns the Stores
+  *
+  * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+  */
+  public function user(): BelongsTo
+  {
+     return $this->belongsTo(User::class);
+  }
 }

@@ -65,7 +65,7 @@
 
 <!-- Right: Categories Button -->
 <div class="dropdown  d-none d-md-flex">
-    <button class="btn btn-primary category-btn dropdown-toggle d-flex align-items-center gap-2" type="button" id="categoriesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    <button class=" category-btn dropdown-toggle d-flex align-items-center gap-2" type="button" id="categoriesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-grid"></i> Categories
     </button>
     <ul class="dropdown-menu mega-dropdown shadow border-0 p-3 rounded-3" aria-labelledby="categoriesDropdown">

@@ -32,16 +32,16 @@
     .btn-purple:hover {
     background-color: #5a3ac5;
     }
-.card-coupon {
-    border: none;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 10px;
-    background-color: #fff;
-    padding: 10px;
-    height: 100%;
-    border:2px dotted #7a1bb4;
-}
+    .card-coupon {
+        border: none;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 10px;
+        background-color: #fff;
+        padding: 10px;
+        height: 100%;
+        border:2px dotted #7a1bb4;
+    }
 .card-coupon:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
@@ -76,12 +76,12 @@
         font-size: 14px;
     }
 
-}
-.h-3{
-    font-size: 1rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
+        }
+        .h-3{
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
 </style>
     @section('main-content')
     <main class="main container-fluid text-capitalize">
@@ -159,8 +159,8 @@
                 <div class="text-container flex-grow-1">
                     <span class="coupon-name">{{ $coupon->name }}</span>
                     <hr>
-                    {{-- <p class="coupon-description">{{ $coupon->description }}</p> --}}
-                    <hr>
+                    {{-- <p class="coupon-description">{{ $coupon->description }}</p>
+                    <hr> --}}
                 </div>
                 <span class="ending-date" style="color: {{ strtotime($coupon->ending_date) < strtotime(now()) ? '#951d1d' :'#909090' }};">
                     Ends: {{ \Carbon\Carbon::parse($coupon->ending_date)->format('d-m-Y') }}

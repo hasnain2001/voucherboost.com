@@ -64,7 +64,7 @@
     <div class="login-card col-md-4 col-sm-8">
         <!-- Logo Section -->
         <div class="logo">
-            <img src="https://dt2sdf0db8zob.cloudfront.net/wp-content/uploads/2019/08/dc-logo.png" alt="Logo" width="100">
+            <img src="{{asset('images/logo.png')}}" alt="Logo" width="100">
         </div>
         <div><h1 class="heading">Login</h1></div>
 

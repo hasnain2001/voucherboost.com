@@ -60,6 +60,7 @@
                         <th scope="col">Title</th>
                         <th scope="col">Category</th>
                         <th scope="col">Blog Image</th>
+                        <th scope="col">created By</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -79,6 +80,7 @@
                                     <span class="badge badge-secondary">No Image</span>
                                 @endif
                             </td>
+                            <td>{{ $blog->user->name ?? "null" }}</td>
                             <td>
 <a href="{{ route('admin.blog.edit', $blog->id) }}" class="btn btn-sm btn-primary">Edit</a>
 
@@ -96,6 +98,7 @@
                         <th scope="col">Title</th>
                         <th scope="col">Category</th>
                         <th scope="col">Blog Image</th>
+                        <th scope="col">created By</th>
                         <th scope="col">Action</th>
                     </tr>
                 </tfoot>

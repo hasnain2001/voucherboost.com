@@ -161,7 +161,8 @@
             background-color: #ed6a00;
             color: white;
             border: none;
-            margin-left: 250px;
+            margin-left: 180px;
+            
             padding: 8px 15px;
             border-radius: 5px;
             transition: background-color 0.3s;
@@ -169,10 +170,10 @@
             align-items: center;
         }
         .category-btn:hover {
-            background-color: darkorange;
+            background-color: rgb(194, 107, 0);
         }
         .category-btn i {
-            margin-right: 8px;
+            margin-right: 5px;
         }
 
         /* Mega Dropdown Styling */
