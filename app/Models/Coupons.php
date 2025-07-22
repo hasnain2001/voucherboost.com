@@ -20,8 +20,8 @@ class Coupons extends Model
         'ending_date',
         'status',
         'authentication',
-        'store',
         'user_id',
+         'store_id',
 
     ];
     protected $casts = [
@@ -42,4 +42,13 @@ class Coupons extends Model
   {
      return $this->belongsTo(User::class);
   }
+    public function storeRelation()
+    {
+        return $this->belongsTo(Stores::class, );
+    }
+
+     public function updatedby()
+    {
+        return $this->belongsTo(User::class, 'updated_id');
+    }
 }

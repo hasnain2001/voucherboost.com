@@ -224,6 +224,9 @@ public function checkSlug(Request $request)
                 // $image->save($filePath);
             }
         }
+          // Get the destination URL from request
+                $destinationUrl = $request->input('destination_url');
+                $originalDestinationUrl = $store->destination_url;
         // Update the store record
         $store->update([
             'name' => $request->input('name'),
@@ -245,6 +248,27 @@ public function checkSlug(Request $request)
             'content' => $request->input('content', $store->content),
             'about' => $request->input('about'),
         ]);
+
+
+            if (
+            $destinationUrl &&
+            $destinationUrl !== $originalDestinationUrl &&
+            is_string($destinationUrl) &&
+            filter_var($destinationUrl, FILTER_VALIDATE_URL)
+        ) {
+            Coupons::where('store', $store->slug)
+                ->update(['destination_url' => $destinationUrl]);
+        }
+
+        if (!$store) {
+            return redirect()->back()->with('error', 'Failed to update store');
+        }
+        // Check if the store image was updated successfully
+        if ($request->hasFile('store_image')) {
+            if (!file_exists(public_path('uploads/stores/') . $storeImage)) {
+                return redirect()->back()->with('error', 'Failed to update store image');
+            }
+        }
 
         // Redirect back with a success message
         return redirect()->route('employee.stores')->with('success', 'Store Updated Successfully');

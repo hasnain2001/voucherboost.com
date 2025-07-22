@@ -1,4 +1,4 @@
-    @extends('welcome')
+     @extends('layouts.welcome')
     @section('title')
     {{ $store->title }}
     @endsection
@@ -8,81 +8,9 @@
     @section('keywords')
     {{ $store->meta_keyword }}
     @endsection
-<style>
-    .store-image{
-        width: 100%;
-        height: 200px;
-        object-fit: fill;
-        border-radius: 5%;
-    }
-    .btn-purple {
-        width: 100%;
-    background: linear-gradient(to right, #7a1bb4, #ab47bc); /* Enhanced contrast */
-    color: #ffffff; /* High contrast for better readability */
-    text-align: center;
-    padding: 5px 15px;
-    border-radius: 25px;
-    text-decoration: none;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3), -3px -3px 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    margin-right: 10px; /* Add margin between buttons */
-    display: inline-block;
-    font-size: 16px;
-    }
-    .btn-purple:hover {
-    background-color: #5a3ac5;
-    }
-    .card-coupon {
-        border: none;
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border-radius: 10px;
-        background-color: #fff;
-        padding: 10px;
-        height: 100%;
-        border:2px dotted #7a1bb4;
-    }
-.card-coupon:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-@media (max-width: 768px) {
-    .display-7 {
-        font-size: 15px;
-    }
-    .card-coupon {
-        padding: 10px;
-        height: 100%;
-    }
-    .card-coupon .coupon-image {
-        height: 50px;
-    }
-    .card-coupon .coupon-name {
-        font-size: 16px;
-    }
-    .card-coupon .coupon-description {
-        font-size: 14px;
-    }
-    .card-coupon .ending-date {
-        font-size: 14px;
-    }
-    .card-coupon .used {
-        font-size: 14px;
-    }
-    .coupon-text {
-        font-size: 14px;
-    }
-    .coupon-code {
-        font-size: 14px;
-    }
-
-        }
-        .h-3{
-            font-size: 1rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-</style>
+    @push('styles')
+     <link rel="stylesheet" href="{{ asset('cssfiles/store-detail.css') }}">
+    @endpush
     @section('main-content')
     <main class="main container-fluid text-capitalize">
     @php
@@ -208,7 +136,7 @@
     <h4 class="store-name fw-bold text-dark">{{ $store->name }}</h4>
     <p class="text-warning fs-5">⭐⭐⭐⭐☆</p>
     </div>
-        <a href="{{$store->destination_url}}" class="btn-purple mb-3"> Visit Store </a>
+        <a href="{{$store->destination_url}}" target="blank" class="btn-purple mb-3"> Visit Store </a>
         <p class="text-muted">{{ $store->description }}</p>
         <hr>
         <h3 class="h-3">About {{ $store->name }}</h3>

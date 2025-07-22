@@ -11,6 +11,36 @@ class Slider extends Model
         'description',
         'image',
         'status',
-        'url',
+        'store_id',
+        'user_id',
+        'updated_id',
+        'category_id',
+        'language_id',
+        'store_id',
     ];
+   protected $casts = [
+        'status' => 'boolean',
+        'sort_order' => 'integer',
+    ];
+      public function language()
+    {
+        return $this->belongsTo(language::class);
+    }
+          public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+          public function updateby()
+    {
+        return $this->belongsTo(User::class);
+    }
+          public function category()
+    {
+        return $this->belongsTo(Categories::class);
+    }
+      public function store()
+    {
+        return $this->belongsTo(Stores::class);
+    }
+
 }

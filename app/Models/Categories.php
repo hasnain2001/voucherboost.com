@@ -19,6 +19,8 @@ class Categories extends Model
         'status',
         'authentication',
         'category_image',
+        'user_id',
+        'updated_id',
     ];
     public function stores():HasMany
     {
@@ -28,8 +30,14 @@ class Categories extends Model
     {
         return $this->hasMany(Coupons::class, );
     }
-    public function user():HasMany
+   public function user()
     {
-        return $this->hasMany(User::class, );
+        return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function updatedby()
+    {
+        return $this->belongsTo(User::class, 'updated_id');
+    }
+
 }

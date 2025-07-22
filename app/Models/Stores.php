@@ -29,12 +29,18 @@ class Stores extends Model
         'store_image',
         'content',
         'about',
-        'user_id'
+        'user_id',
+        'category_id',
+        'updated_id',
+
     ];
 
 // Store Model
 
-
+    public function updatedby()
+    {
+        return $this->belongsTo(User::class, 'updated_id');
+    }
 public function language()
 {
     return $this->belongsTo(Language::class,);
@@ -52,6 +58,13 @@ public function store_language()
  {
     return $this->belongsTo(User::class);
  }
-
+    public function coupons()
+    {
+        return $this->hasMany(Coupons::class);
+    }
+public function slider()
+{
+    return $this->hasMany(Slider::class);
+}
 
 }

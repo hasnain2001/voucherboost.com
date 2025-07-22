@@ -40,7 +40,7 @@ Route::get('/dashboard', [EmployeeController::class, 'dashboard'])->name('dashbo
 });
 
 // Route::middleware([SetLocale::class])->group(function () {
-//     Route::group(['prefix' => '{locale}',], function () {
+//     Route::group(['prefix' => '{lang}',], function () {
 //     });
 // });
     Route::get('/contact', function () {return view('contact');})->name('contact');
@@ -85,7 +85,10 @@ Route::get('/clicks/{couponId}', [CouponsController::class, 'openCoupon'])->name
 // // Route for checking slug
 Route::post('/check-slug',[StoresController::class, 'checkSlug'] )->name('check.slug');
 Route::post('/blog/create', [BlogController::class, 'checkSlug'])->name('blog.check.slug');
+
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
 require __DIR__.'/employee.php';
+require __DIR__.'/artisan.php';
+
 

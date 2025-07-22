@@ -24,13 +24,20 @@ $coupons = Coupons::where('name','Free Delivery')->paginate(10);
     $coupons = Coupons::where('name', 'like', '20%')->paginate(10);
     return view('coupons-offer', compact('coupons'));
     }
-    
+
 public function index()
 {
-    $sliders = Slider::where('status', 'active')->orderBy('created_at', 'desc')->get();
+    $sliders = Slider::with('store')->where('status', 'active')->orderBy('created_at', 'desc')->get();
     $topstores = Stores::orderBy('created_at','desc')->where('status', 'enable')->limit(18)->get();
-    $topcouponcode = Coupons::select('id', 'name', 'status', 'code','created_at', 'ending_date', 'store', 'clicks', 'destination_url', 'authentication')->where('authentication', 'Featured')->where('status', 'enable')->whereNotNull('code')->orderBy('created_at', 'desc')->limit(8)->get();
-    $Couponsdeals = Coupons::select('id', 'name', 'status', 'code','created_at', 'ending_date', 'store', 'clicks', 'destination_url', 'authentication')->where('top_coupons', '>', 0)->where('status', 'enable')->orderBy('created_at','desc')->limit(8)->get();
+    $topcouponcode = Coupons::select('id', 'name', 'status', 'code','created_at', 'ending_date', 'store', 'clicks',  'authentication')->where('authentication', 'Featured')->where('status', 'enable')->whereNotNull('code')->orderBy('created_at', 'desc')->limit(8)->get();
+   $Couponsdeals = Coupons::with('storeRelation')
+    ->select('id', 'name', 'status', 'code', 'created_at', 'ending_date', 'store', 'clicks', 'authentication') // removed 'destination_url'
+    ->where('top_coupons', '>', 0)
+    ->where('status', 'enable')
+    ->orderBy('created_at','desc')
+    ->limit(8)
+    ->get();
+
     $homecategories = Categories::where('authentication', 'top_category')->where('status', 'enable')->limit(4)->get();
 
     return view('home', compact( 'topstores',  'homecategories','topcouponcode','Couponsdeals','sliders'));
@@ -91,14 +98,25 @@ $chunks = Stores::where('top_store', '>', 0)->where('status', 'enable')->get();
         $title = ucwords(str_replace('-', ' ', Str::slug($slug)));
         $store = Stores::where('slug', $title)->firstOrFail();
 
-        if ($store->status == 'disable') {
+        if ($store->status === 'disable') {
             abort(403, 'Store status is disabled');
         }
 
-        $query = Coupons::where('store', $store->slug)
-            ->orderByRaw('CAST(`order` AS SIGNED) ASC')
-            ->where('status', 'enable');
+        // Check if any coupons exist with the 'store' column matching this slug
+        $hasCouponsWithStoreColumn = Coupons::where('store', $store->slug)->exists();
 
+        if ($hasCouponsWithStoreColumn) {
+            // If store slug is used in 'store' column
+            $query = Coupons::where('store', $store->slug);
+        } else {
+            // Otherwise fallback to store_id
+            $query = Coupons::where('store_id', $store->id);
+        }
+
+        $query->where('status', 'enable')
+            ->orderByRaw('CAST(`order` AS SIGNED) ASC');
+
+        // Optional filtering
         if ($request->query('sort') === 'codes') {
             $query->whereNotNull('code');
         } elseif ($request->query('sort') === 'deals') {
@@ -119,7 +137,14 @@ $chunks = Stores::where('top_store', '>', 0)->where('status', 'enable')->get();
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('store_details', compact('store', 'coupons', 'relatedStores', 'codeCount', 'dealCount', 'relatedblogs'));
+        return view('store_details', compact(
+            'store',
+            'coupons',
+            'relatedStores',
+            'codeCount',
+            'dealCount',
+            'relatedblogs'
+        ));
     }
 
 

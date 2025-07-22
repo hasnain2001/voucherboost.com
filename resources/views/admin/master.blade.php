@@ -8,15 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> @yield('title') | VoucherBoost  </title>
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-
-
-
-
-
-
-
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @yield('styles')
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
 
     <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
 
@@ -44,10 +38,12 @@
 
         .navbar-username {
     font-size: 2.40rem; /* Adjust the size as needed */
-}
-
-
+        }
     </style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('bootstrap-5.3.3-dist/css/bootstrap.min.css') }}">
+
+    @stack('styles')
 
 </head>
 
@@ -371,6 +367,7 @@
 
     </div>
     <!-- Add this before the closing body tag -->
+ @stack('scripts')
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 {{-- <script>
     // Initialize Flatpickr

@@ -48,14 +48,12 @@ class StoresController extends Controller
     // In your StoreController
     public function store()
     {
-        $stores = Stores::with('language')->with('user')
-        ->select('id', 'name', 'slug', 'status', 'created_at', 'updated_at', 'store_image', 'network', 'category','user_id','language_id',)
-        ->orderBy('created_at', 'desc')
-        ->get();
-// // In the controller
-// dd($stores->toArray());
+        $stores = Stores::with('user','updatedby')
+            ->select('id', 'name', 'slug', 'status', 'created_at', 'updated_at', 'store_image', 'network', 'category', 'user_id','updated_id')
+            ->orderByDesc('created_at')
+                    ->get();
 
-        return view('admin.stores.index', compact('stores',));
+        return view('admin.stores.index', compact('stores'));
     }
 
 
@@ -100,14 +98,28 @@ class StoresController extends Controller
         $slug = $request->input('slug') ?: Str::slug($request->input('name'));
 
         // Handle file upload
-        $storeImage = null;
+          $storeImage = null;
         if ($request->hasFile('store_image')) {
             $file = $request->file('store_image');
             $storeImage = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
             $filePath = public_path('uploads/stores/') . $storeImage;
+
+            // Save the file to the specified location
             $file->move(public_path('uploads/stores/'), $storeImage);
 
+            // Ensure that the file has been saved before trying to read it
             if (file_exists($filePath)) {
+                // Optimize the image
+                // Use Imagick to create a new image instance
+                // $image = ImageManager::imagick()->read($filePath);
+
+                // // Resize the image to 300x200 pixels
+                // $image->resize(300, 200);
+
+                // // Optionally, resize only the height to 200 pixels
+                // $image->resize(null, 200, function ($constraint) {
+                //     $constraint->aspectRatio();
+                // });
                 $optimizer = OptimizerChainFactory::create();
                 $optimizer->optimize($filePath);
             } else {
@@ -116,7 +128,7 @@ class StoresController extends Controller
         }
 
         // Create a new store record with the authenticated user's ID
-        Stores::create([
+        $store  = Stores::create([
             'name' => $request->input('name'),
             'slug' => $slug,
             'language_id' => $request->input('language_id', 1),
@@ -135,10 +147,11 @@ class StoresController extends Controller
             'content' => $request->input('content'),
             'about' => $request->input('about'),
             'user_id' => Auth::id(),
+            'category_id' => $request->category_id,
 
         ]);
 
-        return redirect()->back()->withInput()->with('success', 'Store Created Successfully');
+        return redirect()->route('admin.stores' ,['slug' => Str::slug($store->slug)])->withInput()->with('success', 'Store Created Successfully');
     }
 
 
@@ -228,6 +241,8 @@ class StoresController extends Controller
             'store_image' => $storeImage, // Updated or existing image
             'content' => $request->input('content'),
             'about' => $request->input('about'),
+            'updated_id' => Auth::id(),
+            'category_id' => $request->category_id,
         ]);
 
         // Redirect back with a success message

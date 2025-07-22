@@ -310,3 +310,76 @@ text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
         }
 
     }
+            .store-image{
+                width: 100%;
+                height: 200px;
+                object-fit: fill;
+                border-radius: 5%;
+            }
+            .btn-purple {
+                width: 100%;
+            background: linear-gradient(to right, #7a1bb4, #ab47bc); /* Enhanced contrast */
+            color: #ffffff; /* High contrast for better readability */
+            text-align: center;
+            padding: 5px 15px;
+            border-radius: 25px;
+            text-decoration: none;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3), -3px -3px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            margin-right: 10px; /* Add margin between buttons */
+            display: inline-block;
+            font-size: 16px;
+            }
+            .btn-purple:hover {
+            background-color: #5a3ac5;
+            }
+            .card-coupon {
+                border: none;
+                overflow: hidden;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                border-radius: 10px;
+                background-color: #fff;
+                padding: 10px;
+                height: 100%;
+                border:2px dotted #7a1bb4;
+            }
+        .card-coupon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        @media (max-width: 768px) {
+            .display-7 {
+                font-size: 15px;
+            }
+            .card-coupon {
+                padding: 10px;
+                height: 100%;
+            }
+            .card-coupon .coupon-image {
+                height: 50px;
+            }
+            .card-coupon .coupon-name {
+                font-size: 16px;
+            }
+            .card-coupon .coupon-description {
+                font-size: 14px;
+            }
+            .card-coupon .ending-date {
+                font-size: 14px;
+            }
+            .card-coupon .used {
+                font-size: 14px;
+            }
+            .coupon-text {
+                font-size: 14px;
+            }
+            .coupon-code {
+                font-size: 14px;
+            }
+
+                }
+                .h-3{
+                    font-size: 1rem;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }

@@ -9,6 +9,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Imagick\Driver;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriesController extends Controller
 {
@@ -22,7 +23,7 @@ class CategoriesController extends Controller
         ]);
     }
     public function category() {
-        $categories = Categories::all();
+        $categories = Categories::with('user')->get();
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -83,9 +84,10 @@ class CategoriesController extends Controller
             'status' => $request->status,
             'authentication' => $request->authentication ?? 'No Auth',
             'category_image' => $CategoryImage ?? 'No Category Image',
+            'user_id' => $request =Auth::id(),
         ]);
 
-        return redirect()->back()->withInput()->with('success', 'Category Created Successfully');
+        return redirect()->route('admin.category')->with('success', 'Category Created Successfully');
     }
 
 
@@ -154,6 +156,7 @@ class CategoriesController extends Controller
             'status' => $request->status,
             'authentication' => isset($request->authentication) ? $request->authentication : "No Auth",
             'category_image' => isset($CategoryImage) ? $CategoryImage : "No Category Image",
+            'updated_id' => $request =Auth::id(),
         ]);
 
         return redirect()->route('admin.category')->with('success', 'Category Updated Successfully');

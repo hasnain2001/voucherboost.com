@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('language_id'); // Foreign key column
+           $table->unsignedBigInteger('language_id'); // Foreign key column
                  // Add the foreign key constraint
             $table->foreign('language_id')->references('id')->on('language')->onDelete('cascade');
             $table->string('slug')->unique();

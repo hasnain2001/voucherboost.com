@@ -10,9 +10,9 @@
 
    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="stylesheet"  href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
 
     <link rel="stylesheet" href="/admin/plugins/fontawesome-free/css/all.min.css">
 
@@ -24,7 +24,7 @@
 
       <style>
             .sidebar-dark-primary {
-            background-color: #050505;
+            background-color: #8413a0;
 
         }
 
@@ -85,7 +85,7 @@
             <a  href="{{ route('employee.dashboard') }}" class="brand-link">
                 <img src="{{ asset('images/logo.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">CouponsArena</span>
+                <span class="brand-text font-weight-light">VoucherBoost</span>
             </a>
 
             <div class="sidebar">

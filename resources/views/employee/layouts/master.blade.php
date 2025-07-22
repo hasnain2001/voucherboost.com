@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title') |Couponsarena</title>
+    <title>@yield('title') |Voucherboost</title>
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet"
@@ -31,18 +31,15 @@
     <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
 
       <style>
-            .sidebar-dark-primary {
-                background-color: #000000;
+        .sidebar-dark-primary {
+                background-color: #45046a;
 
         }
-
         .navbar-username {
-    font-size: 2.40rem; /* Adjust the size as needed */
-}
-
-
+            font-size: 2.40rem; /* Adjust the size as needed */
+        }
     </style>
-
+    @stack('styles')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -93,7 +90,7 @@
             <a  href="{{ route('employee.dashboard') }}" class="brand-link">
                 <img src="{{ asset('images/logo.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">CouponsArena</span>
+                <span class="brand-text font-weight-light">voucherboost</span>
             </a>
 
             <div class="sidebar">
@@ -270,6 +267,7 @@
         </aside>
 
     </div>
+    @stack('scripts')
     <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/super-build/ckeditor.js"></script>
     <script src="{{ asset('js/cke-ditor.js') }}">
 
