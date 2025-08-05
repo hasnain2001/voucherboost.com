@@ -32,8 +32,8 @@
                 <a href="{{{ url(app()->getLocale() . '/') }}}" class="text-purple text-decoration-none">Home</a>
             </li>
             <li class="breadcrumb-item">
-                @if($store->category)
-                    <a class="text-decoration-none text-purple" href="{{ route('related_category', ['slug' => Str::slug($store->category)]) }}">{{ $store->category }}</a>
+                @if($store->categories)
+                    <a class="text-decoration-none text-purple" href="{{ route('related_category', ['slug' => Str::slug($store->categories->title)]) }}">{{ $store->categories->title }}</a>
                 @else
                     <span>No Category</span>
                 @endif
@@ -101,13 +101,13 @@
         <div class="mt-auto d-flex justify-content-center align-items-center gap-2 w-100">
             @if ($coupon->code)
 
-                <a href="{{ $coupon->destination_url }}" target="_blank" class="reveal-code" id="getCode{{ $coupon->id }}" onclick="handleRevealCode({{ $coupon->id }}, '{{ $coupon->code }}', '{{ $coupon->name }}', '{{ asset('uploads/stores/' . $store->store_image) }}', '{{ $coupon->destination_url }}', '{{ $coupon->store }}')">
+                <a href="{{ $store->destination_url }}" target="_blank" class="reveal-code" id="getCode{{ $coupon->id }}" onclick="handleRevealCode({{ $coupon->id }}, '{{ $coupon->code }}', '{{ $coupon->name }}', '{{ asset('uploads/stores/' . $store->store_image) }}', '{{ $coupon->destination_url }}', '{{ $coupon->store }}')">
                     <span class="coupon-text">Activate Coupon</span>
                     <span class="coupon-code" id="couponCode{{ $coupon->id }}" style="display: none;">{{ $coupon->code }}</span>
                 </a>
 
             @else
-                <a href="{{ $coupon->destination_url }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
+                <a href="{{ $store->destination_url }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
                     View Deal
                 </a>
             @endif
@@ -120,13 +120,22 @@
 
     @endforeach
     @endif
-<div class="container p-4">
-    @if ($store->content)
-    <div class="content mt-4">{!! $store->content !!}</div>
-@else
-    <span>no content</span>
-@endif
-</div>
+    <div class="container p-4">
+
+        @if ($store->content)
+        <div class="content mt-4">{!! $store->content !!}</div>
+    @else
+            @foreach ($relatedblogs as $blog )
+
+
+
+ <h3 class="blog-title  mb-4">{{ $blog->title }}</h3>
+            <img class="img-fluid" src="{{ asset($blog->image) }}" alt="Blog Image" height="250" width="300">
+                    <p class="card-text">{!! $blog->content !!}</p>
+
+        @endforeach
+    @endif
+    </div>
     </div>
     </div>
     <div class="col-lg-3">

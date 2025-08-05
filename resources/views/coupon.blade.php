@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('layouts.welcome')
 @section('title')
     Coupon Codes - Find the latest coupon codes and deals for your favorite stores
 @endsection
@@ -8,8 +8,7 @@
 @section('keywords')
     coupon codes, discount codes, promo codes, deals, offers, vouchers, discounts, savings, online shopping
 @endsection
-@section('main-content')
-
+@push('styles')
 <style>
      .coupon-authentication {
         font-size: 20px;
@@ -161,9 +160,9 @@
 .search-button:hover {
     background-color: #121213;
 }
-
-
 </style>
+@endpush
+@section('main-content')
 
 <main class="container-fluid">
 
@@ -172,59 +171,72 @@
         <hr>
     </div>
 
-
-    @foreach ($coupons as $coupon)
+@foreach ($coupons as $coupon)
     @php
-    $store = App\Models\Stores::where('slug', $coupon->store)->first();
+        // Dynamic logic to prefer store_id, fallback to slug
+        $store = $coupon->store_id
+            ? App\Models\Stores::find($coupon->store_id)
+            : App\Models\Stores::where('slug', $coupon->store)->first();
+
+        $storeImage = $store && $store->store_image ? asset('uploads/stores/' . $store->store_image) : null;
+        $destinationUrl = $store && $store->destination_url ? $store->destination_url : $coupon->destination_url;
+        $storeSlug = $store ? Str::slug($store->slug) : Str::slug($coupon->store);
+        $storeName = $store ? $store->name : $coupon->store;
     @endphp
 
     <div class="card p-3 mb-3 shadow-sm">
         <div class="row g-3 align-items-center flex-md-row flex-column">
             <div class="col-md-2 col-4 text-center">
-                @if ($store && $store->store_image)
-                <a href="{{ route('store_details', ['slug' => Str::slug($coupon->store)]) }}">
-                    <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="img-fluid rounded" alt="{{ $store->name }} Logo">
-                </a>
+                @if ($storeImage)
+                    <a href="{{ route('store.detail', ['slug' => $storeSlug]) }}">
+                        <img src="{{ $storeImage }}" class="img-fluid rounded" alt="{{ $storeName }} Logo">
+                    </a>
                 @else
-                <span class="text-muted">{{$coupon->store}} no store found </span>
+                    <span class="text-muted">{{ $storeName }} no store found </span>
                 @endif
             </div>
 
             <div class="col-md-7 col-8">
                 @if ($coupon->authentication && $coupon->authentication !== 'No Auth')
-                <h4 class="coupon-authentication">{{ $coupon->authentication }}</h4>
-
+                    <h4 class="coupon-authentication">{{ $coupon->authentication }}</h4>
                 @else
-                <span class="coupon-authentication"></span>
-            @endif
+                    <span class="coupon-authentication"></span>
+                @endif
 
                 <span class="coupon-name">{{ $coupon->name }}</span>
                 <p class="coupon-description">{{ $coupon->description }}</p>
-                <a href="{{ route('store_details', ['slug' => Str::slug($coupon->store)]) }}" class="text-decoration-none">See All Offers</a>
+                <a href="{{ route('store.detail', ['slug' => $storeSlug]) }}" class="text-decoration-none">See All Offers</a>
                 <p class="ending-date text-muted">Ends: {{ \Carbon\Carbon::parse($coupon->ending_date)->format('d-m-Y') }}</p>
                 <p class="text-success">Used: {{ $coupon->clicks }}</p>
             </div>
 
             <div class="col-md-3 text-center">
                 @if ($coupon->code)
-                <a href="{{ $coupon->destination_url }}" target="_blank" class="reveal-code" id="getCode{{ $coupon->id }}" onclick="handleRevealCode({{ $coupon->id }}, '{{ $coupon->code }}', '{{ $coupon->name }}', '{{ asset('uploads/stores/' . $store->store_image) }}', '{{ $coupon->destination_url }}', '{{ $coupon->store }}')">
-                <span class="coupon-text">Activate Coupon</span>
-                <span class="coupon-code" id="couponCode{{ $coupon->id }}" style="display: none;">{{ $coupon->code }}</span>
-                </a>
+                    <a href="{{ $destinationUrl }}" target="_blank" class="reveal-code"
+                        id="getCode{{ $coupon->id }}"
+                        onclick="handleRevealCode(
+                            {{ $coupon->id }},
+                            '{{ $coupon->code }}',
+                            '{{ $coupon->name }}',
+                            '{{ $storeImage }}',
+                            '{{ $destinationUrl }}',
+                            '{{ $storeName }}'
+                        )">
+                        <span class="coupon-text">Activate Coupon</span>
+                        <span class="coupon-code" id="couponCode{{ $coupon->id }}" style="display: none;">{{ $coupon->code }}</span>
+                    </a>
                 @else
-                <a href="{{ $coupon->destination_url }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
-                View Deal
-                </a>
+                    <a href="{{ $destinationUrl }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
+                        View Deal
+                    </a>
                 @endif
-                <br>
-                <br>
-                <a href="{{ route('store_details', ['slug' => Str::slug($coupon->store)]) }}" class="get">See All Offers</a>
-
-
+                <br><br>
+                <a href="{{ route('store.detail', ['slug' => $storeSlug]) }}" class="get">See All Offers</a>
             </div>
         </div>
     </div>
-    @endforeach
+@endforeach
+
 
     {{ $coupons->links('vendor.pagination.custom') }}
 </main>

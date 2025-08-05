@@ -149,31 +149,30 @@ Create | Coupons
                                 <div class="form-section">
                                     <div class="section-title">Store & Language</div>
 
-                                    <div class="form-group">
-                                        <label for="store_id">Store <span class="text-danger">*</span></label>
-                                        <select name="store_id" id="store_id" class="form-control select2" required>
+                                  <div class="mb-3">
+                                    <label for="store_id" class="form-label">Store <span class="text-danger">*</span></label>
+                                    <select name="store_id" id="store_id" class="form-select" onchange="updateDestinationAndLanguage()" required>
                                             <option value="" disabled {{ old('store_id') ? '' : 'selected' }}>-- Select Store --</option>
                                             @foreach($stores as $store)
                                                 <option value="{{ $store->id }}"
-                                                    data-language-id="{{ $store->language_id }}"
-                                                    {{ old('store_id') == $store->id ? 'selected' : '' }}>
-                                                    {{ $store->slug }}
+                                                        data-language-id="{{ $store->language_id }}"
+                                                        {{ old('store_id') == $store->id ? 'selected' : '' }}>
+                                                    {{ $store->name }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="language_id">Language <span class="text-danger">*</span></label>
-                                        <select name="language_id" id="language_id" class="form-control select2" required>
-                                            <option value="" disabled {{ old('language_id') ? '' : 'selected' }}>-- Select Language --</option>
-                                            @foreach ($langs as $lang)
-                                                <option value="{{ $lang->id }}" {{ old('language_id') == $lang->id ? 'selected' : '' }}>
-                                                    {{ $lang->code }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="language_id" class="form-label">Language <span class="text-danger">*</span></label>
+                                <select name="language_id" id="language_id" class="form-select" required>
+                                    <option value="" disabled {{ old('language_id') ? '' : 'selected' }}>-- Select Language --</option>
+                                    @foreach($langs as $language)
+                                        <option value="{{ $language->id }}" {{ old('language_id') == $language->id ? 'selected' : '' }}>
+                                            {{ $language->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                                 </div>
                             </div>
 
@@ -277,6 +276,7 @@ Create | Coupons
 </div>
 @endsection
 
+
 @push('scripts')
 <script>
     // Initialize Select2
@@ -295,6 +295,28 @@ Create | Coupons
             $('#otherInputGroup').show();
         }
     });
+      function updateDestinationAndLanguage() {
+            updateLanguageFromStore();
+            // If you have destination URL logic, it would go here
+        }
+
+        function updateLanguageFromStore() {
+            const storeSelect = document.getElementById('store_id');
+            const selectedOption = storeSelect.options[storeSelect.selectedIndex];
+            const languageId = selectedOption.getAttribute('data-language-id');
+
+            // Update language selection
+            if (languageId) {
+                const languageSelect = document.getElementById('language_id');
+                // Find the option with matching value and select it
+                for (let i = 0; i < languageSelect.options.length; i++) {
+                    if (languageSelect.options[i].value == languageId) {
+                        languageSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        }
 
     // Date validation
     document.getElementById('ending_date').addEventListener('change', function() {

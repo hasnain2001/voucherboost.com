@@ -47,51 +47,51 @@ header("X-Robots-Tag:index, follow");
         <x-footer/>
 
            <!-- Coupon Code Modal -->
-    <div class="modal fade" id="couponModal" tabindex="-1" aria-labelledby="couponModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4 shadow">
-        <!-- Modal Header -->
-        <div class="modal-header position-relative bg-light border-0">
-        <span class="badge bg-danger text-uppercase position-absolute top-0 start-50 translate-middle mt-2 px-4 py-1">
-        Limited Time Offer
-        </span>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <!-- Modal Body -->
-        <div class="modal-body text-center py-5">
-        <!-- Logo -->
-        <img src="" alt="Brand Logo" id="storeImage" class="mb-4 rounded-circle shadow-sm" style="width: 100px; height: 100px; object-fit: fill;">
-        <!-- Title -->
-        <h5 class="fw-bold text-purple" id="couponName"></h5>
-        <!-- Coupon Code Section -->
-        <div class="d-flex flex-column align-items-center mt-4 mb-4">
-        <!-- Coupon Code -->
-        <div class="alert alert-purple d-inline-block px-4 py-3 text-center shadow-sm">
-        <strong>Coupon Code:</strong>
-        <strong id="couponCode" class="fs-4 text-dark"></strong>
-        <!-- Copy Button -->
-        <button class="btn btn-success mt-3 px-4 py-2 fw-semibold shadow-sm" onclick="copyToClipboard()">
-        Copy Code
-        </button>
-        </div>
+        <div class="modal fade" id="couponModal" tabindex="-1" aria-labelledby="couponModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 shadow">
+            <!-- Modal Header -->
+            <div class="modal-header position-relative bg-light border-0">
+            <span class="badge bg-danger text-uppercase position-absolute top-0 start-50 translate-middle mt-2 px-4 py-1">
+            Limited Time Offer
+            </span>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body text-center py-5">
+            <!-- Logo -->
+            <img src="" alt="Brand Logo" id="storeImage" class="mb-4 rounded-circle shadow-sm" style="width: 100px; height: 100px; object-fit: fill;">
+            <!-- Title -->
+            <h5 class="fw-bold text-purple" id="couponName"></h5>
+            <!-- Coupon Code Section -->
+            <div class="d-flex flex-column align-items-center mt-4 mb-4">
+            <!-- Coupon Code -->
+            <div class="alert alert-purple d-inline-block px-4 py-3 text-center shadow-sm">
+            <strong>Coupon Code:</strong>
+            <strong id="couponCode" class="fs-4 text-dark"></strong>
+            <!-- Copy Button -->
+            <button class="btn btn-success mt-3 px-4 py-2 fw-semibold shadow-sm" onclick="copyToClipboard()">
+            Copy Code
+            </button>
+            </div>
 
-        <!-- Copy Confirmation Message -->
-        <p id="copyMessage" class="text-success fw-bold mt-2" style="display: none;">
-        Coupon code copied successfully! 🎉
-        </p>
+            <!-- Copy Confirmation Message -->
+            <p id="copyMessage" class="text-success fw-bold mt-2" style="display: none;">
+            Coupon code copied successfully! 🎉
+            </p>
+            </div>
+            <!-- Description -->
+            <p class="text-muted mb-2">
+            Copy and paste this code at <a href="" id="couponUrl" class="text-decoration-none fw-semibold text-purple"></a>
+            </p>
+            </div>
+            <!-- Modal Footer -->
+            <div class=" bg-purple text-white text-center ">
+            <p class="">CRAZIEST DEALS OF THE SEASON</p>
+            </div>
+            </div>
+            </div>
         </div>
-        <!-- Description -->
-        <p class="text-muted mb-2">
-        Copy and paste this code at <a href="" id="couponUrl" class="text-decoration-none fw-semibold text-purple"></a>
-        </p>
-        </div>
-        <!-- Modal Footer -->
-        <div class=" bg-purple text-white text-center ">
-        <p class="">CRAZIEST DEALS OF THE SEASON</p>
-        </div>
-        </div>
-        </div>
-    </div>
         <!-- JavaScript -->
         @stack('scripts')
         <script>

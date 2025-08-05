@@ -1,6 +1,4 @@
-@extends('welcome')
-
-
+@extends('layouts.welcome')
     <style>
         .dropdown-item{
             margin: 12px;

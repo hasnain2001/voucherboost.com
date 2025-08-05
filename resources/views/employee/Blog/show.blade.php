@@ -1,4 +1,4 @@
-@extends('employee.datatable')
+@extends('employee.layouts.datatable')
 @section('datatable-title')
     Blogs
 @endsection
@@ -23,17 +23,15 @@
                 <div class=" bg-light justify-content">
                     @section('main-content')
                         <div class="">
-@if (session('success'))
-    <div class="alert alert-custom alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-@endif
-
-
-                            <section class="content-header">
+                            @if (session('success'))
+                                <div class="alert alert-custom alert-dismissible fade show" role="alert">
+                                    {{ session('success') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
+                           <section class="content-header">
                                 <div class="">
                                     <div class="row mb-2">
                                         <div class="col-sm-6">
@@ -59,6 +57,8 @@
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
                         <th scope="col">Category</th>
+                        <th scope="col">store</th>
+                        <th scope="col">lang</th>
                         <th scope="col">Blog Image</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -70,19 +70,21 @@
                                 <input type="checkbox" name="selected_blogs[]" value="{{ $blog->id }}" class="selectCheckbox">
                             </td>
                             <th scope="row">{{ $loop->iteration }}</th>
-                            <td>{{ $blog->title }}</td>
-                            <td>{{ $blog->category ?: "Null" }}</td>
+                            <td><small>{{ $blog->title }}</small></td>
+                            <td><small>{{ $blog->category->title ?: "Null" }}</small></td>
+                            <td><small>{{ $blog->store->name ?? "Null" }}</small></td>
+                            <td><small>{{ $blog->language->name ?? "Null" }}</small></td>
                             <td>
-                                @if ($blog->category_image)
-                                    <img src="{{ asset($blog->category_image) }}" alt="Category Image" class="img-thumbnail" style="max-width: 80px;">
+                                @if ($blog->image)
+                                    <img src="{{ asset($blog->image) }}" alt="Category Image" class="img-thumbnail" style="max-width: 80px;">
                                 @else
                                     <span class="badge badge-secondary">No Image</span>
                                 @endif
                             </td>
                             <td>
-<a href="{{ route('employee.blog.edit', $blog->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                <a href="{{ route('employee.blog.edit', $blog->id) }}" class="btn btn-sm btn-primary">Edit</a>
 
-<a href="{{ route('employee.blog.delete', $blog->id) }}" onclick="return confirm('Are you sure you want to delete this blog entry?')" class=" btn btn-danger btn-sm">Delete</a>
+                <a href="{{ route('employee.blog.delete', $blog->id) }}" onclick="return confirm('Are you sure you want to delete this blog entry?')" class=" btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
                     @endforeach
@@ -95,6 +97,8 @@
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
                         <th scope="col">Category</th>
+                        <th scope="col">store</th>
+                        <th scope="col">lang</th>
                         <th scope="col">Blog Image</th>
                         <th scope="col">Action</th>
                     </tr>

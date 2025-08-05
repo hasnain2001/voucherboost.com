@@ -28,7 +28,17 @@ class StoresController extends Controller
         if (!$store) {
             return redirect('404');
         }
-        $coupons = Coupons::with('user')->where('store', $title)->orderByRaw('CAST(`order` AS SIGNED) ASC')->get();
+              // Check if any coupons exist with the 'store' column matching this slug
+        $hasCouponsWithStoreColumn = Coupons::where('store', $store->slug)->exists();
+
+        if ($hasCouponsWithStoreColumn) {
+            // If store slug is used in 'store' column
+            $query = Coupons::where('store', $store->slug);
+        } else {
+            // Otherwise fallback to store_id
+            $query = Coupons::where('store_id', $store->id);
+        }
+         $coupons = $query->with('user')->orderByRaw('CAST(`order` AS SIGNED) ASC')->get();
         $relatedStores = Stores::where('category', $store->category)->where('id', '!=', $store->id)->get();
 
         return view('admin.stores.store-detail', compact('store', 'coupons', 'relatedStores'));
@@ -48,8 +58,8 @@ class StoresController extends Controller
     // In your StoreController
     public function store()
     {
-        $stores = Stores::with('user','updatedby')
-            ->select('id', 'name', 'slug', 'status', 'created_at', 'updated_at', 'store_image', 'network', 'category', 'user_id','updated_id')
+        $stores = Stores::with('user','updatedby', 'categories', 'language')
+            ->select('id', 'name', 'slug', 'status', 'created_at', 'updated_at', 'store_image', 'network', 'category', 'user_id','updated_id','category_id')
             ->orderByDesc('created_at')
                     ->get();
 
@@ -59,9 +69,9 @@ class StoresController extends Controller
 
     public function create_store()
     {
-        $categories = Categories::all();
-        $networks = Networks::all();
-        $langs = Language::get();
+        $categories = Categories::orderBy('created_at','desc')->get();
+        $networks = Networks::orderBy('created_at','desc')->get();
+        $langs = Language::orderBy('created_at','desc')->get();
 
         return view('admin.stores.create', compact('categories', 'networks','langs'));
     }
@@ -72,26 +82,27 @@ class StoresController extends Controller
 
     public function store_store(Request $request)
     {
-        // dd(Auth::id());
+
         // Validate the incoming request data
-        $request->validate([
+     $request->validate([
             'name' => 'required|string|max:255',
-            'language_id' =>'nullable|integer',
-            'slug' => 'nullable|string|max:255|unique:stores,slug',
+            'language_id' =>'required|integer',
+            'slug' => 'required|string|max:255|unique:stores,slug',
             'top_store' => 'nullable|integer',
-            'description' => 'nullable|string',
-            'url' => 'nullable|url',
-            'destination_url' => 'nullable|url',
-            'category' => 'nullable|string',
+            'description' => 'required|string',
+            'url' => 'required|url',
+            'destination_url' => 'required',
+            'category_id' => 'required|integer',
             'title' => 'nullable|string',
-            'status' => 'required|in:enable,disable',
+            'meta_tag' => 'nullable|string',
             'meta_keyword' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'authentication' => 'nullable|string',
             'network' => 'nullable|string',
-            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-            'content' => 'nullable',
-            'about' => 'nullable|string|max:255',
+            'store_image' => 'required|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
+            'content' => 'nullable|string',
+            'about' => 'nullable|string',
+            'status' => 'required|in:enable,disable',
         ]);
 
         // Generate a slug if not provided
@@ -151,7 +162,7 @@ class StoresController extends Controller
 
         ]);
 
-        return redirect()->route('admin.stores' ,['slug' => Str::slug($store->slug)])->withInput()->with('success', 'Store Created Successfully');
+        return redirect()->route('admin.store_details' ,['slug' => Str::slug($store->slug)])->withInput()->with('success', 'Store Created Successfully');
     }
 
 
@@ -159,94 +170,66 @@ class StoresController extends Controller
     public function edit_store($id)
     {
         $stores = Stores::find($id);
-        $categories = Categories::all();
-        $networks = Networks::all();
-        $langs = Language::get();
+        $categories = Categories::orderByDesc('created_at')->get();
+        $networks = Networks::orderByDesc('created_at')->get();
+        $langs = Language::orderByDesc('created_at')->get();
         return view('admin.stores.edit', compact('stores', 'categories', 'networks','langs'));
     }
 
     public function update_store(Request $request, $id)
     {
-        // Find the store by ID
-        $store = Stores::find($id);
+        $store = Stores::findOrFail($id);
 
-        // Validate the request data
-        $request->validate([
-        'name' => 'required|string|max:255',
-        'slug' => ['required','string','max:255',Rule::unique('stores')->ignore($store->id),],
-        'language_id' =>'nullable|integer',
-        'top_store' => 'nullable|integer',
-        'description' => 'nullable|string',
-        'url' => 'nullable|url',
-        'destination_url' => 'nullable|url',
-        'category' => 'nullable|string',
-        'title' => 'nullable|string',
-        'meta_keyword' => 'nullable|string',
-        'meta_description' => 'nullable|string',
-        'status' => 'nullable|in:enable,disable',
-        'authentication' => 'nullable|string',
-        'network' => 'nullable|string',
-        'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Validates image file
-        'content' => 'nullable|',
-        'about' => 'nullable|string|max:255',
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => ['required', 'string', 'max:255', Rule::unique('stores')->ignore($store->id)],
+            'language_id' => 'nullable|integer',
+            'top_store' => 'nullable|integer',
+            'description' => 'nullable|string',
+            'url' => 'nullable|url',
+            'destination_url' => 'nullable|url',
+            'category' => 'nullable|string',
+            'title' => 'nullable|string',
+            'meta_keyword' => 'nullable|string',
+            'meta_description' => 'nullable|string',
+            'status' => 'nullable|in:enable,disable',
+            'authentication' => 'nullable|string',
+            'network' => 'nullable|string',
+            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'content' => 'nullable',
+            'about' => 'nullable|string|max:555',
+            'category_id' => 'nullable|integer'
         ]);
 
-
-        $storeImage = $store->store_image;
+        // Handle image upload and delete old image if exists
         if ($request->hasFile('store_image')) {
+            // Delete old image if it exists
+            if ($store->store_image && file_exists(public_path('uploads/stores/' . $store->store_image))) {
+                unlink(public_path('uploads/stores/' . $store->store_image));
+            }
+
             $file = $request->file('store_image');
-            $storeImage = md5($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
-            $filePath = public_path('uploads/stores/') . $storeImage;
+            $imageName = md5($file->getClientOriginalName() . time()) . '.' . $file->getClientOriginalExtension();
+            $filePath = public_path('uploads/stores/') . $imageName;
 
-            // Save the file to the specified location
-            $file->move(public_path('uploads/stores/'), $storeImage);
+            $file->move(public_path('uploads/stores/'), $imageName);
 
-            // Ensure that the file has been saved before trying to read it
             if (file_exists($filePath)) {
-                // Use Imagick to create a new image instance
-                // $image = ImageManager::imagick()->read($filePath);
-
-                // // Resize the image to 300x200 pixels
-                // $image->resize(300, 200);
-
-                // // Optionally, resize only the height to 200 pixels
-                // $image->resize(null, 200, function ($constraint) {
-                //     $constraint->aspectRatio();
-                // });
-
-                // Optimize the image
                 $optimizer = OptimizerChainFactory::create();
                 $optimizer->optimize($filePath);
-
-                // // Save the resized and optimized image
-                // $image->save($filePath);
             }
-        }
-        // Update the store record
-        $store->update([
-            'name' => $request->input('name'),
-            'slug' => $request->input('slug'),
-            'language_id' => $request->input('language_id',$store->language_id),
-            'top_store' => $request->input('top_store', $store->top_store),
-            'description' => $request->input('description'),
-            'url' => $request->input('url'),
-            'destination_url' => $request->input('destination_url'),
-            'category' => $request->input('category', $store->category),
-            'title' => $request->input('title'),
-            'meta_keyword' => $request->input('meta_keyword'),
-            'meta_description' => $request->input('meta_description'),
-            'status' => $request->input('status'),
-            'authentication' => $request->input('authentication', 'No Auth'),
-            'network' => $request->input('network', $store->network),
-            'store_image' => $storeImage, // Updated or existing image
-            'content' => $request->input('content'),
-            'about' => $request->input('about'),
-            'updated_id' => Auth::id(),
-            'category_id' => $request->category_id,
-        ]);
 
-        // Redirect back with a success message
-        return redirect()->route('admin.stores')->withInput()->with('success', 'Store Updated Successfully');
+            $validatedData['store_image'] = $imageName;
+        }
+
+        // Update store with validated data
+        $store->update(array_merge($validatedData, [
+            'updated_id' => Auth::id(),
+            'language_id' => $request->input('language_id', $store->language_id),
+            'category_id' => $request->input('category_id', $store->category_id)
+        ]));
+
+        return redirect()->route('admin.store_details' ,['slug' => Str::slug($store->slug)])->with('success', 'Store updated successfully');
     }
     public function delete_store($id)
     {
@@ -267,7 +250,7 @@ class StoresController extends Controller
             // Delete the store (soft delete if the SoftDeletes trait is used)
             $store->delete();
 
-            return redirect()->back()->with('success', 'Store and associated coupons marked for deletion.');
+            return redirect()->back()->with('success', 'Store and Coupon Are Deleteed ');
         }
 
         return redirect()->back()->with('error', 'Store not found.');

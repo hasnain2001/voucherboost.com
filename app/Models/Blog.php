@@ -12,8 +12,7 @@ class Blog extends Model
     protected $fillable = [
         'title',
         'slug',
-        'category_image',
-        'category',
+        'image',
         'content',
         'meta_title',
        'meta_description',
@@ -21,7 +20,17 @@ class Blog extends Model
         'top',
         'status',
         'user_id',
+        'category_id',
+        'store_id',
+        'language_id'
     ];
+    protected $casts = [
+    'created_at' => 'datetime',
+    'updated_at' => 'datetime',
+];
+public $timestamps = true;
+
+
     /**
   * Get the user that owns the Stores
   *
@@ -31,4 +40,21 @@ class Blog extends Model
  {
     return $this->belongsTo(User::class);
  }
+   public function updatedby()
+    {
+        return $this->belongsTo(User::class, 'updated_id');
+    }
+    public function language()
+    {
+        return $this->belongsTo(Language::class, 'language_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Categories::class);
+    }
+     public function store()
+    {
+        return $this->belongsTo(Stores::class);
+    }
 }

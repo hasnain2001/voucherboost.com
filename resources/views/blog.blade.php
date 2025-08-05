@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('layouts.welcome')
 @section('title')
     Blog Posts | Shopping Hacks & Savings Tips & Tricks
 @endsection
@@ -8,51 +8,49 @@
 @section('keywords')
     blog, blog posts, shopping hacks, savings tips, tricks, trends, news, online shopping
 @endsection
+@push('styles')
+    <style>
+        .blog .btn {
+            background-color:#701e7d; /* Purple */
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px; /* Rounded corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            transition: all 0.3s ease-in-out; /* Smooth transition */
+            cursor: pointer;
+        }
+
+        .blog .btn:hover {
+            background-color: #5a189a; /* Darker Purple */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        .blog .btn:focus {
+            outline: none; /* Remove default focus outline */
+            box-shadow: 0 0 0 4px rgba(111, 66, 193, 0.5); /* Focus ring with purple tint */
+        }
+
+        .blog .btn:active {
+            background-color: #4b2a89; /* Even darker purple */
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Reduced shadow */
+            transform: translateY(1px); /* Pressed effect */
+        }
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            object-fit: fill;
+        }
+    </style>
+@endpush
 @section('main-content')
-
-<style>
- .blog .btn {
-    background-color:#701e7d; /* Purple */
-    color: #fff;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 25px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    transition: all 0.3s ease-in-out; /* Smooth transition */
-    cursor: pointer;
-}
-
-.blog .btn:hover {
-    background-color: #5a189a; /* Darker Purple */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
-    transform: translateY(-2px); /* Slight lift effect */
-}
-
-.blog .btn:focus {
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 0 4px rgba(111, 66, 193, 0.5); /* Focus ring with purple tint */
-}
-
-.blog .btn:active {
-    background-color: #4b2a89; /* Even darker purple */
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Reduced shadow */
-    transform: translateY(1px); /* Pressed effect */
-}
-.card-img-top {
-    width: 100%;
-    height: 200px;
-    object-fit: fill;
-}
-
-  </style>
-
-
 <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
       <ol class="breadcrumb mb-0">
 
       <li class="breadcrumb-item">
-      <a href="{{ url(app()->getLocale() . '/') }}" class="text-decoration-none text-primary" style="font-weight: 500;">@lang('message.home')</a>
+      <a href="{{ url(app()->getLocale() . '/') }}" class="text-decoration-none text-primary" style="font-weight: 500;">@lang('nav.home')</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">Blog</li>
       </ol>
@@ -68,13 +66,13 @@
       @foreach ($blogs as $blog)
       @php
       $blogurl = $blog->slug
-          ? route('blog-details', ['slug' => Str::slug($blog->slug)])
+          ? route('blog.detail', ['slug' => Str::slug($blog->slug)])
           : '#';
       @endphp
       <div class="col-md-6 mb-4">
         <div class="card shadow-sm h-100 d-flex flex-column">
           <a href="{{ $blogurl }}">
-          <img src="{{ asset($blog->category_image) }}" class="card-img-top" alt="Blog Post Image">
+          <img src="{{ asset($blog->image) }}" class="card-img-top" alt="Blog Post Image">
         </a>
           <div class="card-body d-flex flex-column">
             <div class="blog-text mb-3">
@@ -104,7 +102,7 @@
             <div class="col-6 col-md-12 mb-3">
               @php
               $storeurl = $store->slug
-                  ? route('store_details', ['slug' => Str::slug($store->slug)])
+                  ? route('store.detail', ['slug' => Str::slug($store->slug)])
                   : '#';
               @endphp
               <a href="{{ $storeurl }}" class="text-dark text-decoration-none d-flex align-items-center">

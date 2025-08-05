@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('layouts.welcome')
 @section('title')
     Contact Us - Best Deals and Discounts |VoucherBoost
 @endsection

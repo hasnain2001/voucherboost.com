@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('layouts.welcome')
 
 @section('title')
     Categories | Explore Top Categories and Save Big!

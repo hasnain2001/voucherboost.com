@@ -52,6 +52,19 @@
                     </ul>
                 </div>
             @endif
+                    @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Please fix the following issues:</strong>
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             <form name="UpdateCoupon" id="UpdateCoupon" method="POST" action="{{ route('admin.coupon.update', $coupons->id) }}">
                 @csrf
                 <div class="row">
@@ -117,18 +130,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="store">Store <span class="text-danger">*</span></label>
-                                    <select name="store" id="store" class="form-control" onchange="updateDestinationAndLanguage()">
-                                        <option value="" disabled selected>{{ $coupons->store }}</option>
+                                    <select name="store_id" id="store_id" class="form-control" onchange="updateDestinationAndLanguage()">
+                                        <option value="" disabled selected>{{ $coupons->stores->name ?? null }}</option>
                                         @foreach($stores as $store)
-                                            <option value="{{ $store->slug }}" data-url="{{ $store->destination_url }}" data-language-id="{{ $store->language_id }}">{{ $store->slug }}</option>
+                                            <option value="{{ $store->id }}" data-language-id="{{ $store->language_id }}">{{ $store->slug }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
-                                    <input type="url" class="form-control" name="destination_url" id="destination_url" value="{{ $coupons->destination_url }}">
-                                </div>
-                                {{-- <div class="form-group">
                                     <label for="language_id">Language <span class="text-danger">*</span></label>
                                     <select name="language_id" id="language_id" class="form-control" required>
                                         <option disabled selected>{{ $coupons->language->code ?? '--Select Language--' }}</option>
@@ -136,7 +146,7 @@
                                             <option value="{{ $lang->id }}">{{ $lang->code }}</option>
                                         @endforeach
                                     </select>
-                                </div> --}}
+                                </div>
 
                             </div>
                         </div>
@@ -151,26 +161,33 @@
         </div>
     </section>
 </div>
+
+@endsection
+@push('scripts')
 <script>
+
     function updateDestinationAndLanguage() {
-        const storeSelect = document.getElementById('store');
-        const selectedOption = storeSelect.options[storeSelect.selectedIndex];
-
-        // Get the destination URL and language ID from the selected store
-        const destinationUrl = selectedOption.getAttribute('data-url') || '';
-        const languageId = selectedOption.getAttribute('data-language-id') || '';
-
-        // Update the destination URL input field
-        document.getElementById('destination_url').value = destinationUrl;
-
-        // Set the selected language in the language dropdown
-        const languageSelect = document.getElementById('language_id');
-        if (languageId) {
-            languageSelect.value = languageId;
-        } else {
-            languageSelect.selectedIndex = 0; // Reset to default if no language ID
+            updateLanguageFromStore();
+            // If you have destination URL logic, it would go here
         }
-    }
+
+        function updateLanguageFromStore() {
+            const storeSelect = document.getElementById('store_id');
+            const selectedOption = storeSelect.options[storeSelect.selectedIndex];
+            const languageId = selectedOption.getAttribute('data-language-id');
+
+            // Update language selection
+            if (languageId) {
+                const languageSelect = document.getElementById('language_id');
+                // Find the option with matching value and select it
+                for (let i = 0; i < languageSelect.options.length; i++) {
+                    if (languageSelect.options[i].value == languageId) {
+                        languageSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        }
 
     function toggleOtherInputVisibility(showOther) {
         const otherInputGroup = document.getElementById('otherInputGroup');
@@ -221,4 +238,4 @@ function initializeCodeInput() {
 // Call the initialization function when the page loads
 document.addEventListener('DOMContentLoaded', initializeCodeInput);
 </script>
-@endsection
+@endpush

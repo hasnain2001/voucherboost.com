@@ -7,6 +7,8 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Illuminate\Http\Request;
 use App\Models\Categories;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
@@ -78,6 +80,7 @@ class CategoriesController extends Controller
             'status' => $request->status,
             'authentication' => $request->authentication ?? 'No Auth',
             'category_image' => $CategoryImage ?? 'No Category Image',
+            'user_id' => Auth::id(),
         ]);
 
         return redirect()->back()->withInput()->with('success', 'Category Created Successfully');
@@ -149,6 +152,7 @@ class CategoriesController extends Controller
             'status' => $request->status,
             'authentication' => isset($request->authentication) ? $request->authentication : "No Auth",
             'category_image' => isset($CategoryImage) ? $CategoryImage : "No Category Image",
+            'updated_id' => Auth::id(),
         ]);
 
         return redirect()->route('employee.category')->with('success', 'Category Updated Successfully');

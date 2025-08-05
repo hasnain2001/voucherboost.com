@@ -8,7 +8,7 @@
 @section('keywords')
     coupon codes, discount codes, promo codes, deals, offers, vouchers, discounts, savings, online shopping
 @endsection
-@section('main-content')
+@push('styles')
       <!-- Custom CSS for better responsiveness and attractiveness -->
       <style>
         /* Ensure pagination wraps on smaller screens */
@@ -127,6 +127,8 @@
           }
         }
       </style>
+@endpush
+@section('main-content')
 <div class="main_content">
     <div class="container bg-light">
         <!-- Breadcrumb -->
@@ -140,45 +142,75 @@
           <div class="col-12">
             <!-- Pagination with responsive behavior -->
             <ul class="pagination pagination-responsive justify-content-center flex-wrap">
-              @foreach(range('A', 'Z') as $letter)
-              <li class="page-item {{ request()->get('letter') == $letter ? 'active' : '' }}">
-                <a class="page-link" href="{{ route('stores', ['letter' => $letter]) }}">
-                  {{ $letter }}
-                </a>
-              </li>
-              @endforeach
-            </ul>
+        <ul class="pagination">
+            @foreach(range('A', 'Z') as $letter)
+                <li class="page-item {{ request()->get('letter') == $letter ? 'active' : '' }}">
+                    <a class="page-link alphabet-filter"
+                    href="#"
+                    data-letter="{{ $letter }}"
+                    data-url="{{ route('stores', ['lang' => app()->getLocale(), 'letter' => $letter]) }}">
+                        {{ $letter }}
+                    </a>
+                </li>
+            @endforeach
+        </ul>
           </div>
         </div>
       </div>
     <div class="container">
-        @if ($stores->isEmpty())
-            <div class="alert alert-info text-dark" role="alert">
-                No stores found.
-            </div>
-        @else
-            <div class="row">
-                @foreach ($stores as $store)
-                    @php
-                        $storeUrl = $store->slug
-                            ? route('store_details', ['slug' => Str::slug($store->slug)])
-                            : '#';
-                    @endphp
-                    <div class="col-md-3 col-sm-6 col-6 mb-4">
-                        <div class="card h-100 text-center">
-                            <a href="{{ $storeUrl }}" class="text-decoration-none store-card">
-                                <img src="{{ $store->store_image ? asset('uploads/stores/' . $store->store_image) : asset('front/assets/images/no-image-found.jpg') }}"
-                                     alt="{{ $store->name ?: 'Store Image' }}" class="store-image">
-                                <div class="card-body">
-                                    <span class="card-title text-dark">{{ $store->name ?: "Title not found" }}</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        @endif
+<div id="stores-container">
+    @include('partials.stores_list', ['stores' => $stores])
+</div>
     </div>
-    {{ $stores->links('vendor.pagination.custom') }}
+
 </main>
 @endsection
+@push('scripts')
+
+<script>
+$(document).ready(function() {
+    // Handle alphabet filter clicks
+    $('.alphabet-filter').click(function(e) {
+        e.preventDefault();
+
+        const letter = $(this).data('letter');
+        const url = $(this).data('url');
+
+        // Update active state
+        $('.page-item').removeClass('active');
+        $(this).closest('.page-item').addClass('active');
+
+        loadStores(url);
+    });
+
+    // Handle pagination clicks (using event delegation)
+    $(document).on('click', '#pagination-container a.page-link', function(e) {
+        e.preventDefault();
+        const url = $(this).attr('href');
+        loadStores(url);
+    });
+
+    function loadStores(url) {
+        // Show loading indicator
+        $('#stores-container').html('<div class="text-center py-4">Loading...</div>');
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                $('#stores-container').html(response.html);
+                $('#pagination-container').html(response.pagination);
+
+                // Update URL in browser without reload
+                history.pushState(null, null, url);
+            },
+            error: function(xhr) {
+                console.error('Error:', xhr.statusText);
+                $('#stores-container').html('<div class="alert alert-danger">Error loading stores</div>');
+            }
+        });
+    }
+});
+</script>
+@endpush

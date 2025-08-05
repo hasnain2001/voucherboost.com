@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('layouts.welcome')
 @section('title')
     Stores
 @endsection
@@ -45,7 +45,7 @@
             @endphp --}}
                 @php
                 $storeurl = $store->slug
-                  ? route('store_details', ['slug' => Str::slug($store->slug)])
+                  ? route('store.detail', ['slug' => Str::slug($store->slug)])
                   : '#';
                 @endphp
                                 <a href="{{$storeurl }}" class="text-decoration-none text-dark text-center">

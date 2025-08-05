@@ -38,26 +38,30 @@
                                         <th>Slider Name</th>
                                         <th>Description</th>
                                         <th>Slider Image</th>
+                                        <th>lang</th>
+                                        <th>store</th>
+                                        <th>category</th>
                                         <th>Status</th>
                                         <th>Added</th>
                                         <th>Updated</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="text-dark">
                                     @foreach ($sliders as $slider)
                                         <tr>
-                                            <td>{{ $slider->title }}</td>
-                                            <td>{{ $slider->description }}</td>
+                                            <td>{{ $slider->title  ?? 'Null'}}</td>
+                                            <td>{{ $slider->description  ?? 'Null'}}</td>
                                             <td>
                                                 <img src="{{ asset('uploads/slider/'.$slider->image) }}" alt="{{ $slider->title }}" style="width: 100px;">
                                             </td>
-                                            <td>@if ($slider->status === 'active')
+                                            <td>{{ $slider->language->name ?? "Null" }}</td>
+                                             <td>{{ $slider->store->name ?? "Null" }}</td>
+                                              <td>{{ $slider->category->title ?? "Null" }}</td>
+                                            <td>@if ($slider->status == 'active')
                                                 <span class="badge badge-success">Active</span>
-
                                             @else
-                                                <span class="badge badge-danger">Inactive</span>
-
+                                               <span class="badge badge-danger">Inactive</span>
                                             @endif
                                             </td>
                                             <td>

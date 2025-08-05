@@ -17,6 +17,7 @@ class Slider extends Model
         'category_id',
         'language_id',
         'store_id',
+        'ur',
     ];
    protected $casts = [
         'status' => 'boolean',

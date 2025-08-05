@@ -12,10 +12,10 @@ Route::middleware([RoleMiddleware::class])->group(function () {
      // Employee Routes Begin
       Route::controller(BlogController::class)->prefix('employee')->group(function () {
           Route::get('/Blog',  'blogs_show')->name('employee.blog.index');
-          Route::get('/blog/create',  'create')->name('employee.blog.create');
+          Route::get('/Blog/Create',  'create')->name('employee.blog.create');
           Route::post('/blog/store', 'store')->name('employee.blog.store');
           Route::get('/blog/{id}/edit', 'edit')->name('employee.blog.edit');
-          Route::post('/employee/Blog/update/{id}', 'update')->name('employee.Blog.update');
+          Route::put('/employee/Blog/update/{id}', 'update')->name('employee.Blog.update');
           Route::get('/employee/Blog/delete/{id}', 'destroy')->name('employee.blog.delete');
           Route::post('/blog/deleteSelected',  'deleteSelected')->name('employee.blog.deleteSelected');
           Route::delete('/blog/bulk-delete',  'deleteSelected')->name('employee.blog.bulkDelete');
@@ -62,7 +62,7 @@ Route::middleware([RoleMiddleware::class])->group(function () {
 
 
       Route::controller(CouponsController::class)->prefix('employee')->group(function () {
-          Route::get('/coupon', 'coupon')->name('employee.coupon');
+          Route::get('/Coupon', 'coupon')->name('employee.coupon');
           Route::get('/coupon/create', 'create_coupon')->name('employee.coupon.create');
           Route::get('/coupon/create/code', 'create_coupon_code')->name('employee.coupon.code');
           Route::post('/coupon/store', 'store_coupon')->name('employee.coupon.store');

@@ -2,7 +2,7 @@
 @section('title')
     Create Store
 @endsection
-@section('styles')
+@push('styles')
     <style>
         .card-header {
             background-color: #f8f9fa;
@@ -32,7 +32,7 @@
             min-height: 300px;
         }
     </style>
-@endsection
+@endpush
 
 @section('main-content')
     <div class="content-wrapper">
@@ -221,22 +221,28 @@
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
-
-                                    <div class="form-group">
-                                        <label for="category">Category <span class="text-danger">*</span></label>
-                                        <select name="category" id="category" class="form-control select2" required>
-                                            <option value="" disabled {{ old('category') ? '' : 'selected' }}>-- Select Category --</option>
+                                     <div class="mb-3">
+                                        <label for="category_id" class="form-label">Category <span class="text-danger">*</span></label>
+                                        <select name="category_id" id="category_id" class="form-select" required>
+                                            <option value="" disabled selected>-- Select Category --</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->slug }}" {{ old('category') == $category->slug ? 'selected' : '' }}>
-                                                    {{ $category->name }}
+                                                <option value="{{ $category->id }}" data-language="{{ $category->language_id ?? '' }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                    {{ $category->title }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('category')
-                                        <small class="text-danger">{{ $message }}</small>
-                                        @enderror
                                     </div>
-
+                                    <div class="mb-3">
+                                        <label for="language_id" class="form-label">Language <span class="text-danger">*</span></label>
+                                        <select name="language_id" id="language_id" class="form-select" required>
+                                            <option value="" disabled selected>-- Select Language --</option>
+                                            @foreach ($langs as $language)
+                                                <option value="{{ $language->id }}" {{ old('language_id') == $language->id ? 'selected' : '' }}>
+                                                    {{ $language->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <label for="store_image">Store Logo <span class="text-danger">*</span></label>
                                         <div class="custom-file">
@@ -334,7 +340,7 @@
 
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <textarea id="editor" name="content" required>{{ old('content') }}</textarea>
+                                        <textarea id="editor" name="content" >{{ old('content') }}</textarea>
                                         @error('content')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -369,7 +375,7 @@
 
 
 @endsection
-@section('scripts')
+@push('scripts')
        <script>
             // Filter non-alphabetic characters in the 'name' input field and auto-fill 'slug' and 'destination_url'
             const nameInput = document.getElementById('name');
@@ -461,6 +467,6 @@
             }
             });
     </script>
-    @endsection
+    @endpush
 
 

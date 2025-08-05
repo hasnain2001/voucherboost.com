@@ -1,4 +1,4 @@
-@extends('employee.master')
+@extends('employee.layouts.master')
 @section('title')
     Update
 @endsection
@@ -43,15 +43,19 @@
                     <b>{{ session('success') }}</b>
                 </div>
             @endif
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+                  @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Please fix the following issues:</strong>
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             <form name="UpdateCoupon" id="UpdateCoupon" method="POST" action="{{ route('employee.coupon.update', $coupons->id) }}">
                 @csrf
                 <div class="row">
@@ -108,7 +112,7 @@
 
                                 <div class="form-group">
                                     <label>Authentication:</label>
-                                    @php $authOptions = ['never expire', 'Featured', 'free shipping', 'coupon code', 'top deals', 'valentine']; @endphp
+                                    @php $authOptions = ['never expire', 'featured', 'free shipping', 'coupon code', 'top deals', 'valentine']; @endphp
                                     @foreach ($authOptions as $auth)
                                         <div class="form-check"><input type="radio" class="form-check-input" name="authentication" id="{{ $auth }}" value="{{ $auth }}" {{ $coupons->authentication === $auth ? 'checked' : '' }} onchange="toggleOtherInputVisibility(false)"><label class="form-check-label" for="{{ $auth }}">{{ ucfirst($auth) }}</label></div>
                                     @endforeach
@@ -117,18 +121,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="store">Store <span class="text-danger">*</span></label>
-                                    <select name="store" id="store" class="form-control" onchange="updateDestinationAndLanguage()">
-                                        <option value="" disabled selected>{{ $coupons->store }}</option>
+                                    <select name="store_id" id="store_id" class="form-control" >
+                                        <option value="" disabled selected>{{ $coupons->stores->name ?? null }}</option>
                                         @foreach($stores as $store)
-                                            <option value="{{ $store->slug }}" data-url="{{ $store->destination_url }}" data-language-id="{{ $store->language_id }}">{{ $store->slug }}</option>
+                                            <option value="{{ $store->id }}">{{ $store->slug }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
-                                    <input type="url" class="form-control" name="destination_url" id="destination_url" value="{{ $coupons->destination_url }}">
-                                </div>
-                                {{-- <div class="form-group">
                                     <label for="language_id">Language <span class="text-danger">*</span></label>
                                     <select name="language_id" id="language_id" class="form-control" required>
                                         <option disabled selected>{{ $coupons->language->code ?? '--Select Language--' }}</option>
@@ -136,7 +137,7 @@
                                             <option value="{{ $lang->id }}">{{ $lang->code }}</option>
                                         @endforeach
                                     </select>
-                                </div> --}}
+                                </div>
 
                             </div>
                         </div>
@@ -146,7 +147,7 @@
                         <button type="reset" class="btn btn-warning">Reset</button>
                         <a href="{{ route('employee.coupon') }}" class="btn btn-secondary">Cancel</a>
                     </div>
-                </div>
+                              </div>
             </form>
         </div>
     </section>

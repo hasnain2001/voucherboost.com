@@ -35,36 +35,40 @@ class Stores extends Model
 
     ];
 
-// Store Model
+
+    public function categories(): BelongsTo
+    {
+        return $this->belongsTo(Categories::class, 'category_id');
+    }
 
     public function updatedby()
     {
         return $this->belongsTo(User::class, 'updated_id');
     }
-public function language()
-{
-    return $this->belongsTo(Language::class,);
-}
-public function store_language()
-{
-    return $this->belongsTo(Language::class, );
-}
+    public function language()
+    {
+        return $this->belongsTo(Language::class,);
+    }
+    public function store_language()
+    {
+        return $this->belongsTo(Language::class, );
+    }
  /**
   * Get the user that owns the Stores
   *
   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
   */
- public function user(): BelongsTo
- {
-    return $this->belongsTo(User::class);
- }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
     public function coupons()
     {
-        return $this->hasMany(Coupons::class);
+        return $this->hasMany(Coupons::class,'store_id');
     }
-public function slider()
-{
-    return $this->hasMany(Slider::class);
-}
+    public function slider()
+    {
+        return $this->hasMany(Slider::class);
+    }
 
 }

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('updated_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('language_id')->nullable()->constrained('language')->nullOnDelete();
+            $table->foreignId('store_id')->nullable()->constrained('stores')->nullOnDelete();
+            $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
         });
 
         Schema::table('stores', function (Blueprint $table) {
@@ -31,9 +33,8 @@ return new class extends Migration
         Schema::table('coupons', function (Blueprint $table) {
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('updated_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignId('store_id')->constrained()->nullOnDelete();
+            $table->foreignId('store_id')->nullable()->constrained('stores')->nullOnDelete();
         });
-
         Schema::table('sliders', function (Blueprint $table) {
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('updated_id')->nullable()->constrained('users')->nullOnDelete();

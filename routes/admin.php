@@ -41,7 +41,7 @@ Route::controller(DeleteController::class)->name('admin.')->group(function () {
     Route::get('/slider/create', 'create_slider')->name('admin.slider.create');
     Route::post('/slider/stores', 'store_slider')->name('admin.slider.store');
     Route::get('/slider/edit/{id}', 'edit_slider')->name('admin.slider.edit');
-    Route::post('/slider/update/{id}', 'update_slider')->name('admin.slider.update');
+    Route::put('/slider/update/{id}', 'update_slider')->name('admin.slider.update');
     Route::get('/slider/delete/{id}', 'delete_slider')->name('admin.slider.delete');
     // Route::post('/slider/deleteSelected', 'deleteSelected')->name('admin.slider.deleteSelected');
     // Route::get('/slider/{slug}', 'StoreDetails')->name('admin.details');
@@ -64,7 +64,7 @@ Route::controller(DeleteController::class)->name('admin.')->group(function () {
     Route::get('/blog/create',  'create')->name('admin.blog.create');
     Route::post('/blog/store', 'store')->name('admin.blog.store');
     Route::get('/blog/{id}/edit', 'edit')->name('admin.blog.edit');
-    Route::post('/admin/Blog/update/{id}', 'update')->name('admin.Blog.update');
+    Route::put('/admin/Blog/update/{id}', 'update')->name('admin.Blog.update');
     Route::get('/admin/Blog/delete/{id}',  'destroy')->name('admin.blog.delete');
     Route::post('/blog/deleteSelected',  'deleteSelected')->name('admin.blog.deleteSelected');
     Route::delete('/blog/bulk-delete', 'deleteSelected')->name('admin.blog.bulkDelete');
@@ -107,7 +107,7 @@ Route::controller(DeleteController::class)->name('admin.')->group(function () {
 
     // Coupons Routes Begin
    Route::controller(CouponsController::class)->prefix('admin')->group(function () {
-    Route::get('/coupon', 'coupon')->name('admin.coupon');
+    Route::get('/Coupon', 'coupon')->name('admin.coupon');
     Route::get('/coupon/create', 'create_coupon')->name('admin.coupon.create');
     Route::get('/coupon/create/code', 'create_coupon_code')->name('admin.coupon.code');
     Route::post('/coupon/store', 'store_coupon')->name('admin.coupon.store');

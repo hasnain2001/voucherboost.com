@@ -1,273 +1,354 @@
-@extends('employee.master')
+@extends('employee.layouts.master')
 @section('title')
 Create | Coupons
 @endsection
-@section('main-content')
+
+@push('styles')
 <style>
+    .radio-group, .checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        align-items: center;
+        padding: 10px 0;
+    }
 
+    .radio-group label, .checkbox-group label {
+        margin-bottom: 0;
+        cursor: pointer;
+    }
 
-.radio-container,
-.checkbox-container {
-display: flex;
-flex-wrap: wrap;
-gap: 15px; /* Adjust spacing between items within each group */
-align-items: center;
-}
+    .card {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        margin-bottom: 20px;
+    }
 
-.radio-container input[type="radio"],
-.checkbox-container input[type="checkbox"] {
-margin-right: 5px; /* Adjust spacing between the input and label */
-}
+    .card-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        padding: 10px 15px;
+        font-weight: 600;
+    }
 
+    .card-body {
+        padding: 20px;
+    }
+
+    .form-section {
+        margin-bottom: 30px;
+    }
+
+    .section-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #eee;
+        color: #495057;
+    }
 </style>
+@endpush
+
+@section('main-content')
 <div class="content-wrapper">
-<section class="content-header">
-<div class="container-fluid">
-<div class="row mb-2">
-<div class="col-sm-6">
-<h1>Create Coupon</h1>
+    <!-- Content Header -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Create Coupon</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('employee.dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('employee.coupon') }}">Coupons</a></li>
+                        <li class="breadcrumb-item active">Create</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Alerts -->
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show">
+                <i class="fa fa-check-circle mr-2"></i>
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
+
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
+            <!-- Form -->
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Coupon Information</h3>
+                </div>
+
+                <form name="CreateCoupon" id="CreateCoupon" method="POST" action="{{ route('employee.coupon.store') }}">
+                    @csrf
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Left Column -->
+                            <div class="col-md-6">
+                                <!-- Basic Information Section -->
+                                <div class="form-section">
+                                    <div class="section-title">Basic Information</div>
+
+                                    <div class="form-group">
+                                        <label for="name">Coupon Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="name" id="name"
+                                               value="{{ old('name') }}" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="description">Description <span class="text-danger">*</span></label>
+                                        <textarea name="description" id="description" class="form-control"
+                                                  rows="3" style="resize: none;">{{ old('description') }}</textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="toggleCodeCheckbox"
+                                                   onchange="toggleCodeInput(this)" {{ old('code') ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="toggleCodeCheckbox">Enable Custom Code</label>
+                                        </div>
+
+                                        <div class="form-group mt-2" id="codeInputGroup" style="display: none;">
+                                            <label for="code">Coupon Code</label>
+                                            <input type="text" class="form-control" name="code" id="code"
+                                                   value="{{ old('code') }}" placeholder="Enter custom code">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="ending_date">Ending Date <span class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" name="ending_date" id="ending_date"
+                                               value="{{ old('ending_date') }}" required>
+                                        <small id="dateError" class="text-danger" style="display: none;">
+                                            Please select a future date.
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <!-- Store & Language Section -->
+                                <div class="form-section">
+                                    <div class="section-title">Store & Language</div>
+
+                                  <div class="mb-3">
+                                    <label for="store_id" class="form-label">Store <span class="text-danger">*</span></label>
+                                    <select name="store_id" id="store_id" class="form-select" onchange="updateDestinationAndLanguage()" required>
+                                            <option value="" disabled {{ old('store_id') ? '' : 'selected' }}>-- Select Store --</option>
+                                            @foreach($stores as $store)
+                                                <option value="{{ $store->id }}"
+                                                        data-language-id="{{ $store->language_id }}"
+                                                        {{ old('store_id') == $store->id ? 'selected' : '' }}>
+                                                    {{ $store->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="language_id" class="form-label">Language <span class="text-danger">*</span></label>
+                                <select name="language_id" id="language_id" class="form-select" required>
+                                    <option value="" disabled {{ old('language_id') ? '' : 'selected' }}>-- Select Language --</option>
+                                    @foreach($langs as $language)
+                                        <option value="{{ $language->id }}" {{ old('language_id') == $language->id ? 'selected' : '' }}>
+                                            {{ $language->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column -->
+                            <div class="col-md-6">
+                                <!-- Ranking Section -->
+                                <div class="form-section">
+                                    <div class="section-title">Ranking</div>
+
+                                    <div class="form-group">
+                                        <label>Top Coupons Position <span class="text-danger">*</span></label>
+                                        <div class="radio-group">
+                                            @for ($i = 0; $i <= 10; $i++)
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="top_{{ $i }}" name="top_coupons"
+                                                           value="{{ $i }}" class="custom-control-input"
+                                                           {{ old('top_coupons') == $i ? 'checked' : '' }}>
+                                                    <label class="custom-control-label" for="top_{{ $i }}">{{ $i }}</label>
+                                                </div>
+                                            @endfor
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Status Section -->
+                                <div class="form-section">
+                                    <div class="section-title">Status</div>
+
+                                    <div class="form-group">
+                                        <label>Status <span class="text-danger">*</span></label>
+                                        <div class="radio-group">
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="enable" name="status" value="enable"
+                                                       class="custom-control-input" {{ old('status', 'enable') == 'enable' ? 'checked' : '' }} required>
+                                                <label class="custom-control-label" for="enable">Enable</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="disable" name="status" value="disable"
+                                                       class="custom-control-input" {{ old('status') == 'disable' ? 'checked' : '' }} required>
+                                                <label class="custom-control-label" for="disable">Disable</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Authentication Section -->
+                                <div class="form-section">
+                                    <div class="section-title">Authentication</div>
+
+                                    <div class="form-group">
+                                        <label>Authentication Type</label>
+                                        <div class="radio-group">
+                                            @foreach (['never expire', 'featured', 'free shipping', 'coupon code', 'top deals', 'valentine'] as $auth)
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="{{ str_replace(' ', '_', $auth) }}"
+                                                           name="authentication" value="{{ $auth }}"
+                                                           class="custom-control-input"
+                                                           {{ old('authentication') === $auth ? 'checked' : '' }}>
+                                                    <label class="custom-control-label" for="{{ str_replace(' ', '_', $auth) }}">
+                                                        {{ ucfirst($auth) }}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="toggleOtherCheckbox" name="authentication"
+                                                       value="other" class="custom-control-input"
+                                                       {{ old('authentication') === 'other' ? 'checked' : '' }}
+                                                       onchange="toggleOtherInput(this)">
+                                                <label class="custom-control-label" for="toggleOtherCheckbox">Other</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mt-2" id="otherInputGroup" style="display: none;">
+                                            <label for="otherAuthentication">Specify Authentication</label>
+                                            <input type="text" class="form-control" name="other_authentication"
+                                                   id="otherAuthentication" value="{{ old('other_authentication') }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Footer -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save mr-1"></i> Save Coupon
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-undo mr-1"></i> Reset
+                        </button>
+                        <a href="{{ route('employee.coupon') }}" class="btn btn-default float-right">
+                            <i class="fas fa-times mr-1"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 </div>
-</div>
-</div>
-</section>
-<section class="content">
-<div class="container-fluid">
-@if(session('success'))
-<div class="alert alert-success alert-dismissable">
-<i class="fa fa-ban"></i>
-<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-<b>{{ session('success') }}</b>
-</div>
-@endif
-@if ($errors->any())
-<div class="alert alert-danger">
-<ul>
-@foreach ($errors->all() as $error)
-<li>{{ $error }}</li>
-@endforeach
-</ul>
-</div>
-@endif
-<div class="row">
-<div class="col-12">
-<div class="card">
-<div class="card-body">
-<div class="form-group">
-<form name="CreateCoupon" id="CreateCoupon" method="POST" action="{{ route('employee.coupon.store') }}">
-@csrf
-<div class="row">
-<div class="col-6">
-<div class="card">
-<div class="card-body">
-<div class="form-group">
-<label for="name">Coupon Name <span class="text-danger">*</span></label>
-<input type="text" class="form-control" name="name" id="name" value="{{ old('name', request()->input('name')) }}" required>
-</div>
-<div class="form-group">
-<label for="description">Description <span class="text-danger">*</span></label>
-<textarea name="description" id="description" class="form-control" cols="20" rows="3" style="resize: none;">{{ old('description') }}</textarea>
-</div>
-<div class="form-check">
-    <input type="checkbox" class="form-check-input" id="toggleCodeCheckbox"
-        onchange="toggleCodeInput(this)"
-        {{ old('code') ? 'checked' : '' }}>
-    <label class="form-check-label" for="toggleCodeCheckbox">Enable Code Input</label>
-</div>
-<div class="form-group" id="codeInputGroup" style="display: none;">
-    <label for="code">Code</label>
-    <input type="text" class="form-control" name="code" id="code" value="{{ old('code') }}">
-</div>
+@endsection
 
 
-<div class="form-group">
-    <label for="ending_date">Ending Date <span class="text-danger">*</span></label>
-    <input type="date" class="form-control" name="ending_date" id="ending_date" value="{{ old('ending_date') }}" required>
-    <small id="dateError" class="text-danger" style="display: none;">Please select a future date.</small>
-</div>
-
-<div class="form-group">
-    <label for="store">Store <span class="text-danger">*</span></label>
-    <select name="store" id="store" class="form-control" onchange="updateDestinationAndLanguage()" required>
-        <option value="" disabled selected>--Select Store--</option>
-        @foreach($stores as $store)
-            <option value="{{ $store->slug }}" data-url="{{ $store->destination_url }}" data-language-id="{{ $store->language_id }}"
-                {{ old('store') == $store->slug ? 'selected' : '' }}>
-                {{ $store->slug }}
-            </option>
-        @endforeach
-    </select>
-</div>
-
-<div class="form-group">
-    <label for="destination_url">Destination URL <span class="text-danger">*</span></label>
-    <input type="url" class="form-control" name="destination_url" id="destination_url" value="{{ old('destination_url') }}" required>
-</div>
-
-{{-- <div class="form-group">
-    <label for="language_id">Language <span class="text-danger">*</span></label>
-    <select name="language_id" id="language_id" class="form-control" required>
-        <option value="" disabled {{ old('language_id') ? '' : 'selected' }}>--Select Language--</option>
-        @foreach ($langs as $lang)
-            <option value="{{ $lang->id }}" {{ old('language_id') == $lang->id ? 'selected' : '' }}>
-                {{ $lang->code }}
-            </option>
-        @endforeach
-    </select>
-    @error('language_id')
-        <small class="text-danger">{{ $message }}</small>
-    @enderror
-</div> --}}
-
-</div>
-</div>
-</div>
-<div class="col-6">
-<div class="card">
-<div class="card-body">
-
-<div class="form-group">
-{{-- <label for="top_coupons">Top Coupons Code <span class="text-danger">*</span></label><br>
-@for ($i = 0; $i <= 10; $i++)
-<input type="radio" name="top_coupons" id="top_{{ $i }}" value="{{ $i }}" {{ old('top_coupons') == $i ? 'checked' : '' }}>
-<label for="top_{{ $i }}">{{ $i }}</label>
-@endfor
-</div> --}}
-<div class="form-group">
-<label for="status">Status <span class="text-danger">*</span></label><br>
-<div class="radio-container">
-<input type="radio" name="status" id="enable" value="enable" {{ old('status') == 'enable' ? 'checked' : '' }} required>
-<label for="enable">Enable</label>
-<input type="radio" name="status" id="disable" value="disable" {{ old('status') == 'disable' ? 'checked' : '' }} required>
-<label for="disable">Disable</label>
-</div>
-<label for="authentication">Authentication</label><br>
-@foreach (['never expire', 'featured', 'free shipping', 'coupon code', 'top deals', 'valentine' ] as $auth)
-<input type="radio" name="authentication" id="{{ $auth }}" value="{{ $auth }}"
-{{ old('authentication') === $auth ? 'checked' : '' }}>
-<label for="{{ $auth }}">{{ ucfirst(str_replace('_', ' ', $auth)) }}</label>
-@endforeach
-{{-- <div class="checkbox-container">
-@foreach (['never expire', 'featured', 'free shipping', 'coupon code', 'top deals', 'valentine'] as $auth)
-<input type="radio" name="authentication" id="{{ $auth }}" value="{{ $auth }}"
-{{ old('authentication') === $auth ? 'checked' : '' }}>
-<label for="{{ $auth }}">{{ ucfirst(str_replace('_', ' ', $auth)) }}</label>
-@endforeach
-
-<!-- Other Option -->
-<div class="form-check">
-<input type="radio" class="form-check-input" name="authentication" id="toggleOtherCheckbox" value="other"
-{{ old('authentication') === 'other' ? 'checked' : '' }} onchange="toggleOtherInput(this)">
-<label class="form-check-label" for="toggleOtherCheckbox">Other</label>
-</div>
-
-<!-- Hidden Input for Other -->
-<div class="form-group" id="otherInputGroup" style="display: none;">
-<label for="otherAuthentication">Please specify</label>
-<input type="text" class="form-control" name="authentication" id="otherAuthentication"
-value="{{ old('other_authentication') }}">
-</div>
-</div> --}}
-
-
-
-
-</div>
-
-
-
-
-<div class="col-6">
-<button type="submit" class="btn btn-primary">Save</button>
-<button type="reset" class=" btn  btn-lisght">Reset</button>
-<a href="{{ route('employee.coupon') }}" class="btn btn-secondary">Cancel</a>
-</div>
-</div>
-</div>
-
-</div>
-
-</div>
-</form>
-
-</div>
-
-</section>
-</div>
-
-
+@push('scripts')
 <script>
+    // Initialize Select2
+    $(document).ready(function() {
+        $('.select2').select2({
+            theme: 'bootstrap4'
+        });
+
+        // Show code input if there's an old value
+        if ($('#toggleCodeCheckbox').is(':checked')) {
+            $('#codeInputGroup').show();
+        }
+
+        // Show other input if "Other" is selected
+        if ($('#toggleOtherCheckbox').is(':checked')) {
+            $('#otherInputGroup').show();
+        }
+    });
+      function updateDestinationAndLanguage() {
+            updateLanguageFromStore();
+            // If you have destination URL logic, it would go here
+        }
+
+        function updateLanguageFromStore() {
+            const storeSelect = document.getElementById('store_id');
+            const selectedOption = storeSelect.options[storeSelect.selectedIndex];
+            const languageId = selectedOption.getAttribute('data-language-id');
+
+            // Update language selection
+            if (languageId) {
+                const languageSelect = document.getElementById('language_id');
+                // Find the option with matching value and select it
+                for (let i = 0; i < languageSelect.options.length; i++) {
+                    if (languageSelect.options[i].value == languageId) {
+                        languageSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        }
+
+    // Date validation
     document.getElementById('ending_date').addEventListener('change', function() {
         const selectedDate = new Date(this.value);
         const today = new Date();
-        today.setHours(0, 0, 0, 0); // Set time to midnight to compare only dates
+        today.setHours(0, 0, 0, 0);
 
         if (selectedDate < today) {
             document.getElementById('dateError').style.display = 'block';
-            this.value = ''; // Clear the input value
+            this.value = '';
         } else {
             document.getElementById('dateError').style.display = 'none';
         }
     });
 
-    function updateDestinationAndLanguage() {
-    const storeSelect = document.getElementById('store');
-    const selectedOption = storeSelect.options[storeSelect.selectedIndex];
-
-    // Get the destination URL and language ID from the selected store
-    const destinationUrl = selectedOption.getAttribute('data-url') || '';
-    const languageId = selectedOption.getAttribute('data-language-id') || '';
-
-    // Update the destination URL input field
-    document.getElementById('destination_url').value = destinationUrl;
-
-    // Set the selected language in the language dropdown
-    const languageSelect = document.getElementById('language_id');
-    if (languageId) {
-        languageSelect.value = languageId;
+    // Toggle other authentication input
+    function toggleOtherInput(checkboxElement) {
+        if ($(checkboxElement).is(':checked')) {
+            $('#otherInputGroup').show();
+        } else {
+            $('#otherInputGroup').hide();
+        }
     }
-}
 
+    // Toggle coupon code input
+    function toggleCodeInput(checkboxElement) {
+        if ($(checkboxElement).is(':checked')) {
+            $('#codeInputGroup').show();
+        } else {
+            $('#codeInputGroup').hide();
+            $('#code').val('');
+        }
+    }
 </script>
-
-<script>
-
-function toggleOtherInput(checkboxElement) {
-const otherInputGroup = document.getElementById('otherInputGroup');
-
-if (checkboxElement.checked) {
-otherInputGroup.style.display = 'block'; // Show the input field
-} else {
-otherInputGroup.style.display = 'none'; // Hide the input field
-}
-}
-function toggleCodeInput(checkboxElement) {
-    const codeInputGroup = document.getElementById('codeInputGroup');
-    const codeInput = document.getElementById('code');
-
-    if (checkboxElement.checked) {
-        // Show the input group if the checkbox is checked
-        codeInputGroup.style.display = 'block';
-    } else {
-        // Hide the input group and clear the input value if the checkbox is unchecked
-        codeInputGroup.style.display = 'none';
-        codeInput.value = ''; // Clear the input value
-    }
-}
-
-// Ensure the input is shown if there's an old value
-window.onload = function () {
-    const checkbox = document.getElementById('toggleCodeCheckbox');
-    const codeInputGroup = document.getElementById('codeInputGroup');
-    const codeInput = document.getElementById('code');
-
-    if (checkbox.checked) {
-        codeInputGroup.style.display = 'block';
-    } else {
-        codeInputGroup.style.display = 'none';
-        codeInput.value = ''; // Clear the input value if the checkbox is not checked
-    }
-};
-</script>
-
-
-@endsection
+@endpush

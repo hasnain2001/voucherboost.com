@@ -1,4 +1,4 @@
-@extends('employee.datatable')
+@extends('employee.layouts.datatable')
 @section('datatable-title')
     Coupons
 @endsection
@@ -76,7 +76,13 @@
                 <th scope="row">{{ $loop->iteration }}</th>
                 <td class="pl-3"><i class="fa fa-sort"></i></td>
                 <td>{{ $coupon->name ?:'null' }}</td>
-                <td>{{ $coupon->store ?:'null' }}</td>
+                <td>
+                    @if ($coupon->stores)
+                        {{ $coupon->stores->name ?? 'null' }}
+                    @else
+                        {{ $coupon->store ?? 'null' }}
+                    @endif
+                </td>
                 <td>
                     @if ($coupon->code)
                         <span class="custom-badge bg-primary text-white">Code</span>
@@ -85,14 +91,7 @@
 
                     @endif
                 </td>
-                             <td>
-                         @if (trim($coupon->authentication) === "featured")
-                            <i class="fa fa-fw fa-check-circle" style="color: blue;"></i>
-                        @else
-                            <i class="fa fa-fw fa-times-circle" style="color: red;"></i>
-                        @endif
-
-                </td>
+                <td>{{ $coupon->authentication }} </td>
                 <td>
                    @if ($coupon->status == "disable")
                         <i class="fa fa-fw fa-times-circle" style="color: blue;"></i>

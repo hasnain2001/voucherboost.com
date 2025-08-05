@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('layouts.welcome')
 @section('title')
     {!! $category->title !!}
 @endsection
@@ -8,7 +8,7 @@
 @section('keywords')
     {!! $category->meta_keyword !!}
 @endsection
-@section('main-content')
+@push('styles')
 <style>
     /* Category Header Styling */
     .category-header {
@@ -72,6 +72,9 @@
         margin-top: 10px;
     }
 </style>
+@endpush
+@section('main-content')
+
 
 <div class="container mt-4">
     <nav aria-label="breadcrumb" class="mb-3">
@@ -106,7 +109,7 @@
                 @foreach ($blogs as $blog)
                 @php
                 $blogurl = $blog->slug
-                    ? route('blog-details', ['slug' => Str::slug($blog->slug)])
+                    ? route('blog.detail', ['slug' => Str::slug($blog->slug)])
                     : '#';
                 @endphp
                 <div class="col-md-6 mb-4">

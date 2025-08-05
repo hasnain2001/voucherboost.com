@@ -21,6 +21,7 @@ class Coupons extends Model
         'status',
         'authentication',
         'user_id',
+        'updated_id',
          'store_id',
 
     ];
@@ -32,7 +33,10 @@ class Coupons extends Model
 {
     return $this->belongsTo(Language::class, );
 }
-
+    public function stores()
+    {
+        return $this->belongsTo(Stores::class,'store_id' );
+    }
 /**
   * Get the user that owns the Stores
   *
@@ -42,10 +46,7 @@ class Coupons extends Model
   {
      return $this->belongsTo(User::class);
   }
-    public function storeRelation()
-    {
-        return $this->belongsTo(Stores::class, );
-    }
+
 
      public function updatedby()
     {

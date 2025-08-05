@@ -80,11 +80,11 @@ Route::get('/queue-restart', function () {
 });
 
 // Maintenance mode
-Route::get('/down', function () {
-    $exitCode = Artisan::call('down');
-    $output = Artisan::output();
-    return "Exit Code: $exitCode <br> Output: <pre>$output</pre>";
-});
+// Route::get('/down', function () {
+//     $exitCode = Artisan::call('down');
+//     $output = Artisan::output();
+//     return "Exit Code: $exitCode <br> Output: <pre>$output</pre>";
+// });
 
 Route::get('/up', function () {
     $exitCode = Artisan::call('up');

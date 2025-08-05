@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('image');
             $table->string('status')->default('active');
+            $table->string('url')->nullable();
             $table->timestamps();
         });
     }

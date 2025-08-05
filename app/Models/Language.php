@@ -8,9 +8,9 @@ class Language extends Model
 {
     protected $table = 'language';
     protected $fillable =[
-
         'name',
         'code',
+        'flag',
     ];
 
     /**
@@ -21,6 +21,11 @@ class Language extends Model
     public function stores():HasMany
     {
         return $this->hasMany(Stores::class, 'language_id', 'id');
+    }
+
+        public function slider():HasMany
+    {
+        return $this->hasMany(Slider::class, 'language_id',);
     }
 
     /**

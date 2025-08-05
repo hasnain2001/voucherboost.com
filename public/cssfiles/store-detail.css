@@ -79,13 +79,8 @@ box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         font-size: 14px;
     }
 }
-.bg-purple {
-    background-color: #6f42c1;
-}
 
-.text-purple {
-    color: #6f42c1;
-}
+
 
 .alert-purple {
     background-color: #f3e6ff;

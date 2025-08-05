@@ -1,6 +1,6 @@
-@extends('employee.datatable')
+@extends('employee.layouts.datatable')
 @section('datatable-title')
-    Coupons
+ Store-detail
 @endsection
 @section('datatable-content')
 
@@ -34,6 +34,20 @@
                     </button>
                 </div>
             @endif
+               @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Please fix the following issues:</strong>
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
 
                 <div class="row">
                     <div class="col-12">
@@ -50,13 +64,11 @@
             <th>id</th>
             <th width="30px">#</th>
             <th>Coupon Name</th>
-            <th>Store</th>
+
             <th>Deal/Code</th>
             <th>auth</th>
-            <!--<th>lang</th>-->
+            <th>lang</th>
             <th>Status</th>
-            <th>create at</th>
-            <th>Last Updated</th> <!-- Add this column header -->
             <th>Action</th>
         </tr>
     </thead>
@@ -67,7 +79,7 @@
                 <th scope="row">{{ $loop->iteration }}</th>
                 <td class="pl-3"><i class="fa fa-sort"></i></td>
                 <td>{{ $coupon->name }}</td>
-                <td>{{ $coupon->store }}</td>
+
                 <td>
                     @if ($coupon->code)
                     <span>Code</span>
@@ -75,16 +87,16 @@
                     <span>Deal</span>
                                    @endif
                 </td>
-                                <td>
-             @if (trim($coupon->authentication) === "featured")
-    <i class="fa fa-fw fa-check-circle" style="color: blue;"></i>
-@else
-    <i class="fa fa-fw fa-times-circle" style="color: red;"></i>
-@endif
+                <td class="text-dark">{{ $coupon->authentication ?? "N/a"}}
+                        {{-- @if (trim($coupon->authentication) === "featured")
+                <i class="fa fa-fw fa-check-circle" style="color: blue;"></i>
+            @else
+                <i class="fa fa-fw fa-times-circle" style="color: red;"></i>
+            @endif --}}
 
                 </td>
 
-                <!--<td>{{ $coupon->language->code ??'No language' }}</td>-->
+                <td>{{ $coupon->language->code ??'No language' }}</td>
                 <td>
                    @if ($coupon->status == "disable")
                         <i class="fa fa-fw fa-times-circle" style="color: blue;"></i>
@@ -92,16 +104,16 @@
                         <i class="fa fa-fw fa-check-circle" style="color: green;"></i>
                     @endif
                 </td>
-                       <td>
-    <span class="badge bg-info text-dark" data-bs-toggle="tooltip" title="{{ $coupon->created_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
-        {{ $coupon->created_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
-    </span>
-</td>
-<td>
-    <span class="badge bg-warning text-dark" data-bs-toggle="tooltip" title="{{ $coupon->updated_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
-        {{ $coupon->updated_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
-    </span>
-</td>
+                {{-- <td>
+                <span class="badge bg-info text-dark" data-bs-toggle="tooltip" title="{{ $coupon->created_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
+                    {{ $coupon->created_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
+                </span>
+                </td>
+                <td>
+                    <span class="badge bg-warning text-dark" data-bs-toggle="tooltip" title="{{ $coupon->updated_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
+                        {{ $coupon->updated_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
+                    </span>
+                </td> --}}
 
                 <td>
                     <a href="{{ route('employee.coupon.edit', $coupon->id) }}" class="btn btn-info btn-sm">Edit</a>
@@ -116,13 +128,11 @@
             <th>id</th>
             <th width="30px">#</th>
             <th>Coupon Name</th>
-            <th>Store</th>
             <th>Deal/Code</th>
             <th>auth</th>
-            <!--<th>lang</th>-->
+             <th>lang</th>
             <th>Status</th>
-            <th>created at</th>
-            <th>Last Updated</th> <!-- Add this column footer -->
+
             <th>Action</th>
         </tr>
     </tfoot>

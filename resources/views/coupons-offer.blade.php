@@ -1,9 +1,8 @@
-@extends('welcome')
+@extends('layouts.welcome')
 @section('title', 'Coupon Codes')
 @section('description', 'Find the latest coupon codes and deals for your favorite stores.')
 @section('keywords', 'coupon codes, discount codes, promo codes, deals, offers')
-@section('main-content')
-
+@push('styles')
 <style>
     /* General Styling */
     .store-card, .coupon-card {
@@ -89,9 +88,10 @@
         }
     }
 </style>
-
+@endpush
+@section('main-content')
 <main class=" container-fluid">
-    <div class="text-center text-dark bg-primary py-4">
+    <div class="text-center  bg-purple py-4">
         <h1>20% Off Offers</h1>
         <hr>
     </div>
@@ -103,7 +103,7 @@
             <div class="stores-grid row row-cols-2 g-3">
             @foreach ($populorstores as $store)
             <div class="store-card text-center p-3 col">
-            <a href="{{ route('store_details', ['slug' => Str::slug($store->slug)]) }}" class="text-decoration-none text-dark">
+            <a href="{{ route('store.detail', ['slug' => Str::slug($store->slug)]) }}" class="text-decoration-none text-dark">
                 <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{ $store->name }}">
                 <p class="mt-2">{{ $store->name }}</p>
             </a>
@@ -119,7 +119,7 @@
                 @php $store = App\Models\Stores::where('slug', $coupon->store)->first(); @endphp
                 <div class="coupon-card mb-3">
                     <div class="text-center">
-                        <a href="{{ route('store_details', ['slug' => Str::slug($coupon->store)]) }}">
+                        <a href="{{ route('store.detail', ['slug' => Str::slug($coupon->store)]) }}">
                         @if ($store && $store->store_image)
                             <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{ $store->name }}">
                         @endif
@@ -143,7 +143,7 @@
                         View Deal
                         </a>
                         @endif
-                        <a href="{{ route('store_details', ['slug' => Str::slug($coupon->store)]) }}" class="get">See All Offers</a>
+                        <a href="{{ route('store.detail', ['slug' => Str::slug($coupon->store)]) }}" class="get">See All Offers</a>
                     </div>
                 </div>
             @endforeach

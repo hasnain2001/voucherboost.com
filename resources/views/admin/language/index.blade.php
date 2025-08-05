@@ -48,7 +48,7 @@
                                         <tr>
                                             <th>language Name</th>
                                             <th>code</th>
-                                            {{-- <th>Status</th> --}}
+                                            <th>image</th>
                                             <th>Added</th>
                                             <th>updated_at</th>
                                             <th>Action</th>
@@ -59,7 +59,13 @@
                                             <tr>
                                                 <td>{{ $language->name }}</td>
                                                 <td>{{ $language->code }}</td>
-                                         
+                                                <td>  <img src="{{ asset('uploads/flags/' . $language->flag) }}"
+                                             class="rounded border"
+                                             alt="{{ $language->name }}"
+                                             width="60"
+                                             onerror="this.onerror=null;this.src='{{ asset('images/no-image-found.png') }}'"
+                                             loading="lazy"></td>
+
                                                 <td class="text-nowrap">
                                                     <span class="badge bg-primary">
                                                         {{ $language->created_at->setTimezone('Asia/Karachi')->format('Y-m-d H:i:s') }}
@@ -70,11 +76,7 @@
                                                         {{ $language->updated_at->setTimezone('Asia/Karachi')->format('Y-m-d H:i:s') }}
                                                     </span>
                                                 </td>
-                                                
-                                                
-                                                
-                                                
-                                                <td>
+                                                 <td>
                                                     <a href="{{ route('admin.lang.edit', $language->id) }}" class="btn btn-info btn-sm">Edit</a>
                                                     <a href="{{ route('admin.lang.delete', $language->id) }}" onclick="return confirm('Are you sure you want to delete this!')" class="btn btn-danger btn-sm">Delete</a>
                                                 </td>
@@ -85,7 +87,7 @@
                                         <tr>
                                             <th>Language Name</th>
                                             <th>code</th>
-                                            {{-- <th>Status</th> --}}
+                                            <th>image</th>
                                             <th>Added</th>
                                             <th>updated_at</th>
                                             <th>Action</th>

@@ -126,9 +126,7 @@
                                                 <th>Network</th>
                                                 <th>Category</th>
                                                 <th width="100">Status</th>
-                                                <th width="160">Created</th>
-                                                <th width="160">Updated</th>
-                                                <th width="180">Actions/ view</th>
+                                               <th width="180">Actions/ view</th>
                                                 <th width="120">Coupons</th>
                                             </tr>
                                         </thead>
@@ -153,7 +151,7 @@
                                                             {{ ucfirst($store->status) }}
                                                         </span>
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         <span class="time-tooltip" data-toggle="tooltip" title="{{ $store->created_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
                                                             {{ $store->created_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
                                                         </span>
@@ -162,7 +160,7 @@
                                                         <span class="time-tooltip" data-toggle="tooltip" title="{{ $store->updated_at->setTimezone('Asia/Karachi')->format('l, F j, Y h:i A') }}">
                                                             {{ $store->updated_at->setTimezone('Asia/Karachi')->format('M d, Y h:i A') }}
                                                         </span>
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                         <div class="d-flex">
                                                             <a href="{{ route('employee.store.edit', $store->id) }}" class="btn btn-info btn-sm action-btn" title="Edit">
@@ -171,7 +169,7 @@
                                                             <a href="{{ route('employee.store.delete', $store->id) }}" onclick="return confirm('Are you sure you want to delete this store?')" class="btn btn-danger btn-sm action-btn" title="Delete">
                                                                 <i class="fas fa-trash"></i>
                                                             </a>
-                                                            <a class="btn btn-success text-white btn-sm" href="{{  route('store_details', ['slug' => Str::slug($store->slug)]) }}" target="_blank"  rel="noopener noreferrer">  <i class="fas fa-eye"></i></a>
+                                                            <a class="btn btn-success text-white btn-sm" href="{{  route('employee.store_details', ['slug' => Str::slug($store->slug)]) }}" target="_blank"  rel="noopener noreferrer">  <i class="fas fa-eye"></i></a>
                                                         </div>
                                                     </td>
                                                     <td>

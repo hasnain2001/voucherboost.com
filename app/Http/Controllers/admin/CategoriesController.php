@@ -23,7 +23,7 @@ class CategoriesController extends Controller
         ]);
     }
     public function category() {
-        $categories = Categories::with('user')->get();
+        $categories = Categories::with('updatedby','user')->get();
         return view('admin.categories.index', compact('categories'));
     }
 

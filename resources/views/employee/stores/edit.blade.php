@@ -230,11 +230,11 @@
 
                                     <div class="form-group">
                                         <label for="category">Category <span class="text-danger">*</span></label>
-                                        <select name="category" id="category" class="form-control select2" required>
+                                        <select name="category_id" id="category_id" class="form-control select2" required>
                                             <option value="">-- Select Category --</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->slug }}" {{ $stores->category == $category->slug ? 'selected' : '' }}>
-                                                    {{ $category->name }}
+                                                <option value="{{ $category->id }}" {{ $stores->category_id == $category->id ? 'selected' : '' }}>
+                                                    {{ $category->title }}
                                                 </option>
                                             @endforeach
                                         </select>

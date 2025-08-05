@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('layouts.welcome')
 @section('title')
     {{ $blog->title }}
 @endsection
@@ -112,8 +112,8 @@
 <a href="{{ url(app()->getLocale() . '/') }}" class="text-decoration-none text-purple" style="font-weight: 500;">Home</a>
                 </li>
 <li class="breadcrumb-item">
-<a class="text-decoration-none text-purple" href="{{ route('related_category', ['slug' => Str::slug($blog->category)]) }}">
-    {{ $blog->category }}
+<a class="text-decoration-none text-purple" href="{{ route('related_category', ['slug' => Str::slug($blog->category->title)]) }}">
+    {{ $blog->category->title }}
 </a>
 </li>
                 <li class="breadcrumb-item">
@@ -128,7 +128,7 @@
     <div class="row">
         <div class="col-12 col-md-8 mb-4">
             <div class="blog-post card shadow rounded-lg border border-light">
-                <img class="img-fluid" src="{{ asset($blog->category_image) }}" alt="Blog Image" style="width: 100%; height: auto;">
+                <img class="img-fluid" src="{{ asset($blog->image) }}" alt="Blog Image" style="width: 100%; height: auto;">
                 <div class="card-body">
  <h1 class="blog-title  mb-4">{{ $blog->title }}</h1>
                   <div class="content">
@@ -147,11 +147,11 @@
                             @php
 
                             $storeurl = $store->slug
-                            ? route('store_details', ['slug' => Str::slug($store->slug)])
+                            ? route('store.detail', ['slug' => Str::slug($store->slug)])
                             : '#';
                             @endphp
                             <a href="{{ $storeurl }}" class="text-dark text-decoration-none d-flex flex-column p-2 align-items-center">
-                                <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{ $store->name }}" class="mb-2 shadow" style="width: 100px; height: 100px; object-fit: cover;">
+                                <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{ $store->name }}" class="mb-2 shadow" style="width: 100px; height: 100px; object-fit: contain;">
                                 <p class="text-capitalize">{{ $store->name }}</p>
                             </a>
                         </div>
@@ -176,7 +176,7 @@
                 @endphp
                 <div class="blog-card mx-2">
                     <a href="{{ $blogurl }}" class="text-decoration-none text-dark">
-                        <img src="{{ asset($blog->category_image) }}" class="blog-image rounded" alt="Blog Image">
+                        <img src="{{ asset($blog->image) }}" class="blog-image rounded" alt="Blog Image">
                         <span class="blog-title mt-2">{{ $blog->title }}</h5>
                     </a>
                 </div>

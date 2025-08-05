@@ -17,19 +17,16 @@
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                             <a target="_blank" href="{{ $slider->url }}">
                             @if(!empty($slider->image))
-                                <img src="{{ asset('uploads/slider/' . $slider->image) }}" class="slider-image d-block w-100" alt="{{ $slider->title }}">
+                                <img src="{{ asset('uploads/slider/' . $slider->image) }}" class="slider-image d-block w-100" alt="{{ $slider->title }}" loading="lazy">
                             @endif
                         </a>
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>{{ $slider->title }}</h5>
                                 <p>{{ $slider->description }}</p>
-                                @if(!empty($slider->url))
-                                    <a target="_blank" href="{{ $slider->url }}" class="btn bt-purple">View More</a>
-                                @endif
                                 @if ($slider->url)
-          <a target="_blank" href="{{ $slider->url }}" class="btn bt-purple">View More</a>
-                                @else
-          <a target="_blank" href="{{ $slider->store->url ?? Null }}" class="btn bt-purple">View More</a>
+                                    <a target="_blank" href="{{ $slider->url }}" class="btn bt-purple">View More</a>
+                                    @else
+                                    <a target="_blank" href="{{ route('store.detail', ['slug' => Str::slug($slider->store->slug)]) }}" class="btn bt-purple">View More</a>
                                 @endif
                             </div>
                         </div>
@@ -66,8 +63,9 @@
                             @foreach ($chunk as $store)
                                 <div class="col-md-2 col-6">
                                     <div class="card-store">
-                                        <a href="{{ route('store_details', ['slug' => Str::slug($store->slug)]) }}">
-                                            <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="store-image shadow" alt="{{ $store->name }}">
+                                        <a href="{{ route('store.detail', ['slug' => Str::slug($store->slug)]) }}">
+                                            <img src="{{ asset('uploads/stores/' . $store->store_image) }}" class="store-image shadow" alt="{{ $store->name }}"
+                                                 loading="lazy">
                                         </a>
                                     </div>
                                 </div>
@@ -85,61 +83,71 @@
             </button>
         </div>
     </section>
-    <section class="coupon container coupon mt-5">
-        <h3 class="heading text-left mb-4">Latest Coupons</h3>
-        @if($topcouponcode->isEmpty())
-            <div class="alert alert-warning text-center" role="alert">
-                No coupons available at the moment. Please check back later!
-            </div>
-        @else
-            <div class="row coupon-grid g-4">
-                @foreach ($topcouponcode as $coupon)
+    <section class="coupon container mt-5">
+        <div class="row coupon-grid g-4">
+            @foreach ($topcouponcode as $coupon)
+                @php
+                    $store = $coupon->store_id
+                        ? App\Models\Stores::find($coupon->store_id)
+                        : App\Models\Stores::where('slug', $coupon->store)->first();
+
+                    $storeImage = $store && $store->store_image ? asset('uploads/stores/' . $store->store_image) : null;
+                    $destinationUrl = $store && $store->destination_url ? $store->destination_url : $coupon->destination_url;
+                    $storeSlug = $store ? Str::slug($store->slug) : Str::slug($coupon->store);
+                    $storeName = $store ? $store->name : $coupon->store;
+                @endphp
+
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="coupon-card h-100 card rounded shadow-sm">
-                        @php
-                        $store = App\Models\Stores::where('slug', $coupon->store)->first();
-                        @endphp
                         <div class="coupon-header text-center position-relative p-3 bg-light">
-                            @if ($store && $store->store_image)
-                                <a href="{{ route('store_details', ['slug' => Str::slug($store->slug)]) }}">
-                                    <img src="{{ asset('uploads/stores/' . $store->store_image) }}" alt="{{ $store->name }} Image" class="coupon-image img-fluid rounded" loading="lazy">
+                            @if ($storeImage)
+                                <a href="{{ route('store.detail', ['slug' => $storeSlug]) }}">
+                                    <img src="{{ $storeImage }}" alt="{{ $storeName }} Image" class="coupon-image img-fluid rounded" loading="lazy">
                                 </a>
                             @else
                                 <div class="no-image-placeholder bg-light text-center py-4">
                                     <p>No image</p>
-                                    <span>{{ $coupon->store }}</span>
+                                    <span>{{ $storeName }}</span>
                                 </div>
                             @endif
                         </div>
+
                         <div class="coupon-body p-3">
                             <span class="badge bg-success">✔ Verified</span>
-                            <span class="d-block text-muted">{{ $coupon->store }}</span>
+                            <span class="d-block text-muted">{{ $storeName }}</span>
                             <h6 class="text-left">{{ $coupon->name }}</h6>
                             <span class="d-block mb-2 {{ \Carbon\Carbon::parse($coupon->ending_date)->isPast() ? 'text-danger' : 'text-muted' }}">
                                 <i class="bi bi-calendar-check"></i> {{ \Carbon\Carbon::parse($coupon->ending_date)->format('d M Y') }}
                             </span>
                             <span class="text-dark"><i class="bi bi-person"></i> {{ $coupon->clicks }} People Used</span>
+
                             <div class="d-grid gap-2 mt-3">
                                 @if ($coupon->code)
-                                <a href="{{ $coupon->destination_url }}" target="_blank" class="reveal-code" id="getCode{{ $coupon->id }}" onclick="handleRevealCode({{ $coupon->id }}, '{{ $coupon->code }}', '{{ $coupon->name }}', '{{ asset('uploads/stores/' . $store->store_image) }}', '{{ $coupon->destination_url }}', '{{ $coupon->store }}')">
-                                <span class="coupon-text">Activate Coupon</span>
-                                <span class="coupon-code" id="couponCode{{ $coupon->id }}" style="display: none;">{{ $coupon->code }}</span>
-                                </a>
+                                    <a href="{{ $destinationUrl }}" target="_blank" class="reveal-code"
+                                        id="getCode{{ $coupon->id }}"
+                                        onclick="handleRevealCode(
+                                            {{ $coupon->id }},
+                                            '{{ $coupon->code }}',
+                                            '{{ $coupon->name }}',
+                                            '{{ $storeImage }}',
+                                            '{{ $destinationUrl }}',
+                                            '{{ $storeName }}'
+                                        )">
+                                        <span class="coupon-text">Activate Coupon</span>
+                                        <span class="coupon-code" id="couponCode{{ $coupon->id }}" style="display: none;">{{ $coupon->code }}</span>
+                                    </a>
                                 @else
-                                <a href="{{ $coupon->destination_url }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
-                                View Deal
-                                </a>
+                                    <a href="{{ $destinationUrl }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
+                                        View Deal
+                                    </a>
                                 @endif
-                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                @endforeach
-            </div>
-        @endif
+            @endforeach
+        </div>
     </section>
-
 
     <section class=" category container mt-4">
         <h2 class="mb-3">Popular Categories</h2>
@@ -156,7 +164,8 @@
                         : '#';
                 @endphp
                     <a href="{{ $storeUrl }}" class="text-decoration-none text-white">
-                        <img src="{{ asset('uploads/categories/' . $category->category_image) }}" class=" category-image rounded category-image" alt="{{ $category->title }}">
+                        <img src="{{ asset('uploads/categories/' . $category->category_image) }}" class=" category-image rounded category-image" alt="{{ $category->title }}
+                        " loading="lazy">
 
                     @else
                         <div class="d-flex align-items-center justify-content-center bg-light text-muted rounded" style="height: 200px;">
@@ -181,7 +190,80 @@
             @endif
         </div>
     </section>
+    <section class="coupon container mt-5">
+        <h3 class="heading text-left mb-4">Featured Offers</h3>
 
+        @if ($Couponsdeals->isEmpty())
+            <div class="alert alert-warning text-center" role="alert">
+                No coupons available at the moment. Please check back later!
+            </div>
+        @else
+            <div class="row coupon-grid g-4">
+                @foreach ($Couponsdeals as $coupon)
+                    @php
+                        // Use store_id if available, otherwise fallback to slug
+                        $store = $coupon->store_id
+                            ? App\Models\Stores::find($coupon->store_id)
+                            : App\Models\Stores::where('slug', $coupon->store)->first();
+
+                        $storeImage = $store && $store->store_image ? asset('uploads/stores/' . $store->store_image) : null;
+                        $destinationUrl = $store && $store->destination_url ? $store->destination_url : $coupon->destination_url;
+                        $storeSlug = $store ? Str::slug($store->slug) : Str::slug($coupon->store);
+                        $storeName = $store ? $store->name : $coupon->store;
+                    @endphp
+
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="coupon-card h-100 card rounded shadow-sm">
+                            <div class="coupon-header text-center position-relative p-3 bg-light">
+                                @if ($storeImage)
+                                    <a href="{{ route('store.detail', ['slug' => $storeSlug]) }}">
+                                        <img src="{{ $storeImage }}" alt="{{ $storeName }} Image" class="coupon-image img-fluid rounded" loading="lazy">
+                                    </a>
+                                @else
+                                    <div class="no-image-placeholder bg-light text-center py-4">
+                                        <p>No image</p>
+                                        <span>{{ $storeName }}</span>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="coupon-body p-3">
+                                <span class="badge bg-success">✔ Verified</span>
+                                <span class="d-block text-muted">{{ $storeName }}</span>
+                                <h6 class="text-left">{{ $coupon->name }}</h6>
+                                <span class="d-block mb-2 {{ \Carbon\Carbon::parse($coupon->ending_date)->isPast() ? 'text-danger' : 'text-muted' }}">
+                                    <i class="bi bi-calendar-check"></i> {{ \Carbon\Carbon::parse($coupon->ending_date)->format('d M Y') }}
+                                </span>
+                                <span class="text-dark"><i class="bi bi-person"></i> {{ $coupon->clicks }} People Used</span>
+
+                                <div class="d-grid gap-2 mt-3">
+                                    @if ($coupon->code)
+                                        <a href="{{ $destinationUrl }}" target="_blank" class="reveal-code"
+                                            id="getCode{{ $coupon->id }}"
+                                            onclick="handleRevealCode(
+                                                {{ $coupon->id }},
+                                                '{{ $coupon->code }}',
+                                                '{{ $coupon->name }}',
+                                                '{{ $storeImage }}',
+                                                '{{ $destinationUrl }}',
+                                                '{{ $storeName }}'
+                                            )">
+                                            <span class="coupon-text">Activate Coupon</span>
+                                            <span class="coupon-code" id="couponCode{{ $coupon->id }}" style="display: none;">{{ $coupon->code }}</span>
+                                        </a>
+                                    @else
+                                        <a href="{{ $destinationUrl }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
+                                            View Deal
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+    </section>
 
 <section class="disclaimer container mt-5">
     <div class="row align-items-center">
@@ -199,6 +281,70 @@
         </div>
     </div>
 </section>
+<!-- Blog Section -->
+<section class="blog-section py-2 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 mb-3 d-inline-flex align-items-center">
+                <i class="fas fa-newspaper me-2"></i>@lang('welcome.sp')
+            </span>
+            <h2 class="fw-bold mb-3">@lang('welcome.H5')</h2>
+            <p class="text-muted mb-0">@lang('welcome.blog-p')</p>
+        </div>
+
+        <div class="row g-4">
+            @foreach ($blogs as $blog)
+            <div class="col-lg-4 col-md-6">
+                <div class="card blog-card h-100 border-0 shadow-sm overflow-hidden transition-all hover-shadow">
+                    <div class="card-img-top position-relative overflow-hidden" style="height: 220px;">
+                       <a href="{{ route('blog.detail', ['slug' => Str::slug($blog->slug)]) }}">
+                            <img src="{{ $blog->image ? asset( $blog->image) : asset('front/assets/images/no-image-found.jpg') }}"
+                                 alt="{{ $blog->title }}"
+                                 class="img-fluid w-100 h-100 object-cover transition-scale"
+                                 loading="lazy"
+                                 onerror="this.src='{{ asset('images/no-image-found.png') }}'">
+
+                        <div class="card-img-overlay d-flex align-items-end p-0">
+                            <span class="badge bg-primary bg-opacity-90 position-absolute top-0 end-0 m-3">{{ $blog->category->title ?? 'General' }}</span>
+                        </div>
+                           </a>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <small class="text-muted">
+                                <i class="far fa-calendar-alt me-2"></i>{{ $blog->created_at->format('M d, Y') }}
+                            </small>
+                            <small class="text-muted ms-3">
+                                <i class="far fa-clock me-2"></i>{{ ceil(str_word_count($blog->description) / 200) }} min read
+                            </small>
+                        </div>
+
+                        <h5 class="card-title fw-bold mb-3">{{ Str::limit($blog->title, 60) }}</h5>
+
+
+                        <div class="d-flex align-items-center justify-content-between mt-auto">
+                            <a href="{{ route('blog.detail', ['slug' => Str::slug($blog->slug)]) }}" class="btn btn-link text-primary p-0 text-decoration-none d-flex align-items-center">
+                               @lang('welcome.Read More')<i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                            <div class="d-flex">
+                                <!-- Add social sharing icons if needed -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="{{ route('blog', ['lang' => app()->getLocale()]) }}" class="btn btn-dark px-4 py-2 rounded-pill">
+                <i class="fas fa-book-open me-2"></i>@lang('welcome.View All Articles')
+            </a>
+        </div>
+    </div>
+</section>
+
 </main>
 @endsection
 @push('styles')

@@ -27,31 +27,31 @@
                 <p style="max-width: 250px; font-size: 14px;">Disclaimer: "We may earn a commission when you use one of our coupons/links to make a purchase."</p>
             </div>
             <div>
-                <h3>Quick Links</h3>
-                <p><a href="{{route('20-off-offers')}}">20 Off Offers</a></p>
-                <p><a href="{{route('FREE-DELIVERY')}}">Free Delivery Offers</a></p>
-                <p><a href="{{route('stores')}}">All Stores</a></p>
-                <p><a href="{{route('categories')}}">All Categories</a></p>
+                <h3>@lang('nav.Quick Links')</h3>
+                <p><a href="{{route('20-off-offers',['lang' => app()->getLocale()])}}">@lang('nav.20% OFFERS')</a></p>
+                <p><a href="{{route('FREE-DELIVERY',['lang' => app()->getLocale()])}}">@lang('nav.FREE DELIVERY')</a></p>
+                <p><a href="{{route('stores',['lang' => app()->getLocale()])}}">@lang('nav.stores')</a></p>
+                <p><a href="{{route('categories',['lang' => app()->getLocale()])}}">@lang('nav.cateories')</a></p>
             </div>
             <div>
                 <h3>Information</h3>
-                <p><a class="@if(Route::currentRouteName() == 'about') active @endif" href="{{route('about')}}">Who Are We</a></p>
-                <p><a class="@if(Route::currentRouteName() == 'privacy') active @endif" href="{{route('privacy')}}">Privacy Policy</a></p>
-                <p><a class=" @if(Route::currentRouteName() == 'terms_and_condition') active @endif" href="{{route('terms_and_condition')}}">Terms of Use</a></p>
-                <p><a class="@if(Route::currentRouteName() == 'contact') active @endif" href="{{route('contact')}}">Contact</a></p>
+                <p><a class="@if(Route::currentRouteName() == 'about') active @endif" href="{{route('about',['lang' => app()->getLocale()])}}">Who Are We</a></p>
+                <p><a class="@if(Route::currentRouteName() == 'privacy') active @endif" href="{{route('privacy',['lang' => app()->getLocale()])}}">Privacy Policy</a></p>
+                <p><a class=" @if(Route::currentRouteName() == 'terms_and_condition') active @endif" href="{{route('terms_and_condition',['lang' => app()->getLocale()])}}">Terms of Use</a></p>
+                <p><a class="@if(Route::currentRouteName() == 'contact') active @endif" href="{{route('contact',['lang' => app()->getLocale()])}}">Contact</a></p>
             </div>
             <div>
-                <h3>Popular Stores</h3>
+                <h3>@lang('nav.Popular Stores')</h3>
                 <div class="popular-stores">
                     @foreach ($populorstores as $store)
                     <ul>
-                        <li><p><a href="{{ route('store_details', ['slug' => Str::slug($store->slug)]) }}">{{$store->name}}</a></p></li>
+                        <li><p><a href="{{ route('store.detail', ['slug' => Str::slug($store->slug)]) }}">{{$store->name}}</a></p></li>
                     </ul>
                     @endforeach
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>Copyright &copy; {{ date('Y') }} | All Rights Are Reserved.</p>
+            <p>Copyright &copy; {{ date('Y') }} | @lang('nav.Company Name. All rights reserved')</p>
         </div>
     </footer>

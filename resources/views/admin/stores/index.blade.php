@@ -1,8 +1,6 @@
 @extends('admin.datatable')
-@section('datatable-title')
-Admin | Stores Management
-@endsection
-@section('styles')
+@section('datatable-title') Stores Management @endsection
+@push('styles')
 <style>
     .card-header {
         background-color: #f8f9fa;
@@ -47,7 +45,7 @@ Admin | Stores Management
         background: #555;
     }
 </style>
-@endsection
+@endpush
 
 @section('datatable-content')
 <div class="content-wrapper">
@@ -119,6 +117,7 @@ Admin | Stores Management
                                         <th width="80px">Image</th>
                                         <th>Network</th>
                                         <th>Category</th>
+                                        <th>lang</th>
                                         <th width="80px">Status</th>
                                         <th>Created By/updated by</th>
                                         <th width="140px">Created At</th>
@@ -136,17 +135,28 @@ Admin | Stores Management
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td class="font-weight-bold"><small>{{ $store->name }}</small></td>
                                         <td class="text-center">
-                                            <img class="img-thumbnail rounded-circle"
-                                                 src="{{ $store->store_image ? asset('Uploads/stores/' . $store->store_image) : asset('front/assets/images/no-image-found.jpg') }}"
+                                           <img src="{{ asset('uploads/stores/' . $store->store_image) }}"
+                                                 class="rounded me-2"
                                                  alt="{{ $store->name }}"
-                                                 style="width: 40px; height: 40px; object-fit: cover;" loading="lazy">
+                                                 width="40"
+                                                 onerror="this.onerror=null;this.src='{{ asset('assets/images/no-image-found.png') }}'"
+                                                 loading="lazy">
                                         </td>
                                         <td>
                                             <span class="badge badge-info">{{ $store->network ?? 'N/A' }}</span>
                                         </td>
                                         <td>
-                                            <span class="badge badge-secondary">{{ $store->category ?? 'N/A' }}</span>
+                                            <span class="badge badge-secondary">
+                                                @if ($store->categories)
+                                                    {{ $store->categories->title ?? 'N/A' }}
+
+                                                @else
+                                                {{ $store->category ?? 'N/A' }}
+
+                                                @endif
+                                            </span>
                                         </td>
+                                        <td>{{ $store->language->code ?? null }}</td>
                                         <td class="text-center">
                                             @if ($store->status == "disable")
                                                 <span class="badge badge-danger"><i class="fas fa-times-circle mr-1"></i> Disabled</span>
@@ -185,7 +195,7 @@ Admin | Stores Management
                                                    title="Delete Store">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </a>
-                                                <a href="{{ route('store_details', ['slug' => Str::slug($store->slug)]) }}"
+                                                <a href="{{ route('store.detail', ['slug' => Str::slug($store->slug)]) }}"
                                                    class="btn btn-sm btn-dark"
                                                    target="_blank"
                                                    data-toggle="tooltip"
@@ -220,7 +230,7 @@ Admin | Stores Management
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
 $(document).ready(function() {
     // Initialize tooltips
@@ -250,4 +260,4 @@ $(document).ready(function() {
     });
 });
 </script>
-@endsection
+@endpush

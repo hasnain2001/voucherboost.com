@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('layouts.welcome')
 @section('title')
  VoucherBoost Terms & Conditions | Your Guide to Safe & Smart Savings
 @endsection
@@ -10,6 +10,7 @@
 @section('keywords')
     terms and conditions, voucherboost policies, user agreement, coupon rules, discount guidelines
 @endsection
+@push('styles')
             <!-- Styles -->
             <style>
                 body {
@@ -123,6 +124,7 @@
 
                 }
             </style>
+@endpush
 @section('main-content')
 
 

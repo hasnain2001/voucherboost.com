@@ -1,4 +1,4 @@
-@extends('employee.datatable')
+@extends('employee.layouts.datatable')
 @section('datatable-title')
     Networks
 @endsection

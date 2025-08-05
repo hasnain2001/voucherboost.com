@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 class SliderController extends Controller
 {
   public function slider() {
-    $sliders = Slider::orderBy('created_at', 'desc')->get();
+    $sliders = Slider::with('language','store','category')->orderBy('created_at', 'desc')->get();
     return view('admin.slider.index', compact('sliders'));
   }
   public function create_slider()
@@ -26,14 +26,15 @@ class SliderController extends Controller
   }
   public function store_slider(Request $request) {
 
-    //   $request->validate([
-    //       'title' => 'nullable',
-    //       'description' => 'nullable|string|max:455',
-    //      'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3048',
-    //       'status' => 'required|string',
-    //      'store_id' => 'nullable|store_id',
-    //       'language_id' => 'nullable|language_id',
-    //   ]);
+      $request->validate([
+          'title' => 'nullable',
+          'description' => 'nullable|string|max:455',
+         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3048',
+          'status' => 'required|string',
+         'store_id' => 'required|integer',
+          'language_id' => 'required|integer',
+           'category_id' => 'required|integer',
+      ]);
 
      if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -59,7 +60,10 @@ class SliderController extends Controller
   }
     public function edit_slider($id) {
         $slider = Slider::find($id);
-        return view('admin.slider.edit', compact('slider'));
+         $categories =  Categories::orderBy('created_at', 'desc')->get();
+        $stores = Stores::orderBy('created_at', 'desc')->get();
+        $languages = Language::orderBy('created_at', 'desc')->get();
+        return view('admin.slider.edit', compact('slider','stores','languages','categories'));
     }
 
     public function update_slider(Request $request, $id) {
@@ -68,9 +72,11 @@ class SliderController extends Controller
         $request->validate([
             'title' => 'nullable',
             'description' => 'nullable|string | max:455',
-            'store_id' => 'nullable|store_id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3048',
             'status' => 'required',
+            'store_id' => 'required|integer',
+           'language_id' => 'required|integer',
+            'category_id' => 'required|integer',
         ]);
 
         if ($request->hasFile('image')) {

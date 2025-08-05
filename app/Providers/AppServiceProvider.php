@@ -26,8 +26,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('*', function ($view) {
+               $currentLocale = App::getLocale();
+            $language = language::where('code', $currentLocale)->first();
+            $languageId = $language ? $language->id : 10; // fallback to 10 if not found
             $view->with('allcategories', Categories::all());
-            $view->with('populorstores', Stores::where('top_store', '>', 0)->orderBy('created_at','desc')->where('status','enable')->limit(8)->get());
+            $view->with('populorstores', Stores::where('language_id', $languageId)->where('top_store', '>', 0)->orderBy('created_at','desc')->where('status','enable')->limit(8)->get());
               $view->with('langs', Language::all());
             $view->with('currentLang', Session::get('language', 'EN'));
         });

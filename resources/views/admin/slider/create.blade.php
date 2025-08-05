@@ -269,7 +269,7 @@
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Initialize selections based on initially selected store (if any)
@@ -350,4 +350,4 @@
         }
     }
 </script>
-@endsection
+@endpush

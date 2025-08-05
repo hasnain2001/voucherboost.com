@@ -22,14 +22,7 @@ class Categories extends Model
         'user_id',
         'updated_id',
     ];
-    public function stores():HasMany
-    {
-        return $this->hasMany(Stores::class, );
-    }
-    public function coupons():HasMany
-    {
-        return $this->hasMany(Coupons::class, );
-    }
+
    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -40,4 +33,18 @@ class Categories extends Model
         return $this->belongsTo(User::class, 'updated_id');
     }
 
+//hasmany /
+
+        public function stores():HasMany
+    {
+        return $this->hasMany(Stores::class, );
+    }
+    public function coupons():HasMany
+    {
+        return $this->hasMany(Coupons::class, );
+    }
+        public function slider():HasMany
+    {
+        return $this->hasMany(Slider::class, );
+    }
 }
