@@ -92,14 +92,14 @@
 @section('main-content')
 <main class=" container-fluid">
     <div class="text-center  bg-purple py-4">
-        <h1>20% Off Offers</h1>
+        <h1>@lang('nav.20% OFFERS')</h1>
         <hr>
     </div>
 
     <div class="row mt-4">
         <!-- Left Side: Stores -->
         <div class="col-md-3">
-            <h4 class="text-center">Popular Stores</h4>
+            <h4 class="text-center">@lang('nav.Popular Stores')</h4>
             <div class="stores-grid row row-cols-2 g-3">
             @foreach ($populorstores as $store)
             <div class="store-card text-center p-3 col">
@@ -114,7 +114,7 @@
 
         <!-- Right Side: Coupons -->
         <div class="col-md-9">
-            <h4 class="text-center">Coupons</h4>
+            <h4 class="text-center">@lang('nav.Coupons')</h4>
             @foreach ($coupons as $coupon)
                 @php $store = App\Models\Stores::where('slug', $coupon->store)->first(); @endphp
                 <div class="coupon-card mb-3">
@@ -130,17 +130,17 @@
                         <p class="description">{{ $coupon->description }}</p>
                         <p class="text-muted">Ends: {{ $coupon->ending_date ? \Carbon\Carbon::parse($coupon->ending_date)->format('d-m-Y') : 'No Expiry' }}</p>
                         <p class="text-success">✔ Verified</p>
-                        <p class="text-muted">👥 {{ $coupon->clicks }} People Used</p>
+                        <p class="text-muted">👥 {{ $coupon->clicks }} @lang('welcome.used')</p>
                     </div>
                     <div class="coupon-actions">
                         @if ($coupon->code)
                         <a href="{{ $coupon->destination_url }}" target="_blank" class="reveal-code" id="getCode{{ $coupon->id }}" onclick="handleRevealCode({{ $coupon->id }}, '{{ $coupon->code }}', '{{ $coupon->name }}', '{{ asset('uploads/stores/' . $store->store_image) }}', '{{ $coupon->destination_url }}', '{{ $coupon->store }}')">
-                        <span class="coupon-text">Activate Coupon</span>
+                        <span class="coupon-text">@lang('welcome.Activate Coupon')</span>
                         <span class="coupon-code" id="couponCode{{ $coupon->id }}" style="display: none;">{{ $coupon->code }}</span>
                         </a>
                         @else
                         <a href="{{ $coupon->destination_url }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
-                        View Deal
+                   @lang('welcome.View Deal')
                         </a>
                         @endif
                         <a href="{{ route('store.detail', ['slug' => Str::slug($coupon->store)]) }}" class="get">See All Offers</a>

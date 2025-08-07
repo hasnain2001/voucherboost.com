@@ -9,8 +9,7 @@
     coupon codes, discount codes, promo codes, deals, offers, vouchers, discounts, savings, online shopping
 @endsection
 @push('styles')
-      <!-- Custom CSS for better responsiveness and attractiveness -->
-      <style>
+        <style>
         /* Ensure pagination wraps on smaller screens */
         .pagination-responsive {
           display: flex;
@@ -134,8 +133,8 @@
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Stores</li>
+            <li class="breadcrumb-item"><a href="/">@lang('nav.home')</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@lang('nav.stores')</li>
           </ol>
         </nav>
         <div class="row mt-3 justify-content-center">

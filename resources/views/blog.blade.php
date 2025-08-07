@@ -52,50 +52,48 @@
       <li class="breadcrumb-item">
       <a href="{{ url(app()->getLocale() . '/') }}" class="text-decoration-none text-primary" style="font-weight: 500;">@lang('nav.home')</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">Blog</li>
+      <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">@lang('nav.blogs')</li>
       </ol>
 </nav>
 
 <div class="container">
     <div class="row">
-   <!-- Blogs Section (Left Side) -->
-<div class="col-md-8">
-  <section class="blog">
-    <h1>Shopping Hacks & Savings Tips & Tricks</h1>
-    <div class="row">
-      @foreach ($blogs as $blog)
-      @php
-      $blogurl = $blog->slug
-          ? route('blog.detail', ['slug' => Str::slug($blog->slug)])
-          : '#';
-      @endphp
-      <div class="col-md-6 mb-4">
-        <div class="card shadow-sm h-100 d-flex flex-column">
-          <a href="{{ $blogurl }}">
-          <img src="{{ asset($blog->image) }}" class="card-img-top" alt="Blog Post Image">
-        </a>
-          <div class="card-body d-flex flex-column">
-            <div class="blog-text mb-3">
-              <h5 class="blog-title">{{ $blog->title }}</h5>
+    <!-- Blogs Section (Left Side) -->
+    <div class="col-md-8">
+    <section class="blog">
+        <h1>@lang('message.Shopping Hacks & Savings Tips & Tricks')</h1>
+        <div class="row">
+        @foreach ($blogs as $blog)
+        @php
+        $blogurl = $blog->slug
+            ? route('blog.detail', ['slug' => Str::slug($blog->slug)])
+            : '#';
+        @endphp
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100 d-flex flex-column">
+            <a href="{{ $blogurl }}">
+            <img src="{{ asset($blog->image) }}" class="card-img-top" alt="Blog Post Image">
+            </a>
+            <div class="card-body d-flex flex-column">
+                <div class="blog-text mb-3">
+                <h5 class="blog-title">{{ $blog->title }}</h5>
+                </div>
+                <div class="mt-auto">
+                <a href="{{ $blogurl }}" class="btn btn-primary rounded-pill w-100">@lang('welcome.Read More')</a>
+                </div>
             </div>
-            <div class="mt-auto">
-              <a href="{{ $blogurl }}" class="btn btn-primary rounded-pill w-100">Read More</a>
             </div>
-          </div>
         </div>
-      </div>
-      @endforeach
+        @endforeach
+        </div>
+        {{-- {{ $blogs->links('vendor.pagination.custom') }} --}}
+    </section>
     </div>
-    {{-- {{ $blogs->links('vendor.pagination.custom') }} --}}
-  </section>
-</div>
-
-
       <!-- Stores Section (Right Side) -->
       <div class="col-md-4">
-        <aside class="sidebar p-3 bg-light">
+        <aside class="sidebar p-3 bg-light text-capitalize">
           <!-- Sidebar Title -->
-          <h2 class="bold text-dark mb-3">Top Stores</h2>
+          <h2 class="bold text-dark mb-3">@lang('message.top stores')</h2>
           <!-- Store Listings -->
           <div class="row gx-2 gy-2">
             @foreach ($chunks as $store)
@@ -116,8 +114,6 @@
           </div>
         </aside>
       </div>
-
-
     </div>
   </div>
 </div>

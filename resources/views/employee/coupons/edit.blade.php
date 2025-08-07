@@ -43,7 +43,16 @@
                     <b>{{ session('success') }}</b>
                 </div>
             @endif
-                  @if ($errors->any())
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+                    @if ($errors->any())
                     <div class="alert alert-danger alert-dismissible fade show">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -121,10 +130,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="store">Store <span class="text-danger">*</span></label>
-                                    <select name="store_id" id="store_id" class="form-control" >
+                                    <select name="store_id" id="store_id" class="form-control" onchange="updateDestinationAndLanguage()">
                                         <option value="" disabled selected>{{ $coupons->stores->name ?? null }}</option>
                                         @foreach($stores as $store)
-                                            <option value="{{ $store->id }}">{{ $store->slug }}</option>
+                                            <option value="{{ $store->id }}" data-language-id="{{ $store->language_id }}">{{ $store->slug }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -152,26 +161,33 @@
         </div>
     </section>
 </div>
+
+@endsection
+@push('scripts')
 <script>
+
     function updateDestinationAndLanguage() {
-        const storeSelect = document.getElementById('store');
-        const selectedOption = storeSelect.options[storeSelect.selectedIndex];
-
-        // Get the destination URL and language ID from the selected store
-        const destinationUrl = selectedOption.getAttribute('data-url') || '';
-        const languageId = selectedOption.getAttribute('data-language-id') || '';
-
-        // Update the destination URL input field
-        document.getElementById('destination_url').value = destinationUrl;
-
-        // Set the selected language in the language dropdown
-        const languageSelect = document.getElementById('language_id');
-        if (languageId) {
-            languageSelect.value = languageId;
-        } else {
-            languageSelect.selectedIndex = 0; // Reset to default if no language ID
+            updateLanguageFromStore();
+            // If you have destination URL logic, it would go here
         }
-    }
+
+        function updateLanguageFromStore() {
+            const storeSelect = document.getElementById('store_id');
+            const selectedOption = storeSelect.options[storeSelect.selectedIndex];
+            const languageId = selectedOption.getAttribute('data-language-id');
+
+            // Update language selection
+            if (languageId) {
+                const languageSelect = document.getElementById('language_id');
+                // Find the option with matching value and select it
+                for (let i = 0; i < languageSelect.options.length; i++) {
+                    if (languageSelect.options[i].value == languageId) {
+                        languageSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        }
 
     function toggleOtherInputVisibility(showOther) {
         const otherInputGroup = document.getElementById('otherInputGroup');
@@ -222,4 +238,4 @@ function initializeCodeInput() {
 // Call the initialization function when the page loads
 document.addEventListener('DOMContentLoaded', initializeCodeInput);
 </script>
-@endsection
+@endpush

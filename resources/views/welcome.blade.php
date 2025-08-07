@@ -1,16 +1,16 @@
-    @extends('layouts.welcome')
-    @section('title', 'Voucher Boost -  Best Deals and Discounts on voucher Boost')
-    @section('description',' Find the best deals, discounts, and coupons on voucher Boost. Save money on your favorite products from top brands.')
-    @section('keywords','deals, discounts, coupons, savings, affiliate marketing, promo codes, cashback, online shopping, special offers, vouchers, best prices, holiday sales, seasonal discounts, gift cards, price comparison, money-saving tips')
+@extends('layouts.welcome')
+@section('title', 'Voucher Boost -  Best Deals and Discounts on voucher Boost')
+@section('description',' Find the best deals, discounts, and coupons on voucher Boost. Save money on your favorite products from top brands.')
+@section('keywords','deals, discounts, coupons, savings, affiliate marketing, promo codes, cashback, online shopping, special offers, vouchers, best prices, holiday sales, seasonal discounts, gift cards, price comparison, money-saving tips')
 @section('main-content')
 <main class=" text-capitalize ">
     <section class="container mt-4">
-        <h1 class="title">VoucherBoost Has Some Special Offers For You</h1>
+        <h1 class="title">@lang('welcome.H1')</h1>
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 @if($sliders->isEmpty())
             <div class="alert alert-warning text-center" role="alert">
-                No sliders available at the moment. Please check back later!
+                @lang('welcome.No sliders available at the moment. Please check back later!')
             </div>
                 @else
                       @foreach ($sliders as $slider)
@@ -24,9 +24,9 @@
                                 <h5>{{ $slider->title }}</h5>
                                 <p>{{ $slider->description }}</p>
                                 @if ($slider->url)
-                                    <a target="_blank" href="{{ $slider->url }}" class="btn bt-purple">View More</a>
+                                    <a target="_blank" href="{{ $slider->url }}" class="btn bt-purple">@lang('message.View more')</a>
                                     @else
-                                    <a target="_blank" href="{{ route('store.detail', ['slug' => Str::slug($slider->store->slug)]) }}" class="btn bt-purple">View More</a>
+                                    <a target="_blank" href="{{ route('store.detail', ['slug' => Str::slug($slider->store->slug)]) }}" class="btn bt-purple">@lang('message.View more')</a>
                                 @endif
                             </div>
                         </div>
@@ -44,12 +44,12 @@
     </section>
     <hr>
     <section class="store container mt-4">
-        <h2>Latest Discount Codes & Promo Codes From Popular Stores</h2>
+         <h2>@lang('welcome.H2')</h2>
         <div id="storeCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 @if($topstores->isEmpty())
              <div class="alert alert-warning text-center" role="alert">
-                No stores available at the moment. Please check back later!
+                @lang('message.No stores found. Please check back later.')!
             </div>
                 @else
                 @foreach ($topstores->chunk(6) as $index => $chunk)
@@ -85,6 +85,11 @@
     </section>
     <section class="coupon container mt-5">
         <div class="row coupon-grid g-4">
+              @if ($topcouponcode->isEmpty())
+            <div class="alert alert-warning text-center" role="alert">
+               @lang('welcome.No coupons available at the moment. Please check back later!')
+            </div>
+        @else
             @foreach ($topcouponcode as $coupon)
                 @php
                     $store = $coupon->store_id
@@ -106,20 +111,20 @@
                                 </a>
                             @else
                                 <div class="no-image-placeholder bg-light text-center py-4">
-                                    <p>No image</p>
+                                    <p>@lang('welcome.No image available')</p>
                                     <span>{{ $storeName }}</span>
                                 </div>
                             @endif
                         </div>
 
                         <div class="coupon-body p-3">
-                            <span class="badge bg-success">✔ Verified</span>
+                            <span class="badge bg-success">✔ @lang('welcome.Verified')</span>
                             <span class="d-block text-muted">{{ $storeName }}</span>
                             <h6 class="text-left">{{ $coupon->name }}</h6>
                             <span class="d-block mb-2 {{ \Carbon\Carbon::parse($coupon->ending_date)->isPast() ? 'text-danger' : 'text-muted' }}">
                                 <i class="bi bi-calendar-check"></i> {{ \Carbon\Carbon::parse($coupon->ending_date)->format('d M Y') }}
                             </span>
-                            <span class="text-dark"><i class="bi bi-person"></i> {{ $coupon->clicks }} People Used</span>
+                            <span class="text-dark"><i class="bi bi-person"></i> {{ $coupon->clicks }} @lang('welcome.used')</span>
 
                             <div class="d-grid gap-2 mt-3">
                                 @if ($coupon->code)
@@ -133,12 +138,12 @@
                                             '{{ $destinationUrl }}',
                                             '{{ $storeName }}'
                                         )">
-                                        <span class="coupon-text">Activate Coupon</span>
+                                        <span class="coupon-text">@lang('welcome.Activate Coupon')</span>
                                         <span class="coupon-code" id="couponCode{{ $coupon->id }}" style="display: none;">{{ $coupon->code }}</span>
                                     </a>
                                 @else
                                     <a href="{{ $destinationUrl }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
-                                        View Deal
+                                       @lang('welcome.View Deal')
                                     </a>
                                 @endif
                             </div>
@@ -146,11 +151,12 @@
                     </div>
                 </div>
             @endforeach
+            @endif
         </div>
     </section>
 
     <section class=" category container mt-4">
-        <h2 class="mb-3">Popular Categories</h2>
+        <h2 class="mb-3">@lang('nav.Popular-Categories')</h2>
 
         <div class="d-grid gap-3 grid-template">
             @if ($homecategories->isnotempty())
@@ -170,7 +176,7 @@
                     @else
                         <div class="d-flex align-items-center justify-content-center bg-light text-muted rounded" style="height: 200px;">
                             <i class="fas fa-image fa-3x"></i>
-                            <p class="ms-2">No image available</p>
+                            <p class="ms-2">@lang('welcome.No image available')</p>
                         </div>
                     @endif
 
@@ -184,18 +190,18 @@
 
             @else
             <div class="alert alert-warning text-center" role="alert">
-                No category available at the moment. Please check back later!
+              @lang('welcome.No category available at the moment. Please check back later!')
             </div>
 
             @endif
         </div>
     </section>
     <section class="coupon container mt-5">
-        <h3 class="heading text-left mb-4">Featured Offers</h3>
+        <h3 class="heading text-left mb-4">@lang('welcome.Featured Offers')</h3>
 
         @if ($Couponsdeals->isEmpty())
             <div class="alert alert-warning text-center" role="alert">
-                No coupons available at the moment. Please check back later!
+               @lang('welcome.No coupons available at the moment. Please check back later!')
             </div>
         @else
             <div class="row coupon-grid g-4">
@@ -221,14 +227,14 @@
                                     </a>
                                 @else
                                     <div class="no-image-placeholder bg-light text-center py-4">
-                                        <p>No image</p>
+                                        <p>@lang('welcome.No image available')</p>
                                         <span>{{ $storeName }}</span>
                                     </div>
                                 @endif
                             </div>
 
                             <div class="coupon-body p-3">
-                                <span class="badge bg-success">✔ Verified</span>
+                                <span class="badge bg-success">✔ @lang('welcome.Verified')</span>
                                 <span class="d-block text-muted">{{ $storeName }}</span>
                                 <h6 class="text-left">{{ $coupon->name }}</h6>
                                 <span class="d-block mb-2 {{ \Carbon\Carbon::parse($coupon->ending_date)->isPast() ? 'text-danger' : 'text-muted' }}">
@@ -248,12 +254,12 @@
                                                 '{{ $destinationUrl }}',
                                                 '{{ $storeName }}'
                                             )">
-                                            <span class="coupon-text">Activate Coupon</span>
+                                            <span class="coupon-text">@lang('welcome.Activate Coupon')</span>
                                             <span class="coupon-code" id="couponCode{{ $coupon->id }}" style="display: none;">{{ $coupon->code }}</span>
                                         </a>
                                     @else
                                         <a href="{{ $destinationUrl }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
-                                            View Deal
+                                            @lang('welcome.View Deal')
                                         </a>
                                     @endif
                                 </div>
@@ -272,8 +278,8 @@
         </div>
         <div class="col-md-8">
             <div class="text-left p-4 bg-light rounded shadow-sm">
-                <h4 class="fw-bold text-dark">Disclaimer</h4>
-                <p class="mb-0 text-muted">A disclaimer is essential for compliance with our advertising policies (AS) and must adhere to all relevant government regulations. Ensure that any advertising content complies with these regulations. Disclaimers are mandatory for anyone earning money through affiliate links in ads. The primary goal is to inform consumers that the publisher earns a commission from these links. If affiliate links appear on someone else's website or in user comments, a disclaimer must be added whenever a product is promoted and the publisher receives compensation. Both audible and visual disclaimers are required in videos or live streams, as consumers may enter or exit at any time, so a clear visual disclaimer must be provided. These guidelines also apply to mobile sites and apps. Keep in mind that digital marketing and disclaimer requirements will continue to evolve, so stay informed about updates and maintain transparency with consumers at all times.</p>
+                <h4 class="fw-bold text-dark">@lang('welcome.Disclaimer')</h4>
+                <p class="mb-0 text-muted">@lang('welcome.Disclaimer-p')</p>
             </div>
         </div>
         <div class="col-12 text-center d-md-none mt-4">
@@ -288,7 +294,7 @@
             <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 mb-3 d-inline-flex align-items-center">
                 <i class="fas fa-newspaper me-2"></i>@lang('welcome.sp')
             </span>
-            <h2 class="fw-bold mb-3">@lang('welcome.H5')</h2>
+            <h5 class="fw-bold mb-3">@lang('welcome.H5')</h5>
             <p class="text-muted mb-0">@lang('welcome.blog-p')</p>
         </div>
 
@@ -407,7 +413,7 @@
             }
 
             .slider-image {
-                height: 300px;
+                height: 400px;
                 width: 100%;
                 object-fit: fill;
                 filter: brightness(0.8);

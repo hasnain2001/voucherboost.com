@@ -2,7 +2,7 @@
 @section('title')
     Update Store
 @endsection
-@section('styles')
+@push('styles')
     <style>
         .card-header {
             background-color: #f8f9fa;
@@ -35,7 +35,7 @@
             color: darkblue;
         }
     </style>
-@endsection
+@endpush
 @section('main-content')
     <div class="content-wrapper">
         <section class="content-header">
@@ -264,7 +264,7 @@
                                                 <img src="{{ asset('uploads/stores/'.$stores->store_image) }}" class="img-thumbnail" style="max-height: 150px;" id="previewImage">
                                                 <input type="hidden" name="previous_image" value="{{ $stores->store_image }}">
                                             @else
-                                                <img src="{{ asset('admin/dist/img/default-store.png') }}" class="img-thumbnail" style="max-height: 150px;" id="previewImage">
+                                                <img src="{{ asset('images/default-store.png') }}" class="img-thumbnail" style="max-height: 150px;" id="previewImage">
                                             @endif
                                         </div>
                                     </div>
@@ -336,73 +336,110 @@
     </div>
 @endsection
 
-@section('scripts')
-      <script>
-            // Filter non-alphabetic characters in the 'name' input field and auto-fill 'slug' and 'destination_url'
-            const nameInput = document.getElementById('name');
-            const slugInput = document.getElementById('slug');
-            const destinationUrlInput = document.getElementById('url');
+@push('scripts')
+<script>
+    // Cache DOM elements
+    const nameInput = document.getElementById('name');
+    const slugInput = document.getElementById('slug');
+    const destinationUrlInput = document.getElementById('url');
+    const langSelect = document.getElementById('lang');
+    const slugMessage = document.getElementById('slug-message');
 
-            nameInput.addEventListener('input', () => {
-                const value = nameInput.value;
+    // Debounce function to limit AJAX calls
+    function debounce(func, timeout = 500) {
+        let timer;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => { func.apply(this, args); }, timeout);
+        };
+    }
 
-                // Filter out non-alphabetic characters (keeping spaces)
-                const filteredValue = value.replace(/[^A-Za-z\s]/g, '');
+    // Generate URL-friendly slug
+    function generateSlug(text) {
+        return text.toLowerCase()
+            .replace(/[^a-z\s]/g, '') // Remove non-alphabetic chars
+            .replace(/\s+/g, ' ')     // Collapse multiple spaces
+            .trim()                   // Trim whitespace
+            .replace(/\s+/g, '-');   // Replace spaces with hyphens
+    }
 
-                // Generate display slug (keep spaces but clean up multiple spaces)
-                const displaySlug = filteredValue.toLowerCase().replace(/\s+/g, ' ').trim();
+    // Update both slug and destination URL
+    function updateUrls() {
+        const displaySlug = nameInput.value.replace(/[^A-Za-z\s]/g, '')
+            .toLowerCase()
+            .replace(/\s+/g, ' ')
+            .trim();
 
-                // Generate URL-friendly slug (replace spaces with hyphens)
-                const urlSlug = displaySlug.replace(/\s+/g, '-');
+        const urlSlug = generateSlug(displaySlug);
+        const selectedLang = langSelect.options[langSelect.selectedIndex].text.trim().toLowerCase();
+        const currentUrl = window.location.origin;
 
-                // Generate destination URL
-                const currentUrl = window.location.origin;
-                const generatedDestinationUrl = currentUrl + '/store/' + urlSlug;
+        // Generate destination URL (skip '/en/' prefix)
+        const langPrefix = (selectedLang && selectedLang !== 'en') ? `/${selectedLang}` : '';
+        const generatedDestinationUrl = `${currentUrl}${langPrefix}/store/${urlSlug}`;
 
-                // Update slug field with display version (with spaces)
-                if (!slugInput.value || slugInput.value === slugInput.dataset.previousGenerated) {
-                    slugInput.value = displaySlug;
-                    slugInput.dataset.previousGenerated = displaySlug;
-                    checkSlugExistence(urlSlug); // Check using the URL-friendly version
-                }
+        // Update fields only if they haven't been manually modified
+        if (!slugInput.dataset.manuallyEdited) {
+            slugInput.value = displaySlug;
+            checkSlugExistenceDebounced(urlSlug);
+        }
 
-                // Update destination URL with hyphenated version
-                destinationUrlInput.value = generatedDestinationUrl;
-                destinationUrlInput.dataset.previousGenerated = generatedDestinationUrl;
-            });
+        destinationUrlInput.value = generatedDestinationUrl;
+    }
 
-            // Existing slug check functionality (modified to check URL-friendly version)
-            $(document).ready(function() {
-                $('#slug').on('keyup', function() {
-                    var displaySlug = $(this).val();
-                    var urlSlug = displaySlug.replace(/\s+/g, '-');
-                    if (urlSlug) {
-                        checkSlugExistence(urlSlug);
-                    } else {
-                        $('#slug-message').text('Please enter a slug').css('color', 'black');
-                    }
-                });
-            });
+    // Debounced version of slug check
+    const checkSlugExistenceDebounced = debounce(checkSlugExistence);
 
-          // Function to check if the slug exists
-            function checkSlugExistence(slug) {
-                $.ajax({
-                    url: '{{ route('check.slug') }}',
-                    method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        slug: slug
-                    },
-                    success: function(response) {
-                        if (response.exists) {
-                            $('#slug-message').text('Store already exists').css('color', 'red');
-                        } else {
-                            $('#slug-message').text('Store is available').css('color', 'green');
-                        }
-                    }
-                });
+    function checkSlugExistence(slug) {
+        if (!slug) {
+            slugMessage.textContent = 'Please enter a slug';
+            slugMessage.style.color = 'black';
+            return;
+        }
+
+        $.ajax({
+            url: '{{ route('check.slug') }}',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                slug: slug
+            },
+            success: function(response) {
+                slugMessage.textContent = response.exists
+                    ? 'Store already exists'
+                    : 'Store is available';
+                slugMessage.style.color = response.exists ? 'red' : 'green';
+            },
+            error: function() {
+                slugMessage.textContent = 'Error checking slug';
+                slugMessage.style.color = 'orange';
             }
-        </script>
+        });
+    }
+
+    // Event Listeners
+    nameInput.addEventListener('input', updateUrls);
+    langSelect.addEventListener('change', updateUrls);
+
+    // Track manual slug edits
+    slugInput.addEventListener('input', function() {
+        this.dataset.manuallyEdited = 'true';
+        const urlSlug = generateSlug(this.value);
+        checkSlugExistenceDebounced(urlSlug);
+
+        // Update destination URL even when manually editing slug
+        const selectedLang = langSelect.options[langSelect.selectedIndex].text.trim().toLowerCase();
+        const langPrefix = (selectedLang && selectedLang !== 'en') ? `/${selectedLang}` : '';
+        destinationUrlInput.value = `${window.location.origin}${langPrefix}/store/${urlSlug}`;
+    });
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        if (slugInput.value) {
+            checkSlugExistence(generateSlug(slugInput.value));
+        }
+    });
+</script>
     <script>
             // JavaScript to handle image preview and update label with file name
             document.getElementById('store_image').addEventListener('change', function(event) {
@@ -428,6 +465,6 @@
             }
             });
     </script>
-@endsection
+@endpush
 
 

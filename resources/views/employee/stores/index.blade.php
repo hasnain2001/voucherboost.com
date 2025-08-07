@@ -145,7 +145,15 @@
                                                         <img class="store-image" src="{{ $store->store_image ? asset('uploads/stores/' . $store->store_image) : asset('front/assets/images/no-image-found.jpg') }}" alt="{{ $store->name }}" loading="lazy">
                                                     </td>
                                                     <td>{{ $store->network }}</td>
-                                                    <td>{{ $store->category }}</td>
+                                                    <td>    <span class="badge badge-secondary">
+                                                @if ($store->categories)
+                                                    {{ $store->categories->title ?? 'N/A' }}
+
+                                                @else
+                                                {{ $store->category ?? 'N/A' }}
+
+                                                @endif
+                                            </span></td>
                                                     <td>
                                                         <span class="status-badge {{ $store->status == 'enable' ? 'status-active' : 'status-inactive' }}">
                                                             {{ ucfirst($store->status) }}

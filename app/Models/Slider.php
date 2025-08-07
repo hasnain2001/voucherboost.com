@@ -25,7 +25,7 @@ class Slider extends Model
     ];
       public function language()
     {
-        return $this->belongsTo(language::class);
+        return $this->belongsTo(Language::class);
     }
           public function user()
     {

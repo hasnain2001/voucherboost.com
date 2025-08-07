@@ -59,8 +59,7 @@ class StoresController extends Controller
     public function store()
     {
         $stores = Stores::with('user','updatedby', 'categories', 'language')
-            ->select('id', 'name', 'slug', 'status', 'created_at', 'updated_at', 'store_image', 'network', 'category', 'user_id','updated_id','category_id')
-            ->orderByDesc('created_at')
+            ->select('id', 'name', 'slug', 'status', 'created_at', 'updated_at', 'store_image', 'network', 'category', 'user_id','updated_id','category_id','language_id')->orderByDesc('created_at')
                     ->get();
 
         return view('admin.stores.index', compact('stores'));
@@ -197,7 +196,7 @@ class StoresController extends Controller
             'network' => 'nullable|string',
             'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'content' => 'nullable',
-            'about' => 'nullable|string|max:555',
+            'about' => 'nullable|string',
             'category_id' => 'nullable|integer'
         ]);
 
@@ -229,7 +228,7 @@ class StoresController extends Controller
             'category_id' => $request->input('category_id', $store->category_id)
         ]));
 
-        return redirect()->route('admin.store_details' ,['slug' => Str::slug($store->slug)])->with('success', 'Store updated successfully');
+        return redirect()->route('admin.stores' )->with('success', 'Store updated successfully');
     }
     public function delete_store($id)
     {

@@ -61,11 +61,9 @@ public function checkSlug(Request $request)
     // In your StoreController
     public function store()
     {
-        $stores = Stores::with('language')->select('id', 'name', 'slug', 'status', 'store_image', 'network', 'category')
+        $stores = Stores::with('language','categories')->select('id', 'name', 'slug', 'status', 'store_image', 'network', 'category','category_id','language_id')
         ->orderBy('created_at', 'desc')
         ->get();
-
-
         return view('employee.stores.index', compact('stores',));
     }
 
@@ -196,7 +194,7 @@ public function checkSlug(Request $request)
             'meta_description' => 'nullable|string',
             'authentication' => 'nullable|string',
             'network' => 'nullable|string',
-            'store_image' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'store_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'content' => 'nullable',
             'about' => 'nullable|string',
             'status' => 'required|in:enable,disable',

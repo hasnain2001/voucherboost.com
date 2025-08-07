@@ -20,7 +20,7 @@
     'FREE DELIVERY' => 'FREE DELIVERY',
     '20% OFFERS' => '20% OFFERS',
     'Popular Stores' => 'Popular Stores',
-
+    'terms_conditions' => 'Terms & Conditions',
     //footer//
    'support'=> 'support',
     'about'=> 'about',

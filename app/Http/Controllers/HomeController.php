@@ -55,7 +55,7 @@ class HomeController extends Controller
                 ->take(5)
                 ->get();
 
-        return view('home', compact( 'topstores',  'homecategories','topcouponcode','Couponsdeals','sliders','blogs'));
+        return view('welcome', compact( 'topstores',  'homecategories','topcouponcode','Couponsdeals','sliders','blogs'));
     }
 
 
@@ -179,7 +179,7 @@ class HomeController extends Controller
         }
 
         $query->where('status', 'enable')
-            ->where('language_id', $store->language_id)
+            // ->where('language_id', $store->language_id)
             ->orderByRaw('CAST(`order` AS SIGNED) ASC');
 
         // Optional filtering
@@ -193,7 +193,7 @@ class HomeController extends Controller
         $codeCount = $coupons->whereNotNull('code')->count();
         $dealCount = $coupons->whereNull('code')->count();
 
-        $relatedStores = Stores::where('category_id', $store->id)
+        $relatedStores = Stores::where('category_id', $store->category_id)
            ->where('language_id', $store->language_id)
             ->where('id', '!=', $store->id)
             ->orderBy('created_at', 'desc')

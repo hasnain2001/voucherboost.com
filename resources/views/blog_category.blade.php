@@ -80,7 +80,7 @@
     <nav aria-label="breadcrumb" class="mb-3">
         <ol class="breadcrumb bg-light p-2 rounded">
             <li class="breadcrumb-item">
-                <a href="/" class="text-decoration-none text-primary fw-semibold">Home</a>
+                <a href="{{ url(app()->getlocale().'/') }}" class="text-decoration-none text-primary fw-semibold">@lang('nav.home')</a>
             </li>
             <li class="breadcrumb-item active fw-bold" aria-current="page">{{ $category->title }}</li>
         </ol>

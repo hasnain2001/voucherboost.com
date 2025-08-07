@@ -376,11 +376,12 @@
 
 @endsection
 @push('scripts')
-       <script>
+    <script>
             // Filter non-alphabetic characters in the 'name' input field and auto-fill 'slug' and 'destination_url'
             const nameInput = document.getElementById('name');
             const slugInput = document.getElementById('slug');
             const destinationUrlInput = document.getElementById('url');
+            const langSelect = document.getElementById('lang');
 
             nameInput.addEventListener('input', () => {
                 const value = nameInput.value;
@@ -441,32 +442,30 @@
                     }
                 });
             }
-        </script>
-    <script>
             // JavaScript to handle image preview and update label with file name
-            document.getElementById('store_image').addEventListener('change', function(event) {
-            const file = event.target.files[0]; // Get the selected file
-            const previewImage = document.querySelector('#imagePreview img'); // Get the image preview element
-            const fileLabel = document.querySelector('label[for="store_image"]'); // Get the file input label
+                document.getElementById('store_image').addEventListener('change', function(event) {
+                const file = event.target.files[0]; // Get the selected file
+                const previewImage = document.querySelector('#imagePreview img'); // Get the image preview element
+                const fileLabel = document.querySelector('label[for="store_image"]'); // Get the file input label
 
-            if (file) {
-            const reader = new FileReader(); // Create a FileReader object
+                if (file) {
+                const reader = new FileReader(); // Create a FileReader object
 
-            // Set up the FileReader to update the image source
-            reader.onload = function(e) {
-            previewImage.src = e.target.result; // Set the image source to the file's data URL
-            previewImage.style.display = 'block'; // Show the image preview
-            };
+                // Set up the FileReader to update the image source
+                reader.onload = function(e) {
+                previewImage.src = e.target.result; // Set the image source to the file's data URL
+                previewImage.style.display = 'block'; // Show the image preview
+                };
 
-            reader.readAsDataURL(file); // Read the file as a data URL
-            fileLabel.textContent = file.name; // Update the label with the file name
-            } else {
-            previewImage.src = '{{ asset('images/default-store.png') }}'; // Reset to default image
-            previewImage.style.display = 'block'; // Show the default image
-            fileLabel.textContent = 'Choose file'; // Reset the label text
-            }
-            });
+                reader.readAsDataURL(file); // Read the file as a data URL
+                fileLabel.textContent = file.name; // Update the label with the file name
+                } else {
+                previewImage.src = '{{ asset('images/default-store.png') }}'; // Reset to default image
+                previewImage.style.display = 'block'; // Show the default image
+                fileLabel.textContent = 'Choose file'; // Reset the label text
+                }
+                });
     </script>
-    @endpush
+@endpush
 
 

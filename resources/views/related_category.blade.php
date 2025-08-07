@@ -15,7 +15,7 @@
     <nav aria-label="breadcrumb" class="mb-3">
         <ol class="breadcrumb bg-light p-2 rounded">
             <li class="breadcrumb-item">
-                <a href="/" class="text-decoration-none text-primary fw-semibold">Home</a>
+                <a href="{{ url(app()->getlocale().'/') }}" class="text-decoration-none text-primary fw-semibold">@lang('nav.home')</a>
             </li>
             <li class="breadcrumb-item active fw-bold" aria-current="page">{{ $category->title }}</li>
         </ol>
@@ -29,27 +29,19 @@
         @else
             <div class="fallback-image d-flex flex-column align-items-center justify-content-center">
                 <i class="fas fa-image fa-3x text-muted"></i>
-                <p class="text-muted">No image available</p>
+                <p class="text-muted">@lang('welcome.No image available')</p>
             </div>
         @endif
     </div>
 
-    <p class="h5 mt-4">Total Stores: <span class="fw-bold">{{ $stores->count() }}</span></p>
+    <p class="h5 mt-4">@lang('message.total store') <span class="fw-bold">{{ $stores->count() }}</span></p>
 
 <section>
 
     <div class="row card-list g-4 mt-3">
         @forelse ($stores as $store)
             <div class="col-lg-2 col-md-4 col-sm-6 col-6">
-                {{-- @php
-                    $language = $store->language ? $store->language->code : 'en';
-                    $storeSlug = Str::slug($store->slug);
-                    $storeurl = $store->slug
-                        ? ($language === 'en'
-                            ? route('store_details', ['slug' => $storeSlug])
-                            : route('store_details.withLang', ['lang' => $language, 'slug' => $storeSlug]))
-                        : '#';
-                @endphp --}}
+
                 @php
                 $storeurl = $store->slug
                   ? route('store.detail', ['slug' => Str::slug($store->slug)])
@@ -67,9 +59,8 @@
         @empty
             <div class="col-12">
                 <div class="alert alert-warning text-center" role="alert">
-                    No stores found in this category!
-                    Explore new
-                    <a href="{{ route('stores') }}" class=" get text-decoration-none fw-bold"> stores</a>
+                   @lang('message.No stores found in this category!Explore new')
+                    <a href="{{ route('stores',['lang' => app()->getlocale()]) }}" class=" get text-decoration-none fw-bold"> @lang('nav.stores')</a>
                 </div>
             </div>
         @endforelse
@@ -80,8 +71,16 @@
         <div class="row card-list g-4 mt-3">
             <div class="col-md-8">
                 <section class="blog">
-                  <h1>Shopping Hacks & Savings Tips & Tricks</h1>
+                  <h1>@lang('message.Shopping Hacks & Savings Tips & Tricks')</h1>
                   <div class="row">
+                    @if ($blogs->isempty())
+                      <div class="col-12">
+                <div class="alert alert-warning text-center" role="alert">
+                   @lang('message.No related blogs found.')
+                    <a href="{{ route('blog',['lang' => app()->getlocale()]) }}" class=" get text-decoration-none fw-bold"> @lang('nav.blogs')</a>
+                </div>
+            </div>
+                    @else
                     @foreach ($blogs as $blog)
                     @php
                     $blogurl = $blog->slug
@@ -98,12 +97,13 @@
                             <h5 class="blog-title">{{ $blog->title }}</h5>
                           </div>
                           <div class="mt-auto">
-                            <a href="{{ $blogurl }}" class="btn btn-primary rounded-pill w-100">Read More</a>
+                            <a href="{{ $blogurl }}" class="btn btn-primary rounded-pill w-100">@lang('welcome.Read More')</a>
                           </div>
                         </div>
                       </div>
                     </div>
                     @endforeach
+                      @endif
                   </div>
                   {{-- {{ $blogs->links('vendor.pagination.custom') }} --}}
                 </section>

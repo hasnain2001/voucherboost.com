@@ -50,14 +50,14 @@ Route::get('/dashboard', [EmployeeController::class, 'dashboard'])->name('dashbo
 
 
     Route::controller(HomeController::class)->group(function () {
-        Route::get('/', 'index');
+        Route::get('/', 'index')->name('index');
         Route::get('/category', 'categories')->name('categories');
         Route::get('/category/{slug}', 'viewcategory')->name('related_category');
     });
     Route::middleware([Localization::class])->group(function () {
             });
     Route::controller(HomeController::class)->group(function () {
-        Route::get('{lang?}/', 'index');
+        Route::get('{lang?}/', 'index')->name('index');
         Route::get('/{lang?}/stores', 'stores')->name('stores');
         Route::get('/{lang?}/store/{slug}', [HomeController::class, 'StoreDetails'])->name('store_details.withLang');
         Route::get('store/{slug}', function($slug) {return app(HomeController::class)->StoreDetails('en', $slug, request());})->name('store.detail');

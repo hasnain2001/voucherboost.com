@@ -17,7 +17,7 @@
     <div class="container">
         <!-- Title -->
         <h1 class="text-center display-4 mt-4 mb-5" style="font-weight: 600; color: #333; font-size: 2.5rem;">
-            Explore Our Categories
+           @lang('message.Explore Our Categories')
         </h1>
 
         <!-- Categories Grid -->
@@ -44,7 +44,7 @@
                             <!-- Category Title -->
                             <div class="flex-grow-1">
                                 <h5 class="fw-bold mb-0">{{ $category->title }}</h5>
-                                <small class="text-muted">Explore Deals</small>
+                                <small class="text-muted">@lang('message.Explore Deals')</small>
                             </div>
                         </div>
                     </a>

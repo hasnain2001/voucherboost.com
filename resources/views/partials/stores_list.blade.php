@@ -1,7 +1,7 @@
     <div class="container">
         @if ($stores->isEmpty())
             <div class="alert alert-info text-dark" role="alert">
-                No stores found.
+                @lang('message.No stores found. Please check back later.')
             </div>
         @else
             <div class="row">

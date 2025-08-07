@@ -72,12 +72,12 @@
             <div class="nav-container">
                 <!-- Left: Nav Items (Now aligned left) -->
         <div class="nav-links">
-<div class="nav-item">
-    <a class="{{ request()->is(app()->getLocale()) || request()->is(app()->getLocale() . '/') ? 'active' : '' }}"
-       href="{{ url(app()->getLocale().'/') }}">
-        @lang('nav.home')
-    </a>
-</div>
+        <div class="nav-item">
+            <a class="{{ request()->is(app()->getLocale()) || request()->is(app()->getLocale() . '/') ? 'active' : '' }}"
+            href="{{ url(app()->getLocale().'/') }}">
+                @lang('nav.home')
+            </a>
+        </div>
 
         <div class="nav-item"><a class="@if(Route::currentRouteName() == 'stores') active @endif" href="{{route('stores', ['lang' => app()->getLocale()])}}">@lang('nav.stores')</a></div>
         <div class="nav-item"><a  class="@if(Route::currentRouteName() == 'categories') active @endif" href="{{route('categories')}}">@lang('nav.cateories')</a></div>

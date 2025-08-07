@@ -109,7 +109,7 @@
     <ol class="breadcrumb mb-0">
 
             <li class="breadcrumb-item">
-<a href="{{ url(app()->getLocale() . '/') }}" class="text-decoration-none text-purple" style="font-weight: 500;">Home</a>
+<a href="{{ url(app()->getLocale() . '/') }}" class="text-decoration-none text-purple" style="font-weight: 500;">@lang('nav.home')</a>
                 </li>
 <li class="breadcrumb-item">
 <a class="text-decoration-none text-purple" href="{{ route('related_category', ['slug' => Str::slug($blog->category->title)]) }}">

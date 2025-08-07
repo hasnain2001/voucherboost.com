@@ -154,7 +154,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
                                                 <label for="title" class="form-label">Title <span class="required-asterisk">*</span></label>
-                                                <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}" required placeholder="Enter slider title">
+                                                <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}"  placeholder="Enter slider title">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -174,12 +174,12 @@
 
                                     <div class="form-group mb-4">
                                         <label for="description" class="form-label">Description <span class="required-asterisk">*</span></label>
-                                        <textarea class="form-control" name="description" id="description" rows="3" required placeholder="Enter slider description">{{ old('description') }}</textarea>
+                                        <textarea class="form-control" name="description" id="description" rows="3"  placeholder="Enter slider description">{{ old('description') }}</textarea>
                                     </div>
 
                                     <div class="form-group mb-0">
                                         <label for="url" class="form-label">Destination URL <span class="required-asterisk">*</span></label>
-                                        <input type="url" class="form-control" name="url" id="url" value="{{ old('url') }}" required placeholder="https://example.com">
+                                        <input type="url" class="form-control" name="url" id="url" value="{{ old('url') }}"  placeholder="https://example.com">
                                     </div>
                                 </div>
 
@@ -188,7 +188,7 @@
                                     <h5 class="section-title"><i class="fas fa-store mr-2"></i>Store Information</h5>
                                     <div class="form-group mb-4">
                                         <label for="store_id" class="form-label">Store <span class="required-asterisk">*</span></label>
-                                           <select name="store_id" id="store_id" class="form-select" onchange="updateSelections()" required aria-label="Default select example">
+                                           <select name="store_id" id="store_id" class="form-select" onchange="updateSelections()"  aria-label="Default select example">
                                             <option value="" disabled {{ old('store_id') ? '' : 'selected' }}>-- Select Store --</option>
                                             @foreach($stores as $store)
                                                 <option value="{{ $store->id }}"
@@ -218,7 +218,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group mb-0">
                                                 <label for="category_id" class="form-label">Category <span class="required-asterisk">*</span></label>
-                                                <select name="category_id" id="category_id" class="form-select" required>
+                                                <select name="category_id" id="category_id" class="form-select" >
                                                     <option value="" disabled {{ old('category_id') ? '' : 'selected' }}>-- Select Category --</option>
                                                     @foreach($categories as $category)
                                                         <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>

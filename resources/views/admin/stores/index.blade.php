@@ -139,7 +139,7 @@
                                                  class="rounded me-2"
                                                  alt="{{ $store->name }}"
                                                  width="40"
-                                                 onerror="this.onerror=null;this.src='{{ asset('assets/images/no-image-found.png') }}'"
+                                                 onerror="this.onerror=null;this.src='{{ asset('images/no-image-found.png') }}'"
                                                  loading="lazy">
                                         </td>
                                         <td>

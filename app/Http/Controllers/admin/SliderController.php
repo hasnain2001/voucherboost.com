@@ -29,17 +29,16 @@ class SliderController extends Controller
       $request->validate([
           'title' => 'nullable',
           'description' => 'nullable|string|max:455',
-         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3048',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
           'status' => 'required|string',
-         'store_id' => 'required|integer',
+         'store_id' => 'nullable|integer',
           'language_id' => 'required|integer',
-           'category_id' => 'required|integer',
+           'category_id' => 'nullable|integer',
       ]);
 
      if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $storeNameSlug = Str::slug($request->title);
-            $imageName = $storeNameSlug . '.' . $image->getClientOriginalExtension();
+            $imageName = time() . '.' . $image->extension();
             $image->move(public_path('uploads/slider'), $imageName);
         } else {
             $imageName = null;
@@ -74,9 +73,9 @@ class SliderController extends Controller
             'description' => 'nullable|string | max:455',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3048',
             'status' => 'required',
-            'store_id' => 'required|integer',
+            'store_id' => 'nullable|integer',
            'language_id' => 'required|integer',
-            'category_id' => 'required|integer',
+            'category_id' => 'nullable|integer',
         ]);
 
         if ($request->hasFile('image')) {
@@ -100,9 +99,22 @@ class SliderController extends Controller
         return redirect()->route('admin.slider')->with('success', 'Slider Updated Successfully');
     }
 
-    public function delete_slider($id) {
-        Slider::find($id)->delete();
-        return redirect()->back()->with('success', 'Slider Deleted Successfully');
+  public function delete_slider($id) {
+    // Find the slider
+    $slider = Slider::findOrFail($id);
+
+    // Get the image path
+    $imagePath = public_path('uploads/slider/') . $slider->image;
+
+    // Delete the image file if it exists
+    if (file_exists($imagePath)) {
+        unlink($imagePath);
     }
+
+    // Delete the slider record
+    $slider->delete();
+
+    return redirect()->back()->with('success', 'Slider Deleted Successfully');
+}
 
 }

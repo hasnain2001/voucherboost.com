@@ -167,7 +167,7 @@
 <main class="container-fluid">
 
     <div class="text-center text-white bg-purple py-4">
-        <h1>Coupon Codes</h1>
+        <h1>@lang('message.Exclusive Coupon Codes')</h1>
         <hr>
     </div>
 
@@ -192,7 +192,7 @@
                         <img src="{{ $storeImage }}" class="img-fluid rounded" alt="{{ $storeName }} Logo">
                     </a>
                 @else
-                    <span class="text-muted">{{ $storeName }} no store found </span>
+                    <span class="text-muted">{{ $storeName }} @lang('message.No stores found. Please check back later.') </span>
                 @endif
             </div>
 
@@ -205,7 +205,7 @@
 
                 <span class="coupon-name">{{ $coupon->name }}</span>
                 <p class="coupon-description">{{ $coupon->description }}</p>
-                <a href="{{ route('store.detail', ['slug' => $storeSlug]) }}" class="text-decoration-none">See All Offers</a>
+                <a href="{{ route('store.detail', ['slug' => $storeSlug]) }}" class="text-decoration-none">@lang('message.see all Offers')</a>
                 <p class="ending-date text-muted">Ends: {{ \Carbon\Carbon::parse($coupon->ending_date)->format('d-m-Y') }}</p>
                 <p class="text-success">Used: {{ $coupon->clicks }}</p>
             </div>
@@ -222,16 +222,16 @@
                             '{{ $destinationUrl }}',
                             '{{ $storeName }}'
                         )">
-                        <span class="coupon-text">Activate Coupon</span>
+                        <span class="coupon-text">@lang('welcome.Activate Coupon')</span>
                         <span class="coupon-code" id="couponCode{{ $coupon->id }}" style="display: none;">{{ $coupon->code }}</span>
                     </a>
                 @else
                     <a href="{{ $destinationUrl }}" target="_blank" class="get" onclick="updateClickCount('{{ $coupon->id }}')">
-                        View Deal
+                       @lang('welcome.View Deal')
                     </a>
                 @endif
                 <br><br>
-                <a href="{{ route('store.detail', ['slug' => $storeSlug]) }}" class="get">See All Offers</a>
+                <a href="{{ route('store.detail', ['slug' => $storeSlug]) }}" class="get">@lang('message.see all Offers')</a>
             </div>
         </div>
     </div>
