@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('admin.layouts.master')
 @section('title')
 Update
 @endsection
@@ -48,11 +48,11 @@ color: darkblue;
 <div class="card">
 <div class="card-body">
     <div class="form-group">
-        <label for="role">name <span class="text-danger">*</span></label> 
+        <label for="role">name <span class="text-danger">*</span></label>
     <span>{{$user->name}}</span>
     </div>
     <div class="form-group">
-        <label for="role">Email <span class="text-danger">*</span></label> 
+        <label for="role">Email <span class="text-danger">*</span></label>
     <span>{{$user->email}}</span>
     </div>
     <div class="form-group">
@@ -64,8 +64,8 @@ color: darkblue;
             <option value="employee" {{ $user->role == 'employee' ? 'selected' : '' }}>Employee</option>
         </select>
     </div>
-    
-        
+
+
 
 </div>
 </div>

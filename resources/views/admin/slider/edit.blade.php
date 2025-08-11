@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('admin.layouts.master')
 @section('title', 'Update | Slider')
 @section('styles')
 <style>

@@ -49,46 +49,8 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-<nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom">
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars text-primary"></i></a>
-    </li>
-  </ul>
-
-
-  <ul class="navbar-nav ml-auto">
-    <li class="nav-item dropdown">
-      @if (Auth::check())
-        <a class="nav-link navbar-username dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user-circle text-success"></i>
-          <span class="text-dark font-weight-bold">{{ Auth::user()->name }}</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">Profile</span>
-          <div class="dropdown-divider"></div>
-          <a href="{{ route('profile.edit') }}" class="dropdown-item">
-            <i class="fas fa-user mr-2 text-primary"></i> My Profile
-        </a>
-
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <i class="fas fa-sign-out-alt mr-2 text-danger"></i> Logout
-          </a>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-          </form>
-        </div>
-      @else
-        <a class="nav-link" href="{{ route('login') }}">
-          <i class="far fa-user-circle"></i>
-          Guest
-        </a>
-      @endif
-    </li>
-  </ul>
-</nav>
-@include('admin.layouts.aside')
+     @include('admin.layouts.nav')
+    @include('admin.layouts.aside')
         {{-- Main Content Here --}}
             @yield('main-content')
         {{-- Main Content Here --}}

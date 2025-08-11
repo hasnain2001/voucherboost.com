@@ -1,4 +1,4 @@
-@extends('admin.datatable')
+@extends('admin.layouts.datatable')
 @section('datatable-title') Stores Management @endsection
 @push('styles')
 <style>

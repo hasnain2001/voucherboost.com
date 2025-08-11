@@ -55,9 +55,9 @@
 ## 🖼️ Screenshots
 
 <div align="center">
-  <img src="/public/screenshots/admin-dashboard.png" width="45%" alt="Admin Dashboard">
-  <img src="/public/screenshots/user-view.png" width="45%" alt="User View">
-  <img src="/public/screenshots/mobile-view.png" width="30%" alt="Mobile View">
+  <img src="/public/images/admin.PNG" width="45%" alt="Admin Dashboard">
+  <img src="/public/images/user.PNG" width="45%" alt="User View">
+  <img src="/public/images/employee.PNG" width="30%" alt="employee Dashboard">
 </div>
 
 ---

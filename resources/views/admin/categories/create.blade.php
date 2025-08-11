@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Create
 @endsection
@@ -101,7 +101,7 @@
         // Filter out non-alphabetic characters and update slug automatically
         const filteredValue = value.replace(/[^A-Za-z\s]/g, '');
         textOnlyInput.value = filteredValue;
-        
+
         // Automatically check slug existence after auto-filling
         checkSlugExistence(filteredValue);
     });
@@ -110,7 +110,7 @@
         // Check slug existence when the user types manually in the slug field
         $('#slug').on('keyup', function() {
             var slug = $(this).val();
-            
+
             // Check if the slug has any value (optional: avoid AJAX if empty)
             if (slug) {
                 checkSlugExistence(slug);
