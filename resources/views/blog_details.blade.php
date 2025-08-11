@@ -8,103 +8,9 @@
 @section('keywords')
     {{ $blog->meta_keyword }}
 @endsection
+
 @section('main-content')
-<style>
-    .blog-title {
-        font-size: 2rem;
-        color: #5a5d61;
-        font-weight: 500;
-        font-family:Arial;
-          }
 
-    .content {
-    margin: 0;
-    padding: 10px;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto; /* Ensure horizontal scrolling for wide tables or images */
-  }
-  .content p {
-    font-size: 1.1rem;
-    color: #5a5d61;
-    font-weight: 400;
-    font-family:Arial;
-  }
-
-.content img {
-    max-width: 100%;
-    height: auto; /* Make images responsive */
-    display: block;
-    margin: 0 auto; /* Optional: Center align images */
-}
-
-
-
-.blog-section {
-            padding: 50px 0;
-            background-color: #f8f9fa;
-            text-align: center;
-        }
-
-        .h-1 {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .h-1 span {
-            color: #73097d;
-        }
-
-        .blog-container {
-            display: flex;
-            overflow-x: auto;
-            gap: 15px;
-            padding-bottom: 10px;
-            scroll-behavior: smooth;
-        }
-
-        .blog-container::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .blog-container::-webkit-scrollbar-thumb {
-            background-color: #ff6347;
-            border-radius: 10px;
-        }
-
-        .blog-card {
-            min-width: 300px;
-            max-width: 300px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            text-align: center;
-        }
-
-        .blog-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .blog-title {
-            font-size: 1.2rem;
-            margin-top: 10px;
-            color: #333;
-        }
-
-        .blog-category {
-            display: block;
-            font-size: 0.9rem;
-            color: #777;
-            margin-top: 5px;
-        }
-</style>
-
-<br>
 <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
     <ol class="breadcrumb mb-0">
 
@@ -186,3 +92,98 @@
 </section>
 
 @endsection
+@push('styles')
+<style>
+    .blog-title {
+        font-size: 2rem;
+        color: #5a5d61;
+        font-weight: 500;
+        font-family: Arial;
+    }
+
+    .content {
+        margin: 0;
+        padding: 10px;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    .content p {
+        font-size: 1.1rem;
+        color: #5a5d61;
+        font-weight: 400;
+        font-family: Arial;
+    }
+
+    .content img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .blog-section {
+        padding: 50px 0;
+        background-color: #f8f9fa;
+        text-align: center;
+    }
+
+    .h-1 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .h-1 span {
+        color: #73097d;
+    }
+
+    .blog-container {
+        display: flex;
+        overflow-x: auto;
+        gap: 15px;
+        padding-bottom: 10px;
+        scroll-behavior: smooth;
+    }
+
+    .blog-container::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .blog-container::-webkit-scrollbar-thumb {
+        background-color: #ff6347;
+        border-radius: 10px;
+    }
+
+    .blog-card {
+        min-width: 300px;
+        max-width: 300px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        text-align: center;
+    }
+
+    .blog-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .blog-title {
+        font-size: 1.2rem;
+        margin-top: 10px;
+        color: #333;
+    }
+
+    .blog-category {
+        display: block;
+        font-size: 0.9rem;
+        color: #777;
+        margin-top: 5px;
+    }
+</style>
+@endpush
