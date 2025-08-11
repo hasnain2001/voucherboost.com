@@ -1,15 +1,23 @@
 <?php
+// resources/lang/pl/contact.php
 return [
-    // contact page //
-    'h1' => 'Poznaj Nasze Kategorie',
-    'p1' => 'Odkryj szeroki wybór produktów uporządkowanych dla Twojej wygody',
-    'Name' => 'Imię i Nazwisko',
-    'Email' => 'E-mail',
+    'h1' => 'Kontakt',
+    'p1' => 'Odkryj szeroką gamę produktów uporządkowanych dla Twojej wygody',
+    'Name' => 'Imię i nazwisko',
+    'Email' => 'Email',
     'Message' => 'Wiadomość',
-    'Send Message' => 'Wyślij Wiadomość',
-    'Our Location' => 'Nasza Lokalizacja',
-    'Call Us' => 'Zadzwoń do Nas',
-    'email us' => 'Napisz do Nas',
-    'Your name' => 'Twoje imię',
+    'Send Message' => 'Wyślij wiadomość',
+    'Our Location' => 'Lokalizacja',
+    'Call Us' => 'Zadzwoń do nas',
+    'email us' => 'Napisz do nas',
+    'Your name' => 'Twoje imię i nazwisko',
     'Your message here' => 'Twoja wiadomość tutaj',
+    'First Name' => 'Imię',
+    'Last Name' => 'Nazwisko',
+    'Email Address' => 'Adres email',
+    'Website Name' => 'Nazwa strony internetowej',
+    'Write your message' => 'Napisz swoją wiadomość',
+    'Submit' => 'Wyślij',
+    'Home' => 'Strona główna',
+    'Contact' => 'Kontakt'
 ];

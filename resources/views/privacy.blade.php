@@ -1,6 +1,6 @@
 @extends('layouts.welcome')
 @section('title')
-    privacy 
+    privacy
 @endsection
 @section('description')
     Find the latest coupon codes and deals for your favorite stores. Save money on your online shopping with our exclusive discount codes.
@@ -13,7 +13,7 @@
     <nav aria-label="breadcrumb" style="background-color: #f8f9fa; border-radius: 0.25rem; padding: 10px;">
         <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item">
-        <a href="/" class="text-decoration-none text-primary" style="font-weight: 500;">@lang('nav.home')</a>
+        <a href="/" class="text-decoration-none text-purple" style="font-weight: 500;">@lang('nav.home')</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #6c757d;">@lang('nav.privacy_policy')</li>
         </ol>
@@ -36,91 +36,91 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="me-3">
-                    <i class="fas fa-user-circle text-primary fs-4"></i> @lang('privacy.key_points.info_collected.label')
+                    <i class="fas fa-user-circle text-purple fs-4"></i> @lang('privacy.key_points.info_collected.label')
                 </span>
-                <span class="badge bg-primary rounded-pill">@lang('privacy.key_points.info_collected.badge')</span>
+                <span class="badge bg-purple rounded-pill">@lang('privacy.key_points.info_collected.badge')</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="me-3">
-                    <i class="fas fa-shield-alt text-primary fs-4"></i> @lang('privacy.key_points.sensitive_info.label')
+                    <i class="fas fa-shield-alt text-purple fs-4"></i> @lang('privacy.key_points.sensitive_info.label')
                 </span>
-                <span class="badge bg-primary rounded-pill">@lang('privacy.key_points.sensitive_info.badge')</span>
+                <span class="badge bg-purple rounded-pill">@lang('privacy.key_points.sensitive_info.badge')</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="me-3">
-                    <i class="fas fa-link text-primary fs-4"></i> @lang('privacy.key_points.third_party.label')
+                    <i class="fas fa-link text-purple fs-4"></i> @lang('privacy.key_points.third_party.label')
                 </span>
-                <span class="badge bg-primary rounded-pill">@lang('privacy.key_points.third_party.badge')</span>
+                <span class="badge bg-purple rounded-pill">@lang('privacy.key_points.third_party.badge')</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="me-3">
-                    <i class="fas fa-cog text-primary fs-4"></i> @lang('privacy.key_points.processing.label')
+                    <i class="fas fa-cog text-purple fs-4"></i> @lang('privacy.key_points.processing.label')
                 </span>
                 <p class="ms-auto mb-0">@lang('privacy.key_points.processing.details')</p>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="me-3">
-                    <i class="fas fa-user-friends text-primary fs-4"></i> @lang('privacy.key_points.sharing.label')
+                    <i class="fas fa-user-friends text-purple fs-4"></i> @lang('privacy.key_points.sharing.label')
                 </span>
                 <p class="ms-auto mb-0">@lang('privacy.key_points.sharing.details')</p>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="me-3">
-                    <i class="fas fa-shield-alt text-primary fs-4"></i> @lang('privacy.key_points.security.label')
+                    <i class="fas fa-shield-alt text-purple fs-4"></i> @lang('privacy.key_points.security.label')
                 </span>
                 <p class="ms-auto mb-0">@lang('privacy.key_points.security.details')</p>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="me-3">
-                    <i class="fas fa-balance-scale text-primary fs-4"></i> @lang('privacy.key_points.rights.label')
+                    <i class="fas fa-balance-scale text-purple fs-4"></i> @lang('privacy.key_points.rights.label')
                 </span>
                 <p class="ms-auto mb-0">@lang('privacy.key_points.rights.details')</p>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="me-3">
-                    <i class="fas fa-sign-out-alt text-primary fs-4"></i> @lang('privacy.key_points.opt_out.label')
+                    <i class="fas fa-sign-out-alt text-purple fs-4"></i> @lang('privacy.key_points.opt_out.label')
                 </span>
                 <p class="ms-auto mb-0">@lang('privacy.key_points.opt_out.details')</p>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="me-3">
-                    <i class="fas fa-user-edit text-primary fs-4"></i> @lang('privacy.key_points.account.label')
+                    <i class="fas fa-user-edit text-purple fs-4"></i> @lang('privacy.key_points.account.label')
                 </span>
                 <p class="ms-auto mb-0">@lang('privacy.key_points.account.details')</p>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="me-3">
-                    <i class="fas fa-cookie-bite text-primary fs-4"></i> @lang('privacy.key_points.cookies.label')
+                    <i class="fas fa-cookie-bite text-purple fs-4"></i> @lang('privacy.key_points.cookies.label')
                 </span>
                 <p class="ms-auto mb-0">@lang('privacy.key_points.cookies.details')</p>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="me-3">
-                    <i class="fas fa-ban text-primary fs-4"></i> @lang('privacy.key_points.dnt.label')
+                    <i class="fas fa-ban text-purple fs-4"></i> @lang('privacy.key_points.dnt.label')
                 </span>
                 <p class="ms-auto mb-0">@lang('privacy.key_points.dnt.details')</p>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="me-3">
-                    <i class="fas fa-map-marker-alt text-primary fs-4"></i> @lang('privacy.key_points.california.label')
+                    <i class="fas fa-map-marker-alt text-purple fs-4"></i> @lang('privacy.key_points.california.label')
                 </span>
                 <p class="ms-auto mb-0">@lang('privacy.key_points.california.details')</p>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="me-3">
-                    <i class="fas fa-sync-alt text-primary fs-4"></i> @lang('privacy.key_points.updates.label')
+                    <i class="fas fa-sync-alt text-purple fs-4"></i> @lang('privacy.key_points.updates.label')
                 </span>
                 <p class="ms-auto mb-0">@lang('privacy.key_points.updates.details')</p>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="me-3">
-                    <i class="fas fa-envelope text-primary fs-4"></i> @lang('privacy.key_points.contact.label')
+                    <i class="fas fa-envelope text-purple fs-4"></i> @lang('privacy.key_points.contact.label')
                 </span>
                 <p class="ms-auto mb-0">@lang('privacy.key_points.contact.details', ['email' => 'info@voucherboost.com'])</p>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="me-3">
-                    <i class="fas fa-file-alt text-primary fs-4"></i> @lang('privacy.key_points.request.label')
+                    <i class="fas fa-file-alt text-purple fs-4"></i> @lang('privacy.key_points.request.label')
                 </span>
                 <p class="ms-auto mb-0">@lang('privacy.key_points.request.details')</p>
                 </li>
@@ -130,3 +130,10 @@
     </div>
 </div>
 @endsection
+@push('styles')
+<style>
+    .text-purple{
+        color: #45046a;
+    }
+</style>
+@endpush

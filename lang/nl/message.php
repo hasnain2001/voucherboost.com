@@ -1,49 +1,52 @@
 <?php
 return [
-
     'No logo available' => 'Geen logo beschikbaar',
 
     // category page //
-    'Best Discounts For Every Category' => 'Beste kortingen voor elke categorie',
-    ' View more' => ' Bekijk meer',
+    'Explore Our Categories' => 'Ontdek onze categorieën',
+    'Explore Deals' => 'Ontdek deals',
 
     // category-detail page //
     'total store' => 'totaal aantal winkels',
     'View more' => 'Bekijk meer',
-    'No stores found in this category! Explore new' => 'Geen winkels gevonden in deze categorie! Ontdek nieuwe',
-    'Shopping Hacks & Savings Tips & Tricks' => 'Winkeltips & besparingstrucs',
+    'No stores found in this category!Explore new' => 'Geen winkels gevonden in deze categorie! Ontdek nieuwe',
+    'Shopping Hacks & Savings Tips & Tricks' => 'Winkelhacks & besparingstips en -trucs',
 
     // store_detail page //
-    'No stores found. Please check back later.' => 'Geen winkels gevonden. Kom later nog eens terug.',
+    'No stores found. Please check back later.' => 'Geen winkels gevonden. Kom later terug.',
     'Visit Store' => 'Bezoek winkel',
     'Offers' => 'Aanbiedingen',
-    'Oops! No Coupons Available' => 'Oeps! Geen kortingscodes beschikbaar',
-    'Dont worry, you can still explore amazing deals from our partnered brands.' => 'Maak je geen zorgen, je kunt nog steeds geweldige deals ontdekken van onze partnermerken.',
+    'Oops! No Coupons Available' => 'Oeps! Geen kortingsbonnen beschikbaar',
+    'Dont worry, you can still explore amazing deals from our partnered brands.' => 'Geen zorgen, je kunt nog steeds geweldige deals ontdekken van onze partnermerken.',
     'Explore Brands' => 'Ontdek merken',
+    'Filter By Voucher Codes' => 'Filter op kortingscodes',
     'Codes' => 'Codes',
     'Deals' => 'Deals',
-    'Total Offers' => 'Totale aanbiedingen',
-    'Store Details' => 'Winkeldetails',
+    'Total' => 'Totaal',
+    'Store Details' => 'Winkelgegevens',
+    'Save more with the best deals and discounts!' => 'Bespaar meer met de beste deals en kortingen!',
     'Added by' => 'Toegevoegd door',
     'About Store' => 'Over de winkel',
     'Related Stores' => 'Gerelateerde winkels',
     'Store Blogs' => 'Winkelblogs',
     'Details' => 'Details',
-    'All' => 'Alles',
-    'Store Summary' => 'Winkelsamenvatting',
+    'All' => 'Alle',
+    'Store Summary' => 'Samenvatting',
     'No related stores found.' => 'Geen gerelateerde winkels gevonden.',
 
     // blog page //
-    'Our Blog' => 'Onze Blog',
+    'Shopping Hacks & Savings Tips & Tricks' => 'Winkelhacks & besparingstips en -trucs',
+    'top stores' => 'topwinkels',
     'Discover the latest insights, tips, and news.' => 'Ontdek de nieuwste inzichten, tips en nieuws.',
     'related blogs' => 'gerelateerde blogs',
     'No related blogs found.' => 'Geen gerelateerde blogs gevonden.',
 
     // coupon page //
     'Exclusive Coupon Codes' => 'Exclusieve kortingscodes',
-    'Save money with our verified discount codes for your favorite online stores' => 'Bespaar geld met onze geverifieerde kortingscodes voor je favoriete online winkels',
-    'Expires' => 'Verloopt',
+    'see all Offers' => 'bekijk alle aanbiedingen',
+    'Expires' => 'Vervalt',
 
     // deal page //
-    'HOT DEAL' => 'HEETE DEAL',
+    'HOT DEAL' => 'HOT DEAL',
+    '20% OFFERS' => '20% KORTING AANBIEDINGEN',
 ];

@@ -1,15 +1,23 @@
 <?php
+// resources/lang/cs/contact.php
 return [
-    // kontakt stránka //
-    'h1' => 'kontaktujte nás',
-    'p1' => 'Objevte širokou škálu produktů přehledně uspořádaných pro vaše pohodlí',
+    'h1' => 'Kontaktujte nás',
+    'p1' => 'Objevte širokou škálu produktů uspořádaných pro vaše pohodlí',
     'Name' => 'Jméno',
-    'Email' => 'E-mail',
+    'Email' => 'Email',
     'Message' => 'Zpráva',
     'Send Message' => 'Odeslat zprávu',
-    'Our Location' => 'Naše adresa',
+    'Our Location' => 'Naše lokace',
     'Call Us' => 'Zavolejte nám',
-    'email us' => 'napište nám e-mail',
+    'email us' => 'Napište nám email',
     'Your name' => 'Vaše jméno',
     'Your message here' => 'Vaše zpráva zde',
+    'First Name' => 'Křestní jméno',
+    'Last Name' => 'Příjmení',
+    'Email Address' => 'Emailová adresa',
+    'Website Name' => 'Název webu',
+    'Write your message' => 'Napište svou zprávu',
+    'Submit' => 'Odeslat',
+    'Home' => 'Domů',
+    'Contact' => 'Kontakt'
 ];

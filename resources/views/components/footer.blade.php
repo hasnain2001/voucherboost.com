@@ -34,11 +34,13 @@
                 <p><a href="{{route('categories',['lang' => app()->getLocale()])}}">@lang('nav.cateories')</a></p>
             </div>
             <div>
-                <h3>Information</h3>
-                <p><a class="@if(Route::currentRouteName() == 'about') active @endif" href="{{route('about',['lang' => app()->getLocale()])}}">Who Are We</a></p>
-                <p><a class="@if(Route::currentRouteName() == 'privacy') active @endif" href="{{route('privacy',['lang' => app()->getLocale()])}}">Privacy Policy</a></p>
-                <p><a class=" @if(Route::currentRouteName() == 'terms_and_condition') active @endif" href="{{route('terms_and_condition',['lang' => app()->getLocale()])}}">Terms of Use</a></p>
-                <p><a class="@if(Route::currentRouteName() == 'contact') active @endif" href="{{route('contact',['lang' => app()->getLocale()])}}">Contact</a></p>
+              <h3>Information</h3>
+                <p>
+                <a class="@if(Route::currentRouteName() == 'about') active @endif" href="{{route('about',['lang' => app()->getLocale()])}}">@lang('nav.about')</a>
+                </p>
+                <p><a class="@if(Route::currentRouteName() == 'privacy') active @endif" href="{{route('privacy',['lang' => app()->getLocale()])}}">@lang('nav.Privacy Policy')</a></p>
+                <p><a class=" @if(Route::currentRouteName() == 'terms_and_condition') active @endif" href="{{route('terms_and_condition',['lang' => app()->getLocale()])}}">@lang('nav.terms_conditions')</a></p>
+                <p><a class="@if(Route::currentRouteName() == 'contact') active @endif" href="{{route('contact',['lang' => app()->getLocale()])}}">@lang('nav.contact')</a></p>
             </div>
             <div>
                 <h3>@lang('nav.Popular Stores')</h3>

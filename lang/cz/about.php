@@ -1,57 +1,60 @@
 <?php
 
 return [
-    'heading-1' => 'Vítejte na retailtosave: Váš nákupní guru',
 
-    'heading-2' => 'Už vás nebaví platit plnou cenu? My tomu rozumíme! retailtosave je váš důvěryhodný společník ve světě slev, akcí, promo kódů, balíčkových nabídek a neocenitelných tipů na úsporu peněz. Jsme víc než jen web – posilujeme vás být chytrým a informovaným zákazníkem, díky čemuž budou vaše nákupy uspokojivější a šetrnější k rozpočtu.',
+        // Hero sekce
+        'heading-1' => 'Odemkněte úspory a nákupy s voucherboost',
+        'p-1' => 'Objevte skvělé nabídky, slevy a tipy, jak ještě více rozšířit svůj rozpočet. Jsme vaším věrným nákupním parťákem!',
+        'explore-button' => 'Prozkoumat nabídky',
+        'hero-image-alt' => 'Úvodní obrázek voucherboost',
 
-    'heading-3' => 'Naše vize: Chytřejší nakupování pro každého',
+        // Sekce O nás
+        'heading-2' => 'Vítejte v voucherboost: Vašem nákupním guru',
+        'p-2' => 'Už vás nebaví platit plnou cenu? Rozumíme vám! voucherboost je váš důvěryhodný společník ve světě slev...',
 
-    'heading-4' => 'Naším jasným cílem je nabídnout místo, kde zákazníci najdou širokou škálu kuponů přizpůsobených jejich potřebám a preferencím. Věříme, že šetření peněz by mělo být snadné, zábavné a odměňující. Spojujeme zákazníky s exkluzivními nabídkami a spolupracujeme s předními maloobchodníky, abychom změnili způsob, jakým lidé nakupují online.',
+        // Sekce Vize
+        'vision' => [
+            'heading' => 'Naše vize: Posílení chytrého nakupování',
+            'content' => 'voucherboost vznikl z touhy vytvořit útočiště pro lidi, kteří chtějí šetřit...',
+            'image-alt' => 'Obrázek vize voucherboost'
+        ],
 
-    'heading-5' => 'Odemkněte svůj potenciál úspor s retailtosave',
+        // Sekce Nabídky
+        'offers' => [
+            'heading' => 'Odhalte svůj potenciál úspor s voucherboost',
+            'discount-codes' => [
+                'title' => 'Slevové kódy',
+                'content' => 'Shromažďujeme a poskytujeme širokou škálu slevových kódů od vašich oblíbených značek a prodejců.'
+            ],
+            'deals' => [
+                'title' => 'Akce a promoakce',
+                'content' => 'Objevte nejnovější a nejžhavější nabídky na voucherboost. Ušetřete na všem, co potřebujete a milujete.'
+            ],
+            'bundles' => [
+                'title' => 'Balíčkové nabídky',
+                'content' => 'Ušetřete ještě více s našimi balíčkovými nabídkami. Najděte skvělé nabídky na doplňkové produkty.'
+            ],
+            'comparisons' => [
+                'title' => 'Porovnání produktů',
+                'content' => 'Při nakupování je důležité dělat informovaná rozhodnutí. Nabízíme detailní porovnání produktů...'
+            ]
+        ],
 
-    'heading-6' => '',
-
-    'heading-7' => 'Slevové kódy',
-
-    'heading-8' => 'Shromažďujeme a poskytujeme širokou škálu slevových kódů od vašich oblíbených značek a prodejců.',
-
-    'heading-9' => '2. Nabídky a akce',
-
-    'heading-10' => 'Objevte nejnovější a nejžhavější nabídky na retailtosave. Ušetřete velké peníze za vše, co potřebujete a milujete.',
-
-    'heading-11' => '3. Balíčkové nabídky',
-
-    'heading-12' => 'Ušetřete ještě více díky našim balíčkovým nabídkám. Najděte skvělé ceny na doplňkové produkty.',
-
-    'heading-13' => '4. Porovnání produktů',
-
-    'heading-14' => 'Informované rozhodnutí je při nakupování klíčové. Nabízíme podrobné srovnání produktů, které vám pomůže vybrat tu nejlepší možnost podle vašich potřeb a rozpočtu.',
-
-    'heading-15' => '',
-
-    'heading-16' => 'Proč si vybrat retailtosave jako svého nákupního spojence?',
-
-    'heading-17' => '',
-
-    'Access promotions you wont find anywhere else' => 'Důvěryhodné informace',
-
-    'Personalized Recommendations:' => 'Široká nabídka slev',
-
-    'Tailored deals based on your preferences.' => 'Nabídky přizpůsobené vašim preferencím.',
-
-    'Real-Time Savings:' => 'Úspory v reálném čase:',
-
-    'Stay ahead with the latest and most up-to-date coupons.' => 'Buďte napřed s nejnovějšími a nejaktuálnějšími kupony.',
-
-    'Community Engagement:' => 'Komunita a podpora',
-
-    ' Connect with fellow savers, share tips, and celebrate your successes.' => 'Spojte se s dalšími šetřílky, sdílejte tipy a oslavujte své úspěchy.',
-
-    'heading-18' => '',
-    'heading-19' => '',
-    'heading-20' => '',
-    'heading-21' => '',
-    'heading-22' => '',
+        // Sekce Proč si vybrat nás
+        'why-choose' => [
+            'heading' => 'Proč si vybrat voucherboost jako svého nákupního spojence?',
+            'trust' => [
+                'title' => 'Důvěryhodné informace',
+                'badge' => 'Spolehlivé nabídky!'
+            ],
+            'diversity' => [
+                'title' => 'Široká škála nabídek',
+                'badge' => 'Něco pro každého!'
+            ],
+            'community' => [
+                'title' => 'Komunita a podpora',
+                'badge' => 'Nakupujte chytře, společně!'
+            ],
+            'image-alt' => 'Proč si vybrat voucherboost Obrázek'
+        ]
 ];

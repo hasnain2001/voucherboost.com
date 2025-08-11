@@ -117,7 +117,7 @@
 </a>
 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ url(app()->getLocale() . '/blog') }}" class="text-decoration-none text-purple" style="font-weight: 500;">Blog</a>
+                    <a href="{{route('blog',['lang' => app()->getlocale()])}}" class="text-decoration-none text-purple" style="font-weight: 500;">Blog</a>
                     </li>
 
 
@@ -130,7 +130,7 @@
             <div class="blog-post card shadow rounded-lg border border-light">
                 <img class="img-fluid" src="{{ asset($blog->image) }}" alt="Blog Image" style="width: 100%; height: auto;">
                 <div class="card-body">
- <h1 class="blog-title  mb-4">{{ $blog->title }}</h1>
+                    <h1 class="blog-title  mb-4">{{ $blog->title }}</h1>
                   <div class="content">
                     <p class="card-text">{!! $blog->content !!}</p>
                 </div>
@@ -140,7 +140,7 @@
 
         <div class="col-12 col-md-4 order-md-last">
             <aside class="sidebar p-3 bg-light">
-                <h2 class="bold text-dark mb-3">Related Store</h2>
+                <h4 class="bold text-dark mb-3">@lang('message.Related Stores')</h4>
                 <div class="row gx-2 gy-2">
                     @foreach ($chunks as $store)
                         <div class="col-6 col-md-12 col-sm-6 col-lg-6">

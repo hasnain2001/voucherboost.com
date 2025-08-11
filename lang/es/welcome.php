@@ -1,14 +1,13 @@
 <?php
 return [
-    'H1' => 'Últimos Códigos de Descuento y Promociones de Tiendas Populares',
+    'H1' => 'VoucherBoost Tiene Ofertas Especiales Para Ti',
     'p1' => 'Descubre nuestras tiendas cuidadosamente seleccionadas que ofrecen los mejores productos y servicios',
-    'H2' => 'Compra los Cupones en Tendencia de Hoy y Ahorra a lo Grande',
+    'H2' => 'Últimos Códigos de Descuento y Promociones de Tiendas Populares',
     'H3' => 'Categorías Populares',
-    'H4' => 'Compra la Oferta en Tendencia de Hoy y Ahorra a lo Grande',
     'H5' => 'Descubre Nuestros Últimos Blogs',
     'sp' => 'Últimas Actualizaciones',
-    'blog-p' => 'Mantente al día con nuestros artículos y noticias informativas',
-    'Get Code' => 'Obtener Código',
+    'blog-p' => 'Mantente informado con nuestros artículos y noticias',
+    'Activate Coupon' => 'Activar Cupón',
     'View Deal' => 'Ver Oferta',
     'More Offers' => 'Más Ofertas',
     'Verified' => 'Verificado',
@@ -19,5 +18,12 @@ return [
     'active' => 'activo',
     'inactive' => 'inactivo',
     'Read More' => 'Leer Más',
-    'Exclusive' => 'Exclusivo'
+    'Exclusive' => 'Exclusivo',
+    'No image available' => 'No hay imagen disponible',
+    'Featured Offers' => 'Ofertas Destacadas',
+    'No coupons available at the moment. Please check back later!' => 'No hay cupones disponibles en este momento. ¡Vuelve a consultar más tarde!',
+    'No category available at the moment. Please check back later!' => 'No hay categorías disponibles en este momento. ¡Vuelve a consultar más tarde!',
+    'Disclaimer' => "Aviso Legal",
+    'Disclaimer-p' => 'Un aviso legal es esencial para cumplir con nuestras políticas publicitarias (AS) y debe cumplir con todas las regulaciones gubernamentales relevantes. Asegúrese de que cualquier contenido publicitario cumpla con estas regulaciones. Los avisos legales son obligatorios para cualquier persona que gane dinero a través de enlaces de afiliados en anuncios. El objetivo principal es informar a los consumidores que el editor recibe una comisión por estos enlaces. Si aparecen enlaces de afiliados en el sitio web de otra persona o en los comentarios de los usuarios, se debe agregar un aviso legal cada vez que se promocione un producto y el editor reciba compensación. Se requieren avisos legales tanto auditivos como visuales en videos o transmisiones en vivo, ya que los consumidores pueden entrar o salir en cualquier momento, por lo que se debe proporcionar un aviso visual claro. Estas pautas también se aplican a sitios móviles y aplicaciones. Tenga en cuenta que el marketing digital y los requisitos de avisos legales seguirán evolucionando, así que manténgase informado sobre las actualizaciones y mantenga la transparencia con los consumidores en todo momento.',
+    'No sliders available at the moment. Please check back later!' => 'No hay sliders disponibles en este momento. ¡Vuelve a consultar más tarde!',
 ];

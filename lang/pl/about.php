@@ -1,57 +1,60 @@
 <?php
 
 return [
-    'heading-1' => 'Witamy w retailtosave: Twoim przewodniku zakupowym',
 
-    'heading-2' => 'Masz dość płacenia pełnej ceny? Rozumiemy Cię! retailtosave to Twój zaufany towarzysz w świecie zniżek, promocji, kodów rabatowych, ofert pakietowych i bezcennych porad dotyczących oszczędzania. Jesteśmy czymś więcej niż tylko stroną internetową – pomagamy Ci stać się inteligentnym i świadomym konsumentem, sprawiając, że zakupy są bardziej satysfakcjonujące i przyjazne dla budżetu.',
+        // Sekcja Hero
+        'heading-1' => 'Odkryj oszczędności i zakupowe szaleństwo w voucherboost',
+        'p-1' => 'Znajdź niesamowite okazje, zniżki i porady, aby rozciągnąć swój budżet. Jesteśmy Twoim ostatecznym pomocnikiem zakupowym!',
+        'explore-button' => 'Zobacz oferty',
+        'hero-image-alt' => 'Obraz powitalny voucherboost',
 
-    'heading-3' => 'Nasza wizja: Wspieranie mądrych zakupów',
+        // Sekcja O nas
+        'heading-2' => 'Witaj w voucherboost: Twój przewodnik zakupowy',
+        'p-2' => 'Masz dość płacenia pełnej ceny? Rozumiemy! voucherboost to Twój zaufany towarzysz w świecie zniżek...',
 
-    'heading-4' => 'Naszą misją jest zapewnienie jednego miejsca, w którym kupujący mogą znaleźć różnorodne kupony dopasowane do ich indywidualnych potrzeb i preferencji. Wierzymy, że oszczędzanie powinno być łatwe, ekscytujące i satysfakcjonujące. Łącząc konsumentów z ekskluzywnymi ofertami i współpracując z czołowymi detalistami, chcemy na nowo zdefiniować sposób, w jaki ludzie podchodzą do zakupów online.',
+        // Sekcja Wizja
+        'vision' => [
+            'heading' => 'Nasza wizja: Wspieramy mądrzejsze zakupy',
+            'content' => 'voucherboost powstał z chęci stworzenia przystani dla osób oszczędnych...',
+            'image-alt' => 'Obraz wizji voucherboost'
+        ],
 
-    'heading-5' => 'Uwolnij swój potencjał oszczędzania z retailtosave',
+        // Sekcja Oferty
+        'offers' => [
+            'heading' => 'Uwolnij swój potencjał oszczędności z voucherboost',
+            'discount-codes' => [
+                'title' => 'Kody rabatowe',
+                'content' => 'Zbieramy i dostarczamy szeroki wybór kodów rabatowych od Twoich ulubionych marek i sklepów.'
+            ],
+            'deals' => [
+                'title' => 'Promocje i oferty',
+                'content' => 'Odkryj najnowsze i najgorętsze promocje na voucherboost. Oszczędzaj na wszystkim, czego potrzebujesz i kochasz.'
+            ],
+            'bundles' => [
+                'title' => 'Pakiety',
+                'content' => 'Oszczędzaj jeszcze więcej dzięki naszym ofertom pakietowym. Znajdź fantastyczne okazje na uzupełniające się produkty.'
+            ],
+            'comparisons' => [
+                'title' => 'Porównania produktów',
+                'content' => 'Podejmowanie świadomych decyzji jest kluczowe podczas zakupów. Oferujemy szczegółowe porównania produktów...'
+            ]
+        ],
 
-    'heading-6' => '',
-
-    'heading-7' => 'Kody rabatowe',
-
-    'heading-8' => 'Zbieramy i udostępniamy szeroki wybór kodów rabatowych od Twoich ulubionych marek i sprzedawców.',
-
-    'heading-9' => '2. Oferty i promocje',
-
-    'heading-10' => 'Odkryj najnowsze i najgorętsze oferty na retailtosave. Oszczędzaj dużo na wszystkim, czego potrzebujesz i co kochasz.',
-
-    'heading-11' => '3. Oferty pakietowe',
-
-    'heading-12' => 'Oszczędzaj jeszcze więcej dzięki naszym ofertom pakietowym. Znajdź świetne promocje na uzupełniające się produkty.',
-
-    'heading-13' => '4. Porównania produktów',
-
-    'heading-14' => 'Podejmowanie świadomych decyzji jest kluczowe podczas zakupów. Oferujemy szczegółowe porównania produktów, aby pomóc Ci wybrać najlepszą opcję dopasowaną do Twoich potrzeb i budżetu.',
-
-    'heading-15' => '',
-
-    'heading-16' => 'Dlaczego retailtosave powinno być Twoim partnerem zakupowym?',
-
-    'heading-17' => '',
-
-    'Access promotions you wont find anywhere else' => 'Zaufane informacje',
-
-    'Personalized Recommendations:' => 'Szeroka gama ofert',
-
-    'Tailored deals based on your preferences.' => 'Oferty dopasowane do Twoich preferencji.',
-
-    'Real-Time Savings:' => 'Oszczędności w czasie rzeczywistym:',
-
-    'Stay ahead with the latest and most up-to-date coupons.' => 'Bądź na bieżąco z najnowszymi i aktualnymi kuponami.',
-
-    'Community Engagement:' => 'Społeczność i wsparcie',
-
-    ' Connect with fellow savers, share tips, and celebrate your successes.' => 'Połącz się z innymi oszczędzającymi, dziel się poradami i świętuj swoje sukcesy.',
-
-    'heading-18' =>'',
-    'heading-19' => '',
-    'heading-20' => '',
-    'heading-21'  => '',
-    'heading-22' => '',
+        // Sekcja Dlaczego wybrać
+        'why-choose' => [
+            'heading' => 'Dlaczego voucherboost to Twój idealny pomocnik zakupowy?',
+            'trust' => [
+                'title' => 'Wiarygodne informacje',
+                'badge' => 'Sprawdzone oferty!'
+            ],
+            'diversity' => [
+                'title' => 'Różnorodność ofert',
+                'badge' => 'Coś dla każdego!'
+            ],
+            'community' => [
+                'title' => 'Społeczność i wsparcie',
+                'badge' => 'Kupuj mądrze, razem!'
+            ],
+            'image-alt' => 'Dlaczego wybrać voucherboost - Obraz'
+        ]
 ];

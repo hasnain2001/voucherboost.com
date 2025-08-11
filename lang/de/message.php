@@ -2,48 +2,47 @@
 return [
 
     'No logo available' => 'Kein Logo verfügbar',
-
-    // category page //
-    'Best Discounts For Every Category' => 'Beste Rabatte für jede Kategorie',
-    ' View more' => ' Mehr anzeigen',
-
-    // category-detail page //
-    'total store' => 'Gesamtanzahl Shops',
-    'View more' => ' Mehr anzeigen',
-    'No stores found in this category!Explore new' => 'Keine Shops in dieser Kategorie gefunden! Entdecken Sie neue',
-    'Shopping Hacks & Savings Tips & Tricks' => 'Shopping-Hacks & Spartipps & Tricks',
-
-    // store_detail page //
-    'No stores found. Please check back later.' => 'Keine Shops gefunden. Bitte schauen Sie später wieder vorbei.',
-    'Visit Store' => 'Shop besuchen',
+    // Kategorieseite //
+    'Explore Our Categories' => 'Unsere Kategorien entdecken',
+    'Explore Deals' => 'Angebote entdecken',
+    // Kategorie-Detailseite //
+    'total store' => 'Gesamtgeschäfte',
+    'View more' => 'Mehr anzeigen',
+    'No stores found in this category! Explore new' => 'Keine Geschäfte in dieser Kategorie gefunden! Entdecken Sie neue',
+    'Shopping Hacks & Savings Tips & Tricks' => 'Einkaufstricks & Spartipps & Kniffe',
+    // Store-Detailseite //
+    'No stores found. Please check back later.' => 'Keine Geschäfte gefunden. Bitte schauen Sie später wieder vorbei.',
+    'Visit Store' => 'Zum Geschäft',
     'Offers' => 'Angebote',
-    'Oops! No Coupons Available' => 'Ups! Keine Gutscheine verfügbar',
-    'Dont worry, you can still explore amazing deals from our partnered brands.' => 'Keine Sorge, Sie können weiterhin tolle Angebote unserer Partner entdecken.',
+    'Oops! No Coupons Available' => 'Hoppla! Keine Gutscheine verfügbar',
+    'Dont worry, you can still explore amazing deals from our partnered brands.' => 'Keine Sorge, Sie können weiterhin tolle Angebote unserer Partner-Marken entdecken.',
     'Explore Brands' => 'Marken entdecken',
-    'Codes' => 'Gutscheincodes',
-    'Deals' => 'Angebote',
-    'Total Offers' => 'Anzahl der Angebote',
-    'Store Details' => 'Shop-Details',
+    'Filter By Voucher Codes' => 'Nach Gutscheincodes filtern',
+    'Codes' => 'Codes',
+    'Deals' => 'Deals',
+    'Total' => 'Gesamt',
+    'Store Details' => 'Geschäftsdetails',
+    'Save more with the best deals and discounts!' => 'Mit den besten Angeboten und Rabatten mehr sparen!',
     'Added by' => 'Hinzugefügt von',
-    'About Store' => 'Über den Shop',
-    'Related Stores' => 'Ähnliche Shops',
-    'Store Blogs' => 'Shop-Blogs',
+    'About Store' => 'Über das Geschäft',
+    'Related Stores' => 'Ähnliche Geschäfte',
+    'Store Blogs' => 'Geschäfts-Blogs',
     'Details' => 'Details',
     'All' => 'Alle',
-    'Store Summary' => 'Shop-Zusammenfassung',
-    'No related stores found.' => 'Keine ähnlichen Shops gefunden.',
-
-    // blog page //
-    'Our Blog' => 'Unser Blog',
-    'Discover the latest insights, tips, and news.' => 'Entdecken Sie die neuesten Einblicke, Tipps und Neuigkeiten.',
-    'related blogs' => 'Ähnliche Blogs',
-    'No related blogs found.' => 'Keine ähnlichen Blogs gefunden.',
-
-    // coupon page //
+    'Store Summary' => 'Zusammenfassung',
+    'No related stores found.' => 'Keine ähnlichen Geschäfte gefunden.',
+    // Blogseite //
+    'Shopping Hacks & Savings Tips & Tricks' => 'Einkaufstricks & Spartipps & Kniffe',
+    'top stores' => 'Top-Geschäfte',
+    'Discover the latest insights, tips, and news.' => 'Entdecken Sie die neuesten Erkenntnisse, Tipps und Neuigkeiten.',
+    'related blogs' => 'verwandte Blogs',
+    'No related blogs found.' => 'Keine verwandten Blogs gefunden.',
+    // Couponseite //
     'Exclusive Coupon Codes' => 'Exklusive Gutscheincodes',
-    'Save money with our verified discount codes for your favorite online stores' => 'Sparen Sie mit unseren verifizierten Rabattcodes für Ihre Lieblingsshops',
-
-    // deal page //
+    'see all Offers' => 'Alle Angebote anzeigen',
     'Expires' => 'Läuft ab',
-    'HOT DEAL' => 'TOP-ANGEBOT',
+    // Deal-Seite //
+    'HOT DEAL' => 'HEISSES ANGEBOT',
+    // Deal-Seite //
+    '20% OFFERS' => '20% RABATT'
 ];

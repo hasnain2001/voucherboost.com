@@ -1,8 +1,8 @@
 <?php
+// resources/lang/es/contact.php
 return [
-    // contact page //
-    'h1' => 'Contacta con nosotras',
-    'p1' => 'Descubre una amplia variedad de productos organizados para tu comodidad',
+    'h1' => 'Contáctenos',
+    'p1' => 'Descubre una amplia gama de productos organizados para tu conveniencia',
     'Name' => 'Nombre',
     'Email' => 'Correo Electrónico',
     'Message' => 'Mensaje',
@@ -11,5 +11,13 @@ return [
     'Call Us' => 'Llámanos',
     'email us' => 'Escríbenos',
     'Your name' => 'Tu nombre',
-    'Your message here' => 'Escribe tu mensaje aquí',
+    'Your message here' => 'Tu mensaje aquí',
+    'First Name' => 'Nombre',
+    'Last Name' => 'Apellido',
+    'Email Address' => 'Dirección de Correo',
+    'Website Name' => 'Nombre del Sitio Web',
+    'Write your message' => 'Escribe tu mensaje',
+    'Submit' => 'Enviar',
+    'Home' => 'Inicio',
+    'Contact' => 'Contacto'
 ];

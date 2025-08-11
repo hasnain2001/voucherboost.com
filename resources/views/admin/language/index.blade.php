@@ -77,7 +77,7 @@
                                                     </span>
                                                 </td>
                                                  <td>
-                                                    <a href="{{ route('admin.lang.edit', $language->id) }}" class="btn btn-info btn-sm">Edit</a>
+                                                    <a href="{{ route('admin.lang.edit', $language->id) }}" class="btn btn-dark btn-sm">Edit</a>
                                                     <a href="{{ route('admin.lang.delete', $language->id) }}" onclick="return confirm('Are you sure you want to delete this!')" class="btn btn-danger btn-sm">Delete</a>
                                                 </td>
                                             </tr>

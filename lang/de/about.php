@@ -1,57 +1,60 @@
 <?php
 
 return [
-    'heading-1' => 'Willkommen bei retailtosave: Ihr Shopping-Guru',
 
-    'heading-2' => 'Genug davon, den vollen Preis zu zahlen? Wir verstehen Sie! retailtosave ist Ihr vertrauenswürdiger Begleiter in der Welt der Rabatte, Angebote, Gutscheincodes, Bundle-Angebote und wertvollen Spartipps. Wir sind mehr als nur eine Website – wir helfen Ihnen, ein kluger und informierter Käufer zu sein, der seine Einkaufserlebnisse erfüllender und budgetfreundlicher gestaltet.',
+        // Hero-Bereich
+        'heading-1' => 'Entdecke Ersparnisse & Einkaufsfreuden bei voucherboost',
+        'p-1' => 'Finde tolle Angebote, Rabatte & Tipps, um dein Budget optimal zu nutzen. Wir sind dein ultimativer Einkaufsbegleiter!',
+        'explore-button' => 'Jetzt Angebote entdecken',
+        'hero-image-alt' => 'voucherboost Willkommensbild',
 
-    'heading-3' => 'Unsere Vision: Intelligenteres Einkaufen ermöglichen',
+        // Über-uns-Bereich
+        'heading-2' => 'Willkommen bei voucherboost: Dein Einkaufsberater',
+        'p-2' => 'Keine Lust mehr, den vollen Preis zu zahlen? Wir verstehen dich! voucherboost ist dein vertrauenswürdiger Begleiter in der Welt der Rabatte...',
 
-    'heading-4' => 'Unsere Mission ist klar: Wir bieten eine zentrale Anlaufstelle, wo Käufer eine Vielzahl an Gutscheinen finden, die ihren individuellen Bedürfnissen und Vorlieben entsprechen. Wir glauben, dass Geld sparen mühelos, spannend und lohnend sein sollte. Durch die Verbindung von Verbrauchern mit exklusiven Angeboten und Partnerschaften mit Top-Händlern wollen wir das Online-Shopping neu definieren.',
+        // Vision-Bereich
+        'vision' => [
+            'heading' => 'Unsere Vision: Intelligentes Einkaufen fördern',
+            'content' => 'voucherboost entstand aus dem Wunsch heraus, einen Zufluchtsort für sparsame Menschen zu schaffen...',
+            'image-alt' => 'voucherboost Vision Bild'
+        ],
 
-    'heading-5' => 'Entfalten Sie Ihr Sparpotenzial mit retailtosave',
+        // Angebots-Bereich
+        'offers' => [
+            'heading' => 'Entfessle dein Sparpotenzial mit voucherboost',
+            'discount-codes' => [
+                'title' => 'Rabattcodes',
+                'content' => 'Wir kuratieren und bieten eine Vielzahl von Rabattcodes deiner Lieblingsmarken und Händler.'
+            ],
+            'deals' => [
+                'title' => 'Angebote und Aktionen',
+                'content' => 'Entdecke die neuesten und besten Angebote auf voucherboost. Spare groß bei allem, was du brauchst und liebst.'
+            ],
+            'bundles' => [
+                'title' => 'Bundle-Angebote',
+                'content' => 'Spare noch mehr mit unseren Bundle-Angeboten. Finde fantastische Deals für ergänzende Produkte.'
+            ],
+            'comparisons' => [
+                'title' => 'Produktvergleiche',
+                'content' => 'Informierte Entscheidungen sind beim Einkaufen entscheidend. Wir bieten detaillierte Produktvergleiche...'
+            ]
+        ],
 
-    'heading-6' => '',
-
-    'heading-7' => 'Rabattcodes',
-
-    'heading-8' => 'Wir stellen eine Vielzahl an Rabattcodes Ihrer Lieblingsmarken und -händler zusammen.',
-
-    'heading-9' => '2. Angebote und Aktionen',
-
-    'heading-10' => 'Entdecken Sie die neuesten und besten Angebote auf retailtosave. Sparen Sie groß bei allem, was Sie brauchen und lieben.',
-
-    'heading-11' => '3. Bundle-Angebote',
-
-    'heading-12' => 'Sparen Sie noch mehr mit unseren Bundle-Angeboten. Finden Sie fantastische Deals für ergänzende Produkte.',
-
-    'heading-13' => '4. Produktvergleiche',
-
-    'heading-14' => 'Fundierte Entscheidungen beim Einkaufen sind entscheidend. Wir bieten detaillierte Produktvergleiche, damit Sie die beste Option für Ihre Bedürfnisse und Ihr Budget auswählen können.',
-
-    'heading-15' => '',
-
-    'heading-16' => 'Warum retailtosave zu Ihrem Shopping-Partner machen?',
-
-    'heading-17' => '',
-
-    'Access promotions you wont find anywhere else' => 'Verlässliche Informationen',
-
-    'Personalized Recommendations:' => 'Vielfältige Angebote',
-
-    'Tailored deals based on your preferences.' => 'Individuelle Angebote basierend auf Ihren Vorlieben.',
-
-    'Real-Time Savings:' => 'Echtzeit-Ersparnisse:',
-
-    'Stay ahead with the latest and most up-to-date coupons.' => 'Bleiben Sie auf dem neuesten Stand mit den aktuellsten Gutscheinen.',
-
-    'Community Engagement:' => 'Community und Unterstützung',
-
-    ' Connect with fellow savers, share tips, and celebrate your successes.' => 'Treten Sie mit anderen Sparfüchsen in Kontakt, teilen Sie Tipps und feiern Sie Ihre Erfolge.',
-
-    'heading-18' => '',
-    'heading-19' => '',
-    'heading-20' => '',
-    'heading-21' => '',
-    'heading-22' => '',
+        // Warum-uns-Bereich
+        'why-choose' => [
+            'heading' => 'Warum voucherboost als Einkaufsbegleiter wählen?',
+            'trust' => [
+                'title' => 'Vertrauenswürdige Informationen',
+                'badge' => 'Verlässliche Angebote!'
+            ],
+            'diversity' => [
+                'title' => 'Vielfältige Angebotspalette',
+                'badge' => 'Für jeden etwas dabei!'
+            ],
+            'community' => [
+                'title' => 'Community und Unterstützung',
+                'badge' => 'Gemeinsam clever einkaufen!'
+            ],
+            'image-alt' => 'Warum voucherboost wählen Bild'
+        ]
 ];
