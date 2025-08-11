@@ -1,7 +1,7 @@
 # 🚀 VoucherBoost - Affiliate Coupon Platform
 
 <p align="center">
-  <img src="/public/images/about.jpg" width="600" alt="VoucherBoost Banner">
+  <img src="/public/images/voucherboost.PNG" width="600" alt="VoucherBoost Banner">
   <br>
   <strong>Laravel-powered affiliate platform with multi-role access, real-time chat, and store analytics</strong>
 </p>
