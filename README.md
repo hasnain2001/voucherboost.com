@@ -92,3 +92,4 @@ php artisan migrate
 
 # 6. Start development server
 php artisan serve
+composer run dev 
