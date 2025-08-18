@@ -79,7 +79,10 @@ cd VoucherBoost.com
 composer install && npm install
 
 # 3. Configure environment
+#for linux
 cp .env.example .env
+#for windows
+copy .env.example .env
 php artisan key:generate
 
 # 4. Database setup (edit .env)
